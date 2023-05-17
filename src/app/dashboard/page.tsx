@@ -102,8 +102,8 @@ const MonthComponent = ({ diary }: IMonthComponent) => {
       <hr className='mt-10 mb-5' />
       <div className='flex justify-center sm:justify-start flex-wrap gap-4 pt-4'>
         <Link
-          href='./diario/pagina'
-          className='w-60 h-52  bg-white text-black drop-shadow-lg flex justify-center items-center cursor-pointer  select border-2'
+          href='./diarypage'
+          className='w-60 h-52 bg-white text-black drop-shadow-lg flex justify-center items-center cursor-pointer  select border-2'
         >
           <p className='text-lg'> + Entrada </p>
         </Link>

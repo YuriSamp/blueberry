@@ -7,7 +7,6 @@ import useHover from 'src/hooks/useHover'
 import { useAtom } from 'jotai'
 import { diaryPage } from 'src/context/diaryContext'
 
-
 export default function DiarypageWritten({ data, text, id, title, color }: Idiary) {
 
   const formatedText = text.length > 200 ? text.slice(0, 200) + '...' : text
@@ -33,7 +32,7 @@ export default function DiarypageWritten({ data, text, id, title, color }: Idiar
     >
       <Link
         href={`./diario/pagina/${id}`}
-        className='w-60 h-52 bg-CreamWhite dark:bg-neutral-900 flex px-2 py-2 cursor-pointer select-none rounded-md drop-shadow-lg text-black dark:text-white border-2'
+        className='w-60 h-52 bg-CreamWhite 0 flex px-2 py-2 cursor-pointer select-none rounded-md drop-shadow-lg border-2'
       >
         <p className='text-sm p-1 max-w-[240px] break-all'> {formatedText}</p>
         <div
