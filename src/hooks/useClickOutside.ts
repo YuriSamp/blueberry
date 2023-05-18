@@ -1,19 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
 export const useClickOutside = (SetStateHandler: () => void) => {
-  const domNode = useRef<HTMLDivElement>(null);
+  const domNode = useRef<HTMLDivElement>(null)
   useEffect(() => {
     let handler = (event: MouseEvent) => {
       if (!domNode.current?.contains(event.target as Node)) {
-        SetStateHandler();
+        SetStateHandler()
       }
-    };
-    document.addEventListener('mousedown', handler);
+    }
+    document.addEventListener('mousedown', handler)
 
     return () => {
-      document.removeEventListener('mousedown', handler);
-    };
+      document.removeEventListener('mousedown', handler)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return domNode;
-};
+  }, [])
+  return domNode
+}

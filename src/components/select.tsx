@@ -1,7 +1,8 @@
-import { cva, VariantProps } from 'class-variance-authority';
-import { SetStateAction } from 'jotai';
 import { Dispatch } from 'react'
-import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter';
+import { SetStateAction } from 'jotai'
+
+import { VariantProps, cva } from 'class-variance-authority'
+import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 
 const selectStyles = cva(
   'bg-transparent w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B] ',
@@ -18,32 +19,48 @@ const selectStyles = cva(
         full: 'w-full',
       },
       Height: {
-        md: 'h-10'
+        md: 'h-10',
       },
       rounded: {
-        lg: 'rounded-lg'
-      }
+        lg: 'rounded-lg',
+      },
     },
     defaultVariants: {
-      intent: 'primary'
-    }
-  },
-);
+      intent: 'primary',
+    },
+  }
+)
 
 export interface ISelect extends VariantProps<typeof selectStyles> {
   Options: readonly string[]
   value: string | undefined
-  onChange: Dispatch<SetStateAction<any>> | ((theme: string) => void) | ((mode: string) => void)
+  onChange:
+    | Dispatch<SetStateAction<any>>
+    | ((theme: string) => void)
+    | ((mode: string) => void)
 }
 
-export function Select({ Width, intent, Options, onChange, value, Height, rounded }: ISelect) {
+export function Select({
+  Width,
+  intent,
+  Options,
+  onChange,
+  value,
+  Height,
+  rounded,
+}: ISelect) {
   return (
-    <select className={selectStyles({ Width, intent, Height, rounded })}
+    <select
+      className={selectStyles({ Width, intent, Height, rounded })}
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >
       {Options.map((item, index) => (
-        <option value={item} key={index} className='dark:bg-InputGray min-w-[100px] max-w-[180px] overflow-ellipsis'>
+        <option
+          value={item}
+          key={index}
+          className="dark:bg-InputGray min-w-[100px] max-w-[180px] overflow-ellipsis"
+        >
           {UpperCaseFirstLetter(item)}
         </option>
       ))}

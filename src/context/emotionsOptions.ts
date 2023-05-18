@@ -1,4 +1,4 @@
-import { atom } from 'jotai';
+import { atom } from 'jotai'
 
 export const emotionColors = [
   { name: 'Blue', color: '#47B7DC' },
@@ -10,12 +10,12 @@ export const emotionColors = [
   { name: 'Purple', color: '#BD86D2' },
   { name: 'Red', color: '#D8807D ' },
   { name: 'Grey', color: '#CCCAC9' },
-];
+]
 
 export interface emotionOptions {
-  name: string;
-  id: number;
-  color: string;
+  name: string
+  id: number
+  color: string
 }
 
 const optionsTest = [
@@ -23,6 +23,6 @@ const optionsTest = [
   { name: 'triste', id: 1, color: '#FF9900' },
   { name: 'animado', id: 2, color: '#F6D155' },
   { name: 'indiferente', id: 3, color: '#AD70A4' },
-];
+]
 
-export const emotionsOptions = atom<emotionOptions[]>(optionsTest);
+export const emotionsOptions = atom<emotionOptions[]>(optionsTest)

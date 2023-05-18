@@ -1,6 +1,7 @@
 import React from 'react'
-import * as Avatar from '@radix-ui/react-avatar';
-import { cva, VariantProps } from 'class-variance-authority';
+import * as Avatar from '@radix-ui/react-avatar'
+
+import { VariantProps, cva } from 'class-variance-authority'
 
 const inputStyles = cva(
   'inline-flex justify-center items-center overflow-hidden cursor-pointer select-none bg-white rounded-full',
@@ -13,10 +14,10 @@ const inputStyles = cva(
       },
     },
     defaultVariants: {
-      Width: 'sm'
-    }
-  },
-);
+      Width: 'sm',
+    },
+  }
+)
 
 interface avatar extends VariantProps<typeof inputStyles> {
   userPhoto: string | undefined
@@ -26,9 +27,9 @@ function AvatarIcon({ Width, userPhoto }: avatar) {
   return (
     <Avatar.Root className={inputStyles({ Width })}>
       <Avatar.Image
-        className='w-full h-full object-cover border-inherit'
+        className="w-full h-full object-cover border-inherit"
         src={userPhoto}
-        alt=''
+        alt=""
       />
       <Avatar.Fallback className="AvatarFallback" delayMs={600}>
         CT

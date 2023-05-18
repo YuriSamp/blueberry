@@ -1,9 +1,9 @@
+import * as Popover from '@radix-ui/react-popover'
+import { useAtomValue } from 'jotai'
 
-import * as Popover from '@radix-ui/react-popover';
 import { RxCross1 } from 'react-icons/rx'
-import { useAtomValue } from 'jotai';
-import { emotionsOptions } from 'src/context/emotionsOptions';
-import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter';
+import { emotionsOptions } from 'src/context/emotionsOptions'
+import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 
 export function DiaryPopover() {
   const options = useAtomValue(emotionsOptions)
@@ -11,9 +11,8 @@ export function DiaryPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button
-          className='border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md  '
-        >Cores
+        <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md  ">
+          Cores
         </button>
       </Popover.Trigger>
       <Popover.Portal>
@@ -22,8 +21,10 @@ export function DiaryPopover() {
           sideOffset={5}
         >
           <div className="flex flex-col gap-2.5">
-            <div className='flex justify-between'>
-              <p className="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">Cores das emoções</p>
+            <div className="flex justify-between">
+              <p className="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">
+                Cores das emoções
+              </p>
               <button>
                 <Popover.Close
                   className="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center  outline-none cursor-pointer"
@@ -34,15 +35,17 @@ export function DiaryPopover() {
               </button>
             </div>
             <ul>
-              {options.map(option => (
-                <li key={option.id} className='flex justify-between items-center w-full py-1'>
-                  <div className='flex gap-3 items-center'>
+              {options.map((option) => (
+                <li
+                  key={option.id}
+                  className="flex justify-between items-center w-full py-1"
+                >
+                  <div className="flex gap-3 items-center">
                     <div
                       style={{ backgroundColor: option.color }}
                       className={`h-5 w-5 rounded-md`}
-                    >
-                    </div>
-                    <p className=''>{UpperCaseFirstLetter(option.name)}</p>
+                    ></div>
+                    <p className="">{UpperCaseFirstLetter(option.name)}</p>
                   </div>
                 </li>
               ))}
