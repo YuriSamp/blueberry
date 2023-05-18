@@ -3,7 +3,7 @@ import React from 'react'
 export default function SignUp() {
   return (
     <>
-      <main className="flex justify-center items-center min-h-screen bg-[#f9f5f2]">
+      <main className="flex justify-center items-center min-h-screen ">
         <form className=" flex flex-col w-96">
           <div>
             <h1 className="text-center text-4xl">Sign Up</h1>

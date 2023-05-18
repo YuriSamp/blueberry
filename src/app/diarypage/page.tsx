@@ -64,7 +64,7 @@ const NovaPagina = () => {
         <div className="pt-5 pl-10">
           <RetturnButton href="/dashboard" text="Voltar ao dashboard" />
         </div>
-        <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 bg-white px-12 py-5 select-none text-black">
+        <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-12 py-5 select-non">
           <form className="flex flex-col gap-8" onSubmit={(e) => handleForm(e)}>
             <input
               className="bg-transparent focus:outline-none p-4 text-3xl"

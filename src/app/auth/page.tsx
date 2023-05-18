@@ -6,7 +6,7 @@ import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
 export default function Auth() {
   return (
     <>
-      <main className="flex flex-col justify-center items-center min-h-screen bg-[#f9f5f2]">
+      <main className="flex flex-col justify-center items-center min-h-screen ">
         <form className="flex flex-col">
           <div>
             <h1 className="text-center text-4xl">Welcome Back</h1>
