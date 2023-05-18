@@ -3,12 +3,14 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    // NEXTAUTH_URL: z.string().url().optional(),
+    NEXTAUTH_URL: z.string().url().optional(),
     // NEXTAUTH_SECRET: z.string().min(1),
     GITHUB_CLIENT_ID: z.string().min(1),
     GITHUB_CLIENT_SECRET: z.string().min(1),
+    DISCORD_CLIENT_ID: z.string().min(1),
+    DISCORD_CLIENT_SECRET: z.string().min(1),
+    DATABASE_URL: z.string().min(1),
     // GITHUB_ACCESS_TOKEN: z.string().min(1),
-    // DATABASE_URL: z.string().min(1),
     // STRIPE_API_KEY: z.string().min(1),
     // STRIPE_WEBHOOK_SECRET: z.string().min(1),
     // STRIPE_PRO_MONTHLY_PLAN_ID: z.string().min(1),
@@ -17,12 +19,14 @@ export const env = createEnv({
     // NEXT_PUBLIC_APP_URL: z.string().min(1),
   },
   runtimeEnv: {
-    // NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     // NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+    DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     // GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
-    // DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_URL: process.env.DATABASE_URL,
     // STRIPE_API_KEY: process.env.STRIPE_API_KEY,
     // STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     // STRIPE_PRO_MONTHLY_PLAN_ID: process.env.STRIPE_PRO_MONTHLY_PLAN_ID,
