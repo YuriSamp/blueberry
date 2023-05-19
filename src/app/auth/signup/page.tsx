@@ -1,14 +1,15 @@
-import RetturnButton from '@ui/retturnButton'
 import React from 'react'
+
+import RetturnButton from '@ui/retturnButton'
 
 export default function SignUp() {
   return (
     <>
       <main className="flex flex-col items-center">
-        <div className='pt-5 pl-10 flex self-start'>
-          <RetturnButton href='./' text='' />
+        <div className="pt-5 pl-10 flex self-start">
+          <RetturnButton href="./" text="" />
         </div>
-        <div className='h-[90vh] flex flex-col justify-center'>
+        <div className="h-[90vh] flex flex-col justify-center">
           <form className=" flex flex-col w-96">
             <div>
               <h1 className="text-center text-4xl">Sign Up</h1>

@@ -1,17 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
 import RetturnButton from '@ui/retturnButton'
+
+import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
 
 export default function Auth() {
   return (
     <>
       <main className="flex flex-col items-center">
-        <div className='pt-5 pl-10 flex self-start'>
-          <RetturnButton href='./' text='' />
+        <div className="pt-5 pl-10 flex self-start">
+          <RetturnButton href="./" text="" />
         </div>
-        <div className='h-[90vh] flex flex-col justify-center'>
+        <div className="h-[90vh] flex flex-col justify-center">
           <form className="flex flex-col w-96 ">
             <div>
               <h1 className="text-center text-4xl">Welcome Back</h1>
