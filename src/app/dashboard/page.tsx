@@ -102,7 +102,7 @@ const MonthComponent = ({ diary }: IMonthComponent) => {
       <div className="flex justify-center sm:justify-start flex-wrap gap-4 pt-4">
         <Link
           href="/dashboard/page"
-          className="w-60 h-52 bg-white text-black drop-shadow-lg flex justify-center items-center cursor-pointer  select border-2"
+          className="w-60 h-52 bg-white  drop-shadow-lg flex justify-center items-center cursor-pointer  select border-2"
         >
           <p className="text-lg"> + Entrada </p>
         </Link>
