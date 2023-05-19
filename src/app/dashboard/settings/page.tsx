@@ -10,12 +10,16 @@ import RetturnButton from '@ui/retturnButton'
 import SettingsAlert from '@ui/settings/settingsAlert'
 import { SettingsContainer } from '@ui/settings/settingsContainer'
 import Header from '@ui/settings/settingsHeader'
-
 import { perfilContent } from 'src/translate/settings/perfil'
+import { Select } from '@ui/select'
+
+
+const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
 
 export default function Perfil() {
   const [photo, setPhoto] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
+  const [sessionTime, setSessionTime] = useState('10 min')
 
   const {
     Container1,
@@ -33,9 +37,8 @@ export default function Perfil() {
         type="text"
         Width="lg"
         intent={'primary'}
-        placeholder={`${
-          type === 'name' ? placeholders.nameInput : placeholders.photoInput
-        }`}
+        placeholder={`${type === 'name' ? placeholders.nameInput : placeholders.photoInput
+          }`}
         value={photo}
         onChange={setPhoto}
       />
@@ -47,7 +50,7 @@ export default function Perfil() {
       <div className="pt-5 pl-10 flex self-start">
         <RetturnButton href="/dashboard" text="" />
       </div>
-      <section className="px-10 sm:px-20 lg:px-40 2xl:px-96 pt-16 min-h-screen">
+      <section className="px-10 sm:px-20 lg:px-40 2xl:px-96 pt-16">
         <div className={`${alertOpen ? 'blur-sm' : ''}`}>
           <Header />
           <div className="sm:max-h-[600px] overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
@@ -88,6 +91,17 @@ export default function Perfil() {
               <Button
                 Children={Container4.children}
                 onClick={() => console.log('teste')}
+              />
+            </SettingsContainer>
+
+            <SettingsContainer
+              title='Tempo de sessão'
+              firstChild='Regula o tempo de inatividade antes de sua conta ser desconectada automaticamente'
+            >
+              <Select
+                Options={SESSION_TIME}
+                onChange={setSessionTime}
+                value={sessionTime}
               />
             </SettingsContainer>
 
