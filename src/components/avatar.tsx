@@ -32,7 +32,7 @@ function AvatarIcon({ Width, userPhoto }: avatar) {
         alt=""
       />
       <Avatar.Fallback className="AvatarFallback" delayMs={600}>
-        CT
+        ?
       </Avatar.Fallback>
     </Avatar.Root>
   )

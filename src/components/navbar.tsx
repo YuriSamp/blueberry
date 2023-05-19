@@ -15,7 +15,7 @@ export const Navbar = () => {
 
   return (
     <header>
-      <section className="flex py-4 px-8 z-20 relative bg-white drop-shadow-lg  w-full justify-between items-center ">
+      <section className="flex py-4 px-8 z-20 relative bg-[#f9f5f2] drop-shadow-lg  w-full justify-between items-center ">
         <p>{formatedPathname}</p>
         <div className="flex gap-6 items-center">
           <p>{msg}, Teste</p>

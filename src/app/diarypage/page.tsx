@@ -61,11 +61,11 @@ const NovaPagina = () => {
       </Head>
       <section className="w-full">
         <Navbar />
-        <div className="pt-5 pl-10">
-          <RetturnButton href="/dashboard" text="Voltar ao dashboard" />
+        <div className="pt-7 pl-10">
+          <RetturnButton href="/dashboard" text="Voltar" />
         </div>
-        <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-12 py-5 select-non">
-          <form className="flex flex-col gap-8" onSubmit={(e) => handleForm(e)}>
+        <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 select-non">
+          <form className="flex flex-col gap-6" onSubmit={(e) => handleForm(e)}>
             <input
               className="bg-transparent focus:outline-none p-4 text-3xl"
               placeholder="Insira um titulo"
