@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 
 import RetturnButton from '@ui/retturnButton'
@@ -11,6 +11,14 @@ import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
 import { ControledInput } from '@ui/input';
 
 export default function Auth() {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const inputHandle = (setter: any) => (e: any) => {
+    if (e) setter(e.target?.value)
+  }
+
   return (
     <>
       <main className="flex flex-col items-center">
@@ -30,16 +38,16 @@ export default function Auth() {
             </div>
             <p className="text-center pt-6 pb-4">Or login with email</p>
             <ControledInput
-              onChange={() => console.log('teste')}
-              value=''
-              placeholder='Password'
+              onChange={inputHandle(setEmail)}
+              value={email}
+              placeholder='Email'
               type='email'
               label='Email'
               id='email'
             />
             <ControledInput
-              onChange={() => console.log('teste')}
-              value=''
+              onChange={inputHandle(setPassword)}
+              value={password}
               placeholder='Password'
               type='password'
               label='Password'

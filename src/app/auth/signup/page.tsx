@@ -1,10 +1,38 @@
 "use client"
 
-import React from 'react'
+import React, { useReducer, useCallback } from 'react'
 
 import RetturnButton from '@ui/retturnButton'
+import { ControledInput } from '@ui/input'
+
+type formState = {
+  name: string
+  email: string
+  password: string
+  passwordConfirmed: string
+  photo: string
+}
+
+const initialState: formState = {
+  name: '',
+  email: '',
+  password: '',
+  passwordConfirmed: '',
+  photo: ''
+}
+
+function reducer(state: formState, action: any) {
+  return { ...state, ...action }
+}
 
 export default function SignUp() {
+
+  const [form, formDispatch] = useReducer(reducer, initialState)
+
+  const inputHandle = useCallback((type: string) => (e: any) => {
+    if (e) formDispatch({ [type]: e.target.value })
+  }, [formDispatch])
+
   return (
     <>
       <main className="flex flex-col items-center">
@@ -16,63 +44,58 @@ export default function SignUp() {
             <div>
               <h1 className="text-center text-4xl">Sign Up</h1>
             </div>
-            <div className="flex flex-col gap-2 pt-4 relative">
-              <label>Name</label>
-              <input
-                type="text"
-                placeholder="Your name"
-                className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
-              />
-              <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
+            <ControledInput
+              onChange={inputHandle('name')}
+              placeholder='Your name'
+              type='text'
+              value={form.name}
+              id='name'
+              label='name'
+            />
+            <ControledInput
+              onChange={inputHandle('email')}
+              placeholder='Email Adress'
+              type='email'
+              value={form.email}
+              id='email'
+              label='Email Adress'
+            />
+            <ControledInput
+              onChange={inputHandle('password')}
+              placeholder='Password'
+              type='password'
+              value={form.password}
+              id='password'
+              label='Password'
+            />
+            <ControledInput
+              onChange={inputHandle('passwordConfirmed')}
+              placeholder='password'
+              type='password'
+              value={form.passwordConfirmed}
+              id='passwordConfirmed'
+              label='Confirm your password'
+            />
 
-            </div>
-            <div className="flex flex-col gap-2 pt-4 relative">
-              <label>Email Adress</label>
-              <input
-                type="email"
-                placeholder="Email Adress"
-                className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
+
+            <div className="flex flex-col">
+              <ControledInput
+                onChange={inputHandle('photo')}
+                placeholder='Insert a url'
+                type='text'
+                value={form.photo}
+                id='url'
+                label='Insert a photo'
               />
-              <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-            </div>
-            <div className="flex flex-col gap-2 pt-4 relative">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Password"
-                className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
+              <p className="text-center pt-4">Or</p>
+              <ControledInput
+                onChange={inputHandle('photo')}
+                placeholder='Insert a photo'
+                type='text'
+                value={form.photo}
+                id='url'
+                label='drag-and-drop'
               />
-              <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-            </div>
-            <div className="flex flex-col gap-2 pt-4 relative">
-              <label>Confirm your password</label>
-              <input
-                type="password"
-                placeholder="Password"
-                className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
-              />
-              <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-            </div>
-            <div className="flex flex-col gap-2 pt-4">
-              <div className="flex flex-col gap-2 relative">
-                <label>Insert a photo</label>
-                <input
-                  type="text"
-                  placeholder="Insert a url"
-                  className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
-                />
-                <span className='after:rounded-lg after:top-10 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-              </div>
-              <p className="text-center">Or</p>
-              <div className="flex flex-col gap-2 relative">
-                <label>Insert a photo</label>
-                <input
-                  type="text"
-                  placeholder="drag-and-drop"
-                  className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
-                />
-                <span className='after:rounded-lg after:top-10 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-              </div>
             </div>
             <div className="pt-8">
               <button className="w-full bg-[#138859] rounded-lg h-12 relative after:rounded-lg after:top-1 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black hover:after:top-0 hover:after:left-0 hover:after:bottom-0 hover:after:right-0 hover:translate-x-1 hover:translate-y-1 hover:after:bg-transparent cursor-pointer ">

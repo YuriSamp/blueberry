@@ -29,7 +29,7 @@ interface Controled extends VariantProps<typeof inputStyles> {
   type: string
   placeholder: string
   value: string
-  onChange: Dispatch<SetStateAction<string>>
+  onChange: any
   id?: string
   label?: string
 }
@@ -56,7 +56,7 @@ export function ControledInput({
           id={id}
           placeholder={placeholder}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={onChange}
         />
         <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black' />
       </div>
