@@ -33,15 +33,23 @@ export default function Perfil() {
 
   const input = (type: 'name' | 'photo') => {
     return (
-      <ControledInput
-        type="text"
-        Width="lg"
-        intent={'primary'}
-        placeholder={`${type === 'name' ? placeholders.nameInput : placeholders.photoInput
-          }`}
-        value={photo}
-        onChange={setPhoto}
-      />
+      <div className=" flex flex-col  gap-2 relative">
+        <input
+          type="text"
+          placeholder={`${type === 'name' ? placeholders.nameInput : placeholders.photoInput}`}
+          className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
+        />
+        <span className='after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
+      </div>
+      // <ControledInput
+      //   type="text"
+      //   Width="lg"
+      //   intent={'primary'}
+      //   placeholder={`${type === 'name' ? placeholders.nameInput : placeholders.photoInput
+      //     }`}
+      //   value={photo}
+      //   onChange={setPhoto}
+      // />
     )
   }
 
@@ -98,11 +106,14 @@ export default function Perfil() {
               title='Tempo de sessão'
               firstChild='Regula o tempo de inatividade antes de sua conta ser desconectada automaticamente'
             >
-              <Select
-                Options={SESSION_TIME}
-                onChange={setSessionTime}
-                value={sessionTime}
-              />
+              <div className='relative'>
+                <Select
+                  Options={SESSION_TIME}
+                  onChange={setSessionTime}
+                  value={sessionTime}
+                />
+                <span className='after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black'></span>
+              </div>
             </SettingsContainer>
 
             <SettingsContainer

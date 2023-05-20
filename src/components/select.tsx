@@ -5,12 +5,9 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 
 const selectStyles = cva(
-  'bg-transparent w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B] ',
+  'bg-transparent w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B] bg-white ',
   {
     variants: {
-      intent: {
-        primary: '',
-      },
       Width: {
         sm: 'w-24 h-9',
         md: 'w-28 h-9',
@@ -25,9 +22,6 @@ const selectStyles = cva(
         lg: 'rounded-lg',
       },
     },
-    defaultVariants: {
-      intent: 'primary',
-    },
   }
 )
 
@@ -35,14 +29,13 @@ export interface ISelect extends VariantProps<typeof selectStyles> {
   Options: readonly string[]
   value: string | undefined
   onChange:
-    | Dispatch<SetStateAction<any>>
-    | ((theme: string) => void)
-    | ((mode: string) => void)
+  | Dispatch<SetStateAction<any>>
+  | ((theme: string) => void)
+  | ((mode: string) => void)
 }
 
 export function Select({
   Width,
-  intent,
   Options,
   onChange,
   value,
@@ -51,7 +44,7 @@ export function Select({
 }: ISelect) {
   return (
     <select
-      className={selectStyles({ Width, intent, Height, rounded })}
+      className={selectStyles({ Width, Height, rounded })}
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >

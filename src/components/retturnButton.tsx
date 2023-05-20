@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 interface Props {
-  text: string
+  text?: string
   href: string
 }
 

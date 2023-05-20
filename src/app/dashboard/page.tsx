@@ -95,14 +95,13 @@ export default function Diario() {
 }
 
 const MonthComponent = ({ diary }: IMonthComponent) => {
-  // const locale = useAtomValue(Language)
   return (
     <div>
       <hr className="mt-10 mb-5" />
       <div className="flex justify-center sm:justify-start flex-wrap gap-4 pt-4">
         <Link
           href="/dashboard/page"
-          className="w-60 h-52 bg-white  drop-shadow-lg flex justify-center items-center cursor-pointer  select border-2"
+          className="w-60 h-52 bg-white  flex justify-center items-center brutalism-box brutalism-box-hover"
         >
           <p className="text-lg"> + Entrada </p>
         </Link>

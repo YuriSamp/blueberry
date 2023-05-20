@@ -8,13 +8,14 @@ import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
+import { ControledInput } from '@ui/input';
 
 export default function Auth() {
   return (
     <>
       <main className="flex flex-col items-center">
         <div className="pt-5 pl-10 flex self-start">
-          <RetturnButton href="./" text="" />
+          <RetturnButton href="./" />
         </div>
         <div className="h-[90vh] flex flex-col justify-center">
           <form className="flex flex-col w-96 ">
@@ -28,24 +29,22 @@ export default function Auth() {
               <BsDiscord className="h-10 w-10 cursor-pointer" />
             </div>
             <p className="text-center pt-6 pb-4">Or login with email</p>
-            <div className="flex flex-col gap-2 pt-4 relative">
-              <label>Email Adress</label>
-              <input
-                type="email"
-                placeholder="Email Adress"
-                className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2] focus:outline-none"
-              />
-              <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-            </div>
-            <div className="flex flex-col gap-2 pt-4 relative">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Password"
-                className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2] focus:outline-none"
-              />
-              <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-            </div>
+            <ControledInput
+              onChange={() => console.log('teste')}
+              value=''
+              placeholder='Password'
+              type='email'
+              label='Email'
+              id='email'
+            />
+            <ControledInput
+              onChange={() => console.log('teste')}
+              value=''
+              placeholder='Password'
+              type='password'
+              label='Password'
+              id='password'
+            />
             <div className="flex gap-10 pt-4">
               <div className="flex gap-2">
                 <Checkbox.Root
