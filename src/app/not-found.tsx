@@ -18,7 +18,7 @@ export default function NotFound() {
           height={600}
         />
         <div className="pt-6">
-          <RetturnButton href="/dashboard" text="Voltar ao dashboard" />
+          <RetturnButton href="/dashboard" text="Voltar a ultima pagina" />
         </div>
       </div>
     </section>

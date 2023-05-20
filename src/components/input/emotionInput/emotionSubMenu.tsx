@@ -33,6 +33,8 @@ export const SubMenu = ({
   setOptionsState,
   defaultColor,
 }: ISubMenu) => {
+
+
   const [diary, setDiary] = useAtom(diaryPage)
   const [colorSelected, setColorSelected] = useState(defaultColor)
   const domRef = useClickOutside(() => {

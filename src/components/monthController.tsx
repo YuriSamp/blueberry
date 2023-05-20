@@ -64,7 +64,7 @@ export function MonthController({
         onClick={() => setter('minus')}
       >
         <AiOutlineArrowLeft
-          className="h-5 w-5 2xl:w-7 2xl:h-7 cursor-pointer"
+          className="h-5 w-5  cursor-pointer"
           title="mês anterior"
         />
       </button>
@@ -76,7 +76,7 @@ export function MonthController({
         onClick={() => setter('plus')}
       >
         <AiOutlineArrowRight
-          className="h-5 w-5 2xl:w-7 2xl:h-7 cursor-pointer"
+          className="h-5 w-5  cursor-pointer"
           title="proximo mês"
         />
       </button>

@@ -111,6 +111,7 @@ export default function Perfil() {
                   Options={SESSION_TIME}
                   onChange={setSessionTime}
                   value={sessionTime}
+                  background='white'
                 />
                 <span className='after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black'></span>
               </div>

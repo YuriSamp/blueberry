@@ -19,6 +19,9 @@ interface IMonthComponent {
   diary: Idiary[]
 }
 
+const date = new Date()
+const month = date.getMonth()
+
 export default function Diario() {
   const options = useAtomValue(emotionsOptions)
 
@@ -28,8 +31,6 @@ export default function Diario() {
     return optionsName
   }, [options])
 
-  const date = new Date()
-  const month = date.getMonth()
   const [monthIndex, setMonthIndex] = useState(month)
   const [year, setYear] = useState(date.getFullYear())
   const diary = useAtomValue(diaryPage)
@@ -62,30 +63,26 @@ export default function Diario() {
     <>
       <Navbar />
       <section className="pt-10 px-10">
-        <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-12">
-          <div className="hidden sm:block">
-            <DiaryPopover />
-          </div>
-          <MonthController
-            monthIndex={monthIndex}
-            year={year}
-            setYear={setYear}
-            setMonthIndex={setMonthIndex}
-          />
-          <div className="hidden sm:block">
-            <Select
-              Options={selectOptions}
-              onChange={setEmotionSelected}
-              value={emotionSelected}
-            />
-          </div>
-          <div className="flex justify-center gap-3 sm:hidden">
-            <DiaryPopover />
-            <Select
-              Options={selectOptions}
-              onChange={setEmotionSelected}
-              value={emotionSelected}
-            />
+        <div className='flex justify-center items-center'>
+          <div className="dashboardArea lg:dashboard-area-lg">
+            <div className="button">
+              <DiaryPopover />
+            </div>
+            <div className='controller'>
+              <MonthController
+                monthIndex={monthIndex}
+                year={year}
+                setYear={setYear}
+                setMonthIndex={setMonthIndex}
+              />
+            </div>
+            <div className="button2">
+              <Select
+                Options={selectOptions}
+                onChange={setEmotionSelected}
+                value={emotionSelected}
+              />
+            </div>
           </div>
         </div>
         <MonthComponent diary={diarioFiltrado(diaryRef, emotionSelected)} />

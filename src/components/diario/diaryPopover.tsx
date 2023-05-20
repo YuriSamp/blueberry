@@ -11,7 +11,7 @@ export function DiaryPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md  ">
+        <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white  ">
           Cores
         </button>
       </Popover.Trigger>

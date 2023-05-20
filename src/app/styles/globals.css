@@ -8,6 +8,42 @@
   }
 }
 
+@layer utilities {
+  .dashboard-area-lg {
+    display: grid;
+    grid-template-columns: 200px 250px 200px;
+    column-gap: 20px;
+    grid-template-rows: auto;
+    grid-template-areas: 'b a c';
+  }
+
+  .dashboardArea {
+    display: grid;
+    grid-template-columns: 150px 150px;
+    column-gap: 20px;
+    grid-template-rows: auto;
+    row-gap: 10px;
+    grid-template-areas:
+      'a a'
+      'b c';
+  }
+
+  .controller {
+    grid-area: a;
+    justify-self: center;
+  }
+  .button {
+    grid-area: b;
+    justify-self: start;
+    align-self: center;
+  }
+  .button2 {
+    grid-area: c;
+    justify-self: end;
+    align-self: center;
+  }
+}
+
 .brutalism-box {
   @apply border  border-black  rounded-lg relative after:rounded-lg after:top-2 after:left-2 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black  cursor-pointer;
 }

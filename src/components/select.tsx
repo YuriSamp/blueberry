@@ -5,7 +5,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 
 const selectStyles = cva(
-  'bg-transparent w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B] bg-white ',
+  'w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B]  ',
   {
     variants: {
       Width: {
@@ -21,6 +21,10 @@ const selectStyles = cva(
       rounded: {
         lg: 'rounded-lg',
       },
+      background: {
+        creamWhite: 'bg-creamWhite',
+        white: 'bg-white'
+      }
     },
   }
 )

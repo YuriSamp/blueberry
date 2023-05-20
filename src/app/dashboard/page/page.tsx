@@ -61,19 +61,21 @@ const NovaPagina = () => {
         <title>Fyesta</title>
       </Head>
       <section className="w-full">
-        <Navbar />
         <div className="pt-7 pl-10">
-          <RetturnButton href="/dashboard" text="Voltar" />
+          <RetturnButton href="/dashboard" />
         </div>
         <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 ">
           <form className="flex flex-col gap-6" onSubmit={(e) => handleForm(e)}>
-            <input
-              className="bg-transparent focus:outline-none p-4 text-3xl"
-              placeholder="Insira um titulo"
-              autoFocus={true}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <div className='flex items-center justify-between'>
+              <input
+                className="bg-transparent focus:outline-none p-4 text-3xl w-full"
+                placeholder="Insira um titulo"
+                autoFocus={true}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <p>001</p>
+            </div>
             <div className="flex flex-col gap-6">
               <div className="flex w-full gap-3 items-center">
                 <AiOutlineCalendar className="w-6 h-6" />
@@ -98,13 +100,13 @@ const NovaPagina = () => {
             </div>
             <hr />
             <textarea
-              className="h-96 2xl:h-[350px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
+              className="h-96 2xl:h-[400px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
               placeholder="Comece a escrever sobre o seu dia"
               onChange={(e) => setText(e.target.value)}
             />
             <ToolbarComponent />
             <div className="flex ">
-              <button className="bg-green-700 p-4 rounded-md text-white">
+              <button className="bg-green p-4 rounded-md">
                 Incluir no diario
               </button>
             </div>
