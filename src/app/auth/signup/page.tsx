@@ -61,7 +61,7 @@ export default function SignUp() {
                   placeholder="Insert a url"
                   className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
                 />
-                <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
+                <span className='after:rounded-lg after:top-10 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
               </div>
               <p className="text-center">Or</p>
               <div className="flex flex-col gap-2 relative">
@@ -71,7 +71,7 @@ export default function SignUp() {
                   placeholder="drag-and-drop"
                   className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
                 />
-                <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
+                <span className='after:rounded-lg after:top-10 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
               </div>
             </div>
             <div className="pt-8">
