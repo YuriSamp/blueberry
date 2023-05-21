@@ -14,15 +14,16 @@ export default function DiarypageWritten({
   title,
   color,
 }: Idiary) {
+  const [diary, setdiary] = useAtom(diaryPage)
+
   const formatedText = text.length > 200 ? text.slice(0, 200) + '...' : text
-  const formatedData = data.slice(-5).split('-').reverse()
   const formatedTitle = title.length > 18 ? title.slice(0, 19) + '...' : title
+  const formatedData = data.slice(-5).split('-').reverse()
   const displayString = [formatedData[0], ' / ', formatedData[1]].concat()
 
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
 
-  const [diary, setdiary] = useAtom(diaryPage)
 
   const removeEntry = () => {
     const diaryUpdated = diary.filter((entry) => entry.id !== id)
@@ -30,12 +31,12 @@ export default function DiarypageWritten({
   }
 
   return (
-    <div ref={hoverRef} className="relative">
+    <div ref={hoverRef} className="relative brutalism-box brutalism-box-hover">
       <Link
         href={`./diario/pagina/${id}`}
-        className="w-60 h-52 bg-CreamWhite 0 flex px-2 py-2 cursor-pointer select-none rounded-md drop-shadow-lg border-2"
+        className="w-60 h-52 flex cursor-pointer rounded-md  border bg-white"
       >
-        <p className="text-sm p-1 max-w-[240px] break-all"> {formatedText}</p>
+        <p className="text-sm p-2 max-w-[240px] break-all"> {formatedText}</p>
         <div
           style={{ backgroundColor: color }}
           className="flex justify-between absolute bottom-0 left-0 py-2 w-full px-3 rounded-b-md"
