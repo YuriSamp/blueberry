@@ -72,6 +72,7 @@ export const SubMenu = ({
 
   useEffect(() => {
     setOption(optionsEdited)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emotion])
 
   return (
