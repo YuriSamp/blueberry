@@ -24,7 +24,6 @@ export default function DiarypageWritten({
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
 
-
   const removeEntry = () => {
     const diaryUpdated = diary.filter((entry) => entry.id !== id)
     setdiary(diaryUpdated)

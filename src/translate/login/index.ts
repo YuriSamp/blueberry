@@ -23,4 +23,4 @@ export const loginContent = {
       text2: 'Create an account',
     },
   },
-};
+}

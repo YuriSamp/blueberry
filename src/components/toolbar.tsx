@@ -1,13 +1,13 @@
-import React from 'react';
-import * as Toolbar from '@radix-ui/react-toolbar';
+import React from 'react'
 import {
-  StrikethroughIcon,
-  TextAlignLeftIcon,
-  TextAlignCenterIcon,
-  TextAlignRightIcon,
   FontBoldIcon,
   FontItalicIcon,
-} from '@radix-ui/react-icons';
+  StrikethroughIcon,
+  TextAlignCenterIcon,
+  TextAlignLeftIcon,
+  TextAlignRightIcon,
+} from '@radix-ui/react-icons'
+import * as Toolbar from '@radix-ui/react-toolbar'
 
 const ToolbarComponent = () => (
   <Toolbar.Root
@@ -38,7 +38,11 @@ const ToolbarComponent = () => (
       </Toolbar.ToggleItem>
     </Toolbar.ToggleGroup>
     <Toolbar.Separator className="w-[1px] bg-mauve6 mx-[10px]" />
-    <Toolbar.ToggleGroup type="single" defaultValue="center" aria-label="Text alignment">
+    <Toolbar.ToggleGroup
+      type="single"
+      defaultValue="center"
+      aria-label="Text alignment"
+    >
       <Toolbar.ToggleItem
         className="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center  ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="left"
@@ -69,6 +73,6 @@ const ToolbarComponent = () => (
       Edited 2 hours ago
     </p>
   </Toolbar.Root>
-);
+)
 
-export default ToolbarComponent;
+export default ToolbarComponent

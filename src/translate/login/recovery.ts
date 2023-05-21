@@ -9,4 +9,4 @@ export const recoveryContent = {
     subTitle: 'no problems, enter your email',
     submit: 'Send Email',
   },
-};
+}

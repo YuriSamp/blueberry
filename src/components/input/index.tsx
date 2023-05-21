@@ -43,9 +43,8 @@ export function ControledInput({
   placeholder,
   value,
   onChange,
-  label
+  label,
 }: Controled) {
-
   if (label) {
     return (
       <div className="flex flex-col gap-2 pt-4 relative">
@@ -58,12 +57,12 @@ export function ControledInput({
           value={value}
           onChange={onChange}
         />
-        <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black' />
+        <span className="after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black" />
       </div>
     )
   }
   return (
-    <div className="relative">
+    <div className="flex flex-col  gap-2 relative">
       <input
         className={inputStyles({ Width, intent, textSize })}
         type={type}
@@ -72,7 +71,7 @@ export function ControledInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <span className='after:rounded-lg after:top-14 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black' />
+      <span className="after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black" />
     </div>
   )
 }

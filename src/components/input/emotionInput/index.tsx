@@ -61,6 +61,7 @@ export function EmotionInput({
         }
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue])
 
   const matches = useMediaQuery('(min-width: 500px)')

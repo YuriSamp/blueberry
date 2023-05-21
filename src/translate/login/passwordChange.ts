@@ -15,4 +15,4 @@ export const passwordChangeContent = {
     label2: 'Confirm your Password',
     submit: 'Reset',
   },
-};
+}

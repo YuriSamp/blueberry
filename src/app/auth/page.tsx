@@ -1,17 +1,16 @@
-"use client"
+'use client'
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
 
+import { ControledInput } from '@ui/input'
 import RetturnButton from '@ui/retturnButton'
-import * as Checkbox from '@radix-ui/react-checkbox';
-import { CheckIcon } from '@radix-ui/react-icons';
 
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
-import { ControledInput } from '@ui/input';
 
 export default function Auth() {
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -40,18 +39,18 @@ export default function Auth() {
             <ControledInput
               onChange={inputHandle(setEmail)}
               value={email}
-              placeholder='Email'
-              type='email'
-              label='Email'
-              id='email'
+              placeholder="Email"
+              type="email"
+              label="Email"
+              id="email"
             />
             <ControledInput
               onChange={inputHandle(setPassword)}
               value={password}
-              placeholder='Password'
-              type='password'
-              label='Password'
-              id='password'
+              placeholder="Password"
+              type="password"
+              label="Password"
+              id="password"
             />
             <div className="flex gap-10 pt-4">
               <div className="flex gap-2">

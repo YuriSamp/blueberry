@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import React, { useReducer, useCallback } from 'react'
+import React, { useCallback, useReducer } from 'react'
 
-import RetturnButton from '@ui/retturnButton'
 import { ControledInput } from '@ui/input'
+import RetturnButton from '@ui/retturnButton'
 
 type formState = {
   name: string
@@ -18,7 +18,7 @@ const initialState: formState = {
   email: '',
   password: '',
   passwordConfirmed: '',
-  photo: ''
+  photo: '',
 }
 
 function reducer(state: formState, action: any) {
@@ -26,12 +26,14 @@ function reducer(state: formState, action: any) {
 }
 
 export default function SignUp() {
-
   const [form, formDispatch] = useReducer(reducer, initialState)
 
-  const inputHandle = useCallback((type: string) => (e: any) => {
-    if (e) formDispatch({ [type]: e.target.value })
-  }, [formDispatch])
+  const inputHandle = useCallback(
+    (type: string) => (e: any) => {
+      if (e) formDispatch({ [type]: e.target.value })
+    },
+    [formDispatch]
+  )
 
   return (
     <>
@@ -46,53 +48,53 @@ export default function SignUp() {
             </div>
             <ControledInput
               onChange={inputHandle('name')}
-              placeholder='Your name'
-              type='text'
+              placeholder="Your name"
+              type="text"
               value={form.name}
-              id='name'
-              label='name'
+              id="name"
+              label="name"
             />
             <ControledInput
               onChange={inputHandle('email')}
-              placeholder='Email Adress'
-              type='email'
+              placeholder="Email Adress"
+              type="email"
               value={form.email}
-              id='email'
-              label='Email Adress'
+              id="email"
+              label="Email Adress"
             />
             <ControledInput
               onChange={inputHandle('password')}
-              placeholder='Password'
-              type='password'
+              placeholder="Password"
+              type="password"
               value={form.password}
-              id='password'
-              label='Password'
+              id="password"
+              label="Password"
             />
             <ControledInput
               onChange={inputHandle('passwordConfirmed')}
-              placeholder='password'
-              type='password'
+              placeholder="password"
+              type="password"
               value={form.passwordConfirmed}
-              id='passwordConfirmed'
-              label='Confirm your password'
+              id="passwordConfirmed"
+              label="Confirm your password"
             />
             <div className="flex flex-col">
               <ControledInput
                 onChange={inputHandle('photo')}
-                placeholder='Insert a url'
-                type='text'
+                placeholder="Insert a url"
+                type="text"
                 value={form.photo}
-                id='url'
-                label='Insert a photo'
+                id="url"
+                label="Insert a photo"
               />
               <p className="text-center pt-4">Or</p>
               <ControledInput
                 onChange={inputHandle('photo')}
-                placeholder='Insert a photo'
-                type='text'
+                placeholder="Insert a photo"
+                type="text"
                 value={form.photo}
-                id='url'
-                label='drag-and-drop'
+                id="url"
+                label="drag-and-drop"
               />
             </div>
             <div className="pt-8">

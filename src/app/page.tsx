@@ -11,10 +11,16 @@ export default function Home() {
           <h2>Blueberry</h2>
         </div>
         <nav className="text-xl text-black flex gap-6">
-          <Link href="/auth" className="px-3 py-2 brutalism-box brutalism-box-hover bg-white">
+          <Link
+            href="/auth"
+            className="px-3 py-2 brutalism-box brutalism-box-hover bg-white"
+          >
             Log In
           </Link>
-          <Link href="./auth/signup" className="px-3 py-2 brutalism-box brutalism-box-hover bg-white">
+          <Link
+            href="./auth/signup"
+            className="px-3 py-2 brutalism-box brutalism-box-hover bg-white"
+          >
             Sign Up
           </Link>
         </nav>

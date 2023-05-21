@@ -13,10 +13,10 @@ import Head from 'next/head'
 import { EmotionInput } from '@ui/input/emotionInput'
 import { Navbar } from '@ui/navbar'
 import RetturnButton from '@ui/retturnButton'
+import ToolbarComponent from '@ui/toolbar'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
-import ToolbarComponent from '@ui/toolbar'
 
 const NovaPagina = () => {
   const dateInput = todayDateToDateInput()
@@ -66,7 +66,7 @@ const NovaPagina = () => {
         </div>
         <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 ">
           <form className="flex flex-col gap-6" onSubmit={(e) => handleForm(e)}>
-            <div className='flex items-center justify-between'>
+            <div className="flex items-center justify-between">
               <input
                 className="bg-transparent focus:outline-none p-4 text-3xl w-full"
                 placeholder="Insira um titulo"

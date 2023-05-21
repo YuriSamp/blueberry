@@ -23,4 +23,4 @@ export const singUpContent = {
     placeholder4: 'Insert the URL',
     warning: "You don't need a photo, it's just to look cool",
   },
-};
+}

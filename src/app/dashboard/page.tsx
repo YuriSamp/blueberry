@@ -63,12 +63,12 @@ export default function Diario() {
     <>
       <Navbar />
       <section className="pt-10 px-10">
-        <div className='flex justify-center items-center'>
+        <div className="flex justify-center items-center">
           <div className="dashboardArea lg:dashboard-area-lg">
             <div className="button">
               <DiaryPopover />
             </div>
-            <div className='controller'>
+            <div className="controller">
               <MonthController
                 monthIndex={monthIndex}
                 year={year}

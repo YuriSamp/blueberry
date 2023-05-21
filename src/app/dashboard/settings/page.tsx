@@ -7,16 +7,17 @@ import { ControledInput } from '@ui/input'
 
 import 'react-toastify/dist/ReactToastify.css'
 import RetturnButton from '@ui/retturnButton'
+import { Select } from '@ui/select'
 import SettingsAlert from '@ui/settings/settingsAlert'
 import { SettingsContainer } from '@ui/settings/settingsContainer'
 import Header from '@ui/settings/settingsHeader'
-import { perfilContent } from 'src/translate/settings/perfil'
-import { Select } from '@ui/select'
 
+import { perfilContent } from 'src/translate/settings/perfil'
 
 const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
 
 export default function Perfil() {
+  const [name, setName] = useState<string>('')
   const [photo, setPhoto] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
   const [sessionTime, setSessionTime] = useState('10 min')
@@ -31,28 +32,6 @@ export default function Perfil() {
     placeholders,
   } = perfilContent['pt-BR']
 
-  const input = (type: 'name' | 'photo') => {
-    return (
-      <div className=" flex flex-col  gap-2 relative">
-        <input
-          type="text"
-          placeholder={`${type === 'name' ? placeholders.nameInput : placeholders.photoInput}`}
-          className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2]"
-        />
-        <span className='after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black'></span>
-      </div>
-      // <ControledInput
-      //   type="text"
-      //   Width="lg"
-      //   intent={'primary'}
-      //   placeholder={`${type === 'name' ? placeholders.nameInput : placeholders.photoInput
-      //     }`}
-      //   value={photo}
-      //   onChange={setPhoto}
-      // />
-    )
-  }
-
   return (
     <>
       <div className="pt-5 pl-10 flex self-start">
@@ -64,7 +43,15 @@ export default function Perfil() {
           <div className="sm:max-h-[600px] overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
             <SettingsContainer
               title={Container1.title}
-              firstChild={input('name')}
+              firstChild={
+                <ControledInput
+                  type="text"
+                  Width="lg"
+                  placeholder={placeholders.nameInput}
+                  value={name}
+                  onChange={setName}
+                />
+              }
             >
               <Button
                 Children={Container1.children}
@@ -74,7 +61,15 @@ export default function Perfil() {
 
             <SettingsContainer
               title={Container2.title}
-              firstChild={input('photo')}
+              firstChild={
+                <ControledInput
+                  type="text"
+                  Width="lg"
+                  placeholder={placeholders.photoInput}
+                  value={photo}
+                  onChange={setPhoto}
+                />
+              }
             >
               <Button
                 Children={Container2.children}
@@ -103,17 +98,17 @@ export default function Perfil() {
             </SettingsContainer>
 
             <SettingsContainer
-              title='Tempo de sessão'
-              firstChild='Regula o tempo de inatividade antes de sua conta ser desconectada automaticamente'
+              title="Tempo de sessão"
+              firstChild="Regula o tempo de inatividade antes de sua conta ser desconectada automaticamente"
             >
-              <div className='relative'>
+              <div className="relative">
                 <Select
                   Options={SESSION_TIME}
                   onChange={setSessionTime}
                   value={sessionTime}
-                  background='white'
+                  background="white"
                 />
-                <span className='after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black'></span>
+                <span className="after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black"></span>
               </div>
             </SettingsContainer>
 

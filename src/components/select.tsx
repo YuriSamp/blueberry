@@ -23,8 +23,8 @@ const selectStyles = cva(
       },
       background: {
         creamWhite: 'bg-creamWhite',
-        white: 'bg-white'
-      }
+        white: 'bg-white',
+      },
     },
   }
 )
@@ -33,9 +33,9 @@ export interface ISelect extends VariantProps<typeof selectStyles> {
   Options: readonly string[]
   value: string | undefined
   onChange:
-  | Dispatch<SetStateAction<any>>
-  | ((theme: string) => void)
-  | ((mode: string) => void)
+    | Dispatch<SetStateAction<any>>
+    | ((theme: string) => void)
+    | ((mode: string) => void)
 }
 
 export function Select({
