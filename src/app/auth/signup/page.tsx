@@ -27,7 +27,7 @@ function reducer(state: formState, action: any) {
   return { ...state, ...action }
 }
 
-const formObject = z.object({
+const formFields = z.object({
   name: z.string().min(1, 'Empty name field').max(40, 'Name too long'),
   email: z.string().min(1, 'Empty email field').email('Invalid Email'),
   password: z.string().min(8, 'insufficient password length'),
@@ -37,7 +37,7 @@ const formObject = z.object({
   message: "Passwords don't match",
 });
 
-const fields: string[] = ['name', 'email', 'password', 'confirmPassword', 'photo']
+const fields = ['name', 'email', 'password', 'confirmPassword', 'photo'] as const
 
 
 export default function SignUp() {
@@ -52,21 +52,21 @@ export default function SignUp() {
 
   const formHandle = (e: React.FormEvent) => {
     e.preventDefault()
-    const isParsed = formObject.safeParse(form)
-    if (isParsed.success) {
+    const parsedFields = formFields.safeParse(form)
+    if (parsedFields.success) {
       //Autentica
       return
     }
 
-    const fieldErros = isParsed.error.formErrors.fieldErrors
+    const fieldErrors = parsedFields.error.formErrors.fieldErrors
 
     for (let i = 0; i < fields.length - 1; i++) {
-      if (fieldErros[fields[i] as keyof formState]) {
-        toast.error(fieldErros[fields[i] as keyof formState]?.at(0))
+      if (fieldErrors[fields[i] as keyof formState]) {
+        toast.error(fieldErrors[fields[i] as keyof formState]?.at(0))
         break
       }
     }
-    toast.error(isParsed.error.flatten().formErrors[0])
+    toast.error(parsedFields.error.flatten().formErrors[0])
   }
 
   return (
