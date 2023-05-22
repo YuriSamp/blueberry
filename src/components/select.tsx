@@ -5,7 +5,7 @@ import { SetStateAction } from 'jotai'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 
 const selectStyles = cva(
-  'w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B]  ',
+  'w-36 h-12 text-center border-[1px] rounded-md border-[#2A292B] overflow-hidden',
   {
     variants: {
       Width: {
@@ -33,9 +33,9 @@ export interface ISelect extends VariantProps<typeof selectStyles> {
   Options: readonly string[]
   value: string | undefined
   onChange:
-    | Dispatch<SetStateAction<any>>
-    | ((theme: string) => void)
-    | ((mode: string) => void)
+  | Dispatch<SetStateAction<any>>
+  | ((theme: string) => void)
+  | ((mode: string) => void)
 }
 
 export function Select({

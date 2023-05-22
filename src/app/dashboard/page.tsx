@@ -76,12 +76,17 @@ export default function Diario() {
                 setMonthIndex={setMonthIndex}
               />
             </div>
-            <div className="button2">
-              <Select
-                Options={selectOptions}
-                onChange={setEmotionSelected}
-                value={emotionSelected}
-              />
+            <div className="button2 ">
+              <div className="relative">
+                <Select
+                  Options={selectOptions}
+                  onChange={setEmotionSelected}
+                  value={emotionSelected}
+                  background="white"
+                />
+                <span className="after:rounded-lg after:top-2 after:left-2 after:right-[-5px] after:bottom-[-5px] after:-z-10 after:absolute after:bg-black"></span>
+              </div>
+
             </div>
           </div>
         </div>

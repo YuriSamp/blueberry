@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react'
-import { useRouter } from 'next/router'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
 import { Button } from '@ui/button'
@@ -34,11 +33,11 @@ function SettingsAlert({ isAlertOpen, setIsAlertOpen }: Props) {
             <AlertDialog.Action asChild>
               <button
                 className=" bg-[#B3202C] text-white focus:shadow-red7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]"
-                // onClick={async () => {
-                //   await HandlePromise(deleteUser())
-                //   nookies.destroy(undefined, 'token')
-                //   router.push('/')
-                // }}
+              // onClick={async () => {
+              //   await HandlePromise(deleteUser())
+              //   nookies.destroy(undefined, 'token')
+              //   router.push('/')
+              // }}
               >
                 deletar conta
               </button>

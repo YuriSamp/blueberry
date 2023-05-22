@@ -1,10 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import AvatarIcon from './avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { ExitIcon } from '@radix-ui/react-icons'
-import nookies from 'nookies'
 
 import { routes } from 'src/translate/settings/header'
 
@@ -48,12 +46,12 @@ export function AvatarWithDropDown({ Path }: Props) {
           <DropdownMenu.Item className="text-sm text-black rounded flex items-center h-6 px-5 py-0 relative pl-6 select-none outline-none cursor-pointer hover:bg-violet-900 dark:hover:bg-gray-800 hover:text-white">
             <button
               className="flex gap-2"
-              // onClick={async () => {
-              //   const sucess = await signOut()
-              //   if (sucess)
-              //     nookies.destroy(undefined, 'token')
-              //   router.push('/')
-              // }}
+            // onClick={async () => {
+            //   const sucess = await signOut()
+            //   if (sucess)
+            //     nookies.destroy(undefined, 'token')
+            //   router.push('/')
+            // }}
             >
               <ExitIcon />
               Sair da conta
