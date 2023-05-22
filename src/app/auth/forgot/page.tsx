@@ -1,21 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
+import { z } from 'zod'
 
-import 'react-toastify/dist/ReactToastify.css'
 import { ControledInput } from '@ui/input'
 import { RetturnButton } from '@ui/retturnButton'
 
 import { recoveryContent } from 'src/translate/login/recovery'
 
+const fomrschema = z.string().email()
+
 export default function Passwordchange() {
   const [email, setEmail] = useState('')
 
-  const { subTitle, submit, title } = recoveryContent['pt-BR']
+  const { subTitle, submit, title } = recoveryContent['en-US']
 
   const inputHandle = (setter: any) => (e: any) => {
     if (e) setter(e.target?.value)
+  }
+
+  const formHandle = (event: FormEvent) => {
+    event.preventDefault()
+    const parsedFields = fomrschema.safeParse(email)
+    if (parsedFields.success) {
+      //logica
+      return
+    }
+    toast.error(parsedFields.error.formErrors.formErrors[0])
   }
 
   return (
@@ -26,7 +38,7 @@ export default function Passwordchange() {
         </div>
         <ToastContainer limit={3} />
         <section className="flex flex-col justify-center h-[90vh]  lg:w-96">
-          <form className="pt-8">
+          <form className="pt-8" onSubmit={formHandle}>
             <div>
               <h1 className="text-center text-4xl">{title}</h1>
             </div>

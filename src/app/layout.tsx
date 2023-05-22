@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 //TODO componentizar e deixar eles pro client, o resto pro server
 //TODO use notFound() on diary
 //TODO use env from env.mjs
+//TODO fazer pagina de loading pra tudo
 
 export const metadata = {
   title: 'Blueberry',

@@ -1,13 +1,32 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import Link from 'next/link'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
+import { z } from 'zod'
+import { ToastContainer, toast } from 'react-toastify'
+
 
 import { ControledInput } from '@ui/input'
 import { RetturnButton } from '@ui/retturnButton'
+
+type formSchema = {
+  email: string
+  password: string
+}
+
+const formFields = z
+  .object({
+    email: z.string().min(1, 'Empty email field').email('Invalid Email'),
+    password: z.string(),
+  })
+
+const fields = [
+  'email',
+  'password',
+] as const
 
 export default function Auth() {
   const [email, setEmail] = useState('')
@@ -17,14 +36,34 @@ export default function Auth() {
     if (e) setter(e.target?.value)
   }
 
+  const formHandle = (event: FormEvent) => {
+    event.preventDefault()
+    const parsedFields = formFields.safeParse({ email: email, password: password })
+    if (parsedFields.success) {
+      //Autentica
+      return
+    }
+
+    const fieldErrors = parsedFields.error.formErrors.fieldErrors
+
+    for (let i = 0; i < fields.length - 1; i++) {
+      if (fieldErrors[fields[i] as keyof formSchema]) {
+        toast.error(fieldErrors[fields[i] as keyof formSchema]?.at(0))
+        break
+      }
+    }
+    toast.error(parsedFields.error.flatten().formErrors[0])
+  }
+
   return (
     <>
       <main className="flex flex-col items-center">
+        <ToastContainer />
         <div className="pt-5 pl-10 flex self-start">
           <RetturnButton href="./" />
         </div>
         <div className="h-[90vh] flex flex-col justify-center">
-          <form className="flex flex-col w-96 ">
+          <form className="flex flex-col w-96 " onSubmit={formHandle}>
             <div>
               <h1 className="text-center text-4xl">Welcome Back</h1>
             </div>
