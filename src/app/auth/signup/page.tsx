@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback, useReducer, FormEvent } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 
@@ -50,8 +50,8 @@ export default function SignUp() {
     [formDispatch]
   )
 
-  const formHandle = (e: React.FormEvent) => {
-    e.preventDefault()
+  const formHandle = (event: FormEvent) => {
+    event.preventDefault()
     const parsedFields = formFields.safeParse(form)
     if (parsedFields.success) {
       //Autentica
