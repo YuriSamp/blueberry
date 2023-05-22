@@ -6,7 +6,7 @@ import { Button } from '@ui/button'
 import { ControledInput } from '@ui/input'
 
 import 'react-toastify/dist/ReactToastify.css'
-import RetturnButton from '@ui/retturnButton'
+import { RetturnButton } from '@ui/retturnButton'
 import { Select } from '@ui/select'
 import SettingsAlert from '@ui/settings/settingsAlert'
 import { SettingsContainer } from '@ui/settings/settingsContainer'

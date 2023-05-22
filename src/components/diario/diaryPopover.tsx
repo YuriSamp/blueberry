@@ -1,7 +1,7 @@
 import * as Popover from '@radix-ui/react-popover'
 import { useAtomValue } from 'jotai'
-
 import { RxCross1 } from 'react-icons/rx'
+
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 

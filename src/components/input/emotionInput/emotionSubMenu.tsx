@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useAtom } from 'jotai'
-
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
+
 import { diaryPage } from 'src/context/diaryContext'
 import { emotionColors, emotionOptions } from 'src/context/emotionsOptions'
 import { useClickOutside } from 'src/hooks/useClickOutside'

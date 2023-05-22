@@ -1,5 +1,4 @@
 import Link from 'next/link'
-
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 interface Props {
@@ -7,7 +6,7 @@ interface Props {
   href: string
 }
 
-export default function RetturnButton({ text, href }: Props) {
+export function RetturnButton({ text, href }: Props) {
   return (
     <Link href={href} className="flex items-center gap-2">
       <AiOutlineArrowLeft className="h-6 w-6" />

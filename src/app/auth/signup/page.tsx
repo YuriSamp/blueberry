@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useCallback, useReducer, FormEvent } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
+import React, { FormEvent, useCallback, useReducer } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 import { z } from 'zod'
 
 import { ControledInput } from '@ui/input'
-import RetturnButton from '@ui/retturnButton'
+import { RetturnButton } from '@ui/retturnButton'
 
 type formState = {
   name: string
@@ -27,18 +27,25 @@ function reducer(state: formState, action: any) {
   return { ...state, ...action }
 }
 
-const formFields = z.object({
-  name: z.string().min(1, 'Empty name field').max(40, 'Name too long'),
-  email: z.string().min(1, 'Empty email field').email('Invalid Email'),
-  password: z.string().min(8, 'insufficient password length'),
-  confirmPassword: z.string().min(8, 'insufficient confirm password length'),
-  photo: z.string().optional()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-});
+const formFields = z
+  .object({
+    name: z.string().min(1, 'Empty name field').max(40, 'Name too long'),
+    email: z.string().min(1, 'Empty email field').email('Invalid Email'),
+    password: z.string().min(8, 'insufficient password length'),
+    confirmPassword: z.string().min(8, 'insufficient confirm password length'),
+    photo: z.string().optional(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+  })
 
-const fields = ['name', 'email', 'password', 'confirmPassword', 'photo'] as const
-
+const fields = [
+  'name',
+  'email',
+  'password',
+  'confirmPassword',
+  'photo',
+] as const
 
 export default function SignUp() {
   const [form, formDispatch] = useReducer(reducer, initialState)
@@ -114,7 +121,7 @@ export default function SignUp() {
               label="Confirm your password"
             />
 
-            <p className='pt-4 text-center'> This field bellow is optional</p>
+            <p className="pt-4 text-center"> This field bellow is optional</p>
 
             <ControledInput
               onChange={inputHandle('photo')}

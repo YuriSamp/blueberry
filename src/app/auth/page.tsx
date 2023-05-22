@@ -4,13 +4,10 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
-
-
-import { ControledInput } from '@ui/input'
-import RetturnButton from '@ui/retturnButton'
-
 import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
 
+import { ControledInput } from '@ui/input'
+import { RetturnButton } from '@ui/retturnButton'
 
 export default function Auth() {
   const [email, setEmail] = useState('')

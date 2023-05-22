@@ -1,7 +1,7 @@
 import { Dispatch } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
 import { SetStateAction } from 'jotai'
 
-import { VariantProps, cva } from 'class-variance-authority'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 
 const selectStyles = cva(

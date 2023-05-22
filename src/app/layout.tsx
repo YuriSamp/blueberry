@@ -1,8 +1,13 @@
 import './styles/globals.css'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
+
+//TODO add metadata for every page
+//TODO componentizar e deixar eles pro client, o resto pro server
+//TODO use notFound() on diary
+//TODO use env from env.mjs
 
 export const metadata = {
   title: 'Blueberry',

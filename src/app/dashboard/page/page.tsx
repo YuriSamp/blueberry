@@ -3,16 +3,15 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAtom } from 'jotai'
-
 import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
+
 import { diaryId, diaryPage } from 'src/context/diaryContext'
 import 'react-toastify/dist/ReactToastify.css'
 import Head from 'next/head'
 
 import { EmotionInput } from '@ui/input/emotionInput'
-import { Navbar } from '@ui/navbar'
-import RetturnButton from '@ui/retturnButton'
+import { RetturnButton } from '@ui/retturnButton'
 import ToolbarComponent from '@ui/toolbar'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'

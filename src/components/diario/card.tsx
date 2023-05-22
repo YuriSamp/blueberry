@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { useAtom } from 'jotai'
-
 import { BsTrash } from 'react-icons/bs'
+
 import { diaryPage } from 'src/context/diaryContext'
 import useHover from 'src/hooks/useHover'
 import { Idiary } from 'src/types/diaryTypes'

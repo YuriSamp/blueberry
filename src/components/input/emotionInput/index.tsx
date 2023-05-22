@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { SubMenu } from './emotionSubMenu'
-
 import { BsThreeDots } from 'react-icons/bs'
+
 import { emotionColors, emotionOptions } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 import { useClickOutside } from 'src/hooks/useClickOutside'

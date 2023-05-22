@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-
 import { ToastContainer, toast } from 'react-toastify'
+
 import 'react-toastify/dist/ReactToastify.css'
 import { ControledInput } from '@ui/input'
-import RetturnButton from '@ui/retturnButton'
+import { RetturnButton } from '@ui/retturnButton'
 
 import { recoveryContent } from 'src/translate/login/recovery'
 
