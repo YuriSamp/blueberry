@@ -4,7 +4,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { NextAuthOptions } from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
 import GitHubProvider from 'next-auth/providers/github'
-import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: NextAuthOptions = {
   // huh any! I know.
