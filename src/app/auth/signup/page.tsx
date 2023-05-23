@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FormEvent, useCallback, useReducer } from 'react'
+import React, { ChangeEvent, FormEvent, useCallback, useReducer } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { z } from 'zod'
 
@@ -51,9 +51,7 @@ export default function SignUp() {
   const [form, formDispatch] = useReducer(reducer, initialState)
 
   const inputHandle = useCallback(
-    (type: string) => (e: any) => {
-      if (e) formDispatch({ [type]: e.target.value })
-    },
+    (type: string) => (e: ChangeEvent<HTMLInputElement>) => formDispatch({ [type]: e.target.value }),
     [formDispatch]
   )
 
@@ -61,7 +59,6 @@ export default function SignUp() {
     event.preventDefault()
     const parsedFields = formFields.safeParse(form)
     if (parsedFields.success) {
-      //Autentica
       return
     }
 
