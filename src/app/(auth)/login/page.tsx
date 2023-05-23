@@ -4,7 +4,7 @@ import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } fro
 import Link from 'next/link'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
-import { BsDiscord, BsGithub, BsGoogle } from 'react-icons/bs'
+import { BsDiscord, BsGithub } from 'react-icons/bs'
 import { z } from 'zod'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -70,7 +70,6 @@ export default function Auth() {
             <p className="text-center py-6">Log in with</p>
             <div className="flex justify-center gap-12 py-2">
               <BsGithub className="h-10 w-10 cursor-pointer" />
-              <BsGoogle className="h-10 w-10 cursor-pointer" />
               <BsDiscord className="h-10 w-10 cursor-pointer" />
             </div>
             <p className="text-center pt-6 pb-4">Or login with email</p>
