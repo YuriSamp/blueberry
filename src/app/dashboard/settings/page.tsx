@@ -11,8 +11,6 @@ import SettingsAlert from '@components/settingsAlert'
 import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
 
-import { perfilContent } from 'src/translate/settings/perfil'
-
 const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
 
 export default function Perfil() {
@@ -20,16 +18,6 @@ export default function Perfil() {
   const [photo, setPhoto] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
   const [sessionTime, setSessionTime] = useState('10 min')
-
-  const {
-    Container1,
-    Container2,
-    Container3,
-    Container4,
-    Container5,
-    Container6,
-    placeholders,
-  } = perfilContent['pt-BR']
 
   return (
     <>
@@ -41,47 +29,47 @@ export default function Perfil() {
           <Header />
           <div className="sm:max-h-[600px] overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
             <SettingsContainer
-              title={Container1.title}
+              title='Name'
               firstChild={
                 <ControledInput
                   type="text"
                   Width="lg"
-                  placeholder={placeholders.nameInput}
+                  placeholder='Insert your new nickname'
                   value={name}
                   onChange={setName}
                 />
               }
             >
               <Button
-                Children={Container1.children}
+                Children='Update'
                 onClick={() => console.log('teste')}
               />
             </SettingsContainer>
 
             <SettingsContainer
-              title={Container2.title}
+              title='Photo'
               firstChild={
                 <ControledInput
                   type="text"
                   Width="lg"
-                  placeholder={placeholders.photoInput}
+                  placeholder='Insert the new url'
                   value={photo}
                   onChange={setPhoto}
                 />
               }
             >
               <Button
-                Children={Container2.children}
+                Children='Update'
                 onClick={() => console.log('teste')}
               />
             </SettingsContainer>
 
             <SettingsContainer
-              title={Container4.children}
-              firstChild={Container4.firstChild}
+              title='Password'
+              firstChild='Choose a strong password, after all you dont want anyone to know your secrets'
             >
               <Button
-                Children={Container4.children}
+                Children='Update'
                 onClick={() => console.log('teste')}
               />
             </SettingsContainer>
@@ -102,18 +90,18 @@ export default function Perfil() {
             </SettingsContainer>
 
             <SettingsContainer
-              title={Container5.title}
-              firstChild={Container5.firstChild}
+              title='Logout'
+              firstChild='It will redirect you to the login page.'
             >
               <Button
-                Children={Container5.children}
+                Children='Logout'
                 intent="danger"
                 onClick={() => console.log('teste')}
               />
             </SettingsContainer>
             <SettingsContainer
-              title={Container6.title}
-              firstChild={`${Container6.firstChild} 😭`}
+              title='Delete Account'
+              firstChild={`'It s a shame you re leaving' 😭`}
             >
               <SettingsAlert
                 isAlertOpen={alertOpen}

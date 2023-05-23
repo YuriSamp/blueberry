@@ -4,7 +4,13 @@ import AvatarIcon from './avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { ExitIcon } from '@radix-ui/react-icons'
 
-import { routes } from 'src/translate/settings/header'
+export const routes = [
+  {
+    name: 'Settings',
+    link: '/dashboard/settings',
+  },
+]
+
 
 type Props = {
   Path: string | undefined
@@ -38,7 +44,7 @@ export function AvatarWithDropDown({ Path }: Props) {
               key={index}
             >
               <Link href={item.link} className="w-full">
-                {item['pt-BR'].name}
+                {item.name}
               </Link>
             </DropdownMenu.Item>
           ))}
