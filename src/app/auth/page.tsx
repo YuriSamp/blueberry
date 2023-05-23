@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FormEvent, useState } from 'react'
+import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react'
 import Link from 'next/link'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
@@ -32,7 +32,7 @@ export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const inputHandle = (setter: any) => (e: any) => {
+  const inputHandle = (setter: Dispatch<SetStateAction<string>>) => (e: ChangeEvent<HTMLInputElement>) => {
     if (e) setter(e.target?.value)
   }
 

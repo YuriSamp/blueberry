@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { z } from 'zod'
 
@@ -16,7 +16,7 @@ export default function Passwordchange() {
 
   const { subTitle, submit, title } = recoveryContent['en-US']
 
-  const inputHandle = (setter: any) => (e: any) => {
+  const inputHandle = (setter: Dispatch<SetStateAction<string>>) => (e: ChangeEvent<HTMLInputElement>) => {
     if (e) setter(e.target?.value)
   }
 

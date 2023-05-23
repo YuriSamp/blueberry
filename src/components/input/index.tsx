@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch } from 'react'
 import { VariantProps, cva } from 'class-variance-authority'
 
 const inputStyles = cva(
@@ -28,7 +28,7 @@ interface Controled extends VariantProps<typeof inputStyles> {
   type: string
   placeholder: string
   value: string
-  onChange: any
+  onChange: Dispatch<any>
   id?: string
   label?: string
 }

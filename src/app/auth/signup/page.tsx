@@ -27,7 +27,7 @@ function reducer(state: formState, action: any) {
   return { ...state, ...action }
 }
 
-const formFields = z
+const formSchema = z
   .object({
     name: z.string().min(1, 'Empty name field').max(40, 'Name too long'),
     email: z.string().min(1, 'Empty email field').email('Invalid Email'),
@@ -57,7 +57,7 @@ export default function SignUp() {
 
   const formHandle = (event: FormEvent) => {
     event.preventDefault()
-    const parsedFields = formFields.safeParse(form)
+    const parsedFields = formSchema.safeParse(form)
     if (parsedFields.success) {
       return
     }
