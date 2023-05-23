@@ -4,13 +4,13 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useAtomValue } from 'jotai'
 
-import DiarypageWritten from '@ui/diario/card'
-import { DiaryPopover } from '@ui/diario/diaryPopover'
-import { MonthController } from '@ui/monthController'
-import { Navbar } from '@ui/navbar'
-import { Select } from '@ui/select'
+import { DiarypageWritten } from '@components/card'
+import { DiaryPopover } from '@components/diaryPopover'
+import { MonthController } from '@components/monthController'
+import { Navbar } from '@components/navbar'
+import { Select } from '@components/select'
 
-import { diaryPage } from 'src/context/diaryContext'
+import { diaryId, diaryPage } from 'src/context/diaryContext'
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { dateCalendarConvert } from 'src/helpers/dateHelpers'
 import { Idiary } from 'src/types/diaryTypes'
@@ -97,13 +97,15 @@ export default function Diario() {
 }
 
 const MonthComponent = ({ diary }: IMonthComponent) => {
+
+  const id = useAtomValue(diaryId)
   return (
     <div>
       <hr className="mt-10 mb-5" />
       <div className="flex justify-center sm:justify-start flex-wrap gap-4 pt-4">
         <Link
-          href="/dashboard/page"
-          className="w-60 h-52 bg-white  flex justify-center items-center brutalism-box brutalism-box-hover"
+          href={`./dashboard/page-${id}`}
+          className="w-60 h-52 bg-white flex justify-center items-center brutalism-box brutalism-box-hover"
         >
           <p className="text-lg"> + Entrada </p>
         </Link>

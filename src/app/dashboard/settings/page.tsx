@@ -2,15 +2,14 @@
 
 import { useState } from 'react'
 
-import { Button } from '@ui/button'
-import { ControledInput } from '@ui/input'
+import { Button } from '@components/button'
+import { ControledInput } from '@components/input'
 
-import 'react-toastify/dist/ReactToastify.css'
-import { RetturnButton } from '@ui/retturnButton'
-import { Select } from '@ui/select'
-import SettingsAlert from '@ui/settings/settingsAlert'
-import { SettingsContainer } from '@ui/settings/settingsContainer'
-import Header from '@ui/settings/settingsHeader'
+import { RetturnButton } from '@components/retturnButton'
+import { Select } from '@components/select'
+import SettingsAlert from '@components/settingsAlert'
+import { SettingsContainer } from '@components/settingsContainer'
+import Header from '@components/settingsHeader'
 
 import { perfilContent } from 'src/translate/settings/perfil'
 

@@ -8,16 +8,25 @@ import { ToastContainer, toast } from 'react-toastify'
 
 import { diaryId, diaryPage } from 'src/context/diaryContext'
 
-import { EmotionInput } from '@ui/input/emotionInput'
-import { RetturnButton } from '@ui/retturnButton'
-import ToolbarComponent from '@ui/toolbar'
+import { EmotionInput } from '@components/EmotionInput'
+import { RetturnButton } from '@components/retturnButton'
+import ToolbarComponent from '@components/toolbar'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
 
-const NovaPagina = () => {
+interface IParams {
+  params: {
+    id: string
+  }
+}
+
+const NovaPagina = ({ params }: IParams) => {
   const dateInput = todayDateToDateInput()
   const router = useRouter()
+  const paramsid = params.id.slice(5, 8)
+
+  console.log(params.id.slice(5, 8))
 
   const [title, setTitle] = useState('')
   const [feeling, setFeeling] = useState('Feliz')
@@ -68,7 +77,7 @@ const NovaPagina = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <p>001</p>
+            <p>{String(paramsid).padStart(3, '0')}</p>
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex w-full gap-3 items-center">

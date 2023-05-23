@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-import { Button } from '@ui/button'
+import { Button } from '@components/button'
 
 interface Props {
   isAlertOpen: boolean

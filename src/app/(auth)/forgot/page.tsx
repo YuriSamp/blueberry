@@ -4,8 +4,8 @@ import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'reac
 import { ToastContainer, toast } from 'react-toastify'
 import { z } from 'zod'
 
-import { ControledInput } from '@ui/input'
-import { RetturnButton } from '@ui/retturnButton'
+import { ControledInput } from '@components/input'
+import { RetturnButton } from '@components/retturnButton'
 
 import { recoveryContent } from 'src/translate/login/recovery'
 

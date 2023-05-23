@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import svg404 from '../../public/404.svg'
 
-import { RetturnButton } from '@ui/retturnButton'
+import { RetturnButton } from '@components/retturnButton'
 
 export default function NotFound() {
   return (

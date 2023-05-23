@@ -4,8 +4,8 @@ import React, { ChangeEvent, FormEvent, useCallback, useReducer } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { z } from 'zod'
 
-import { ControledInput } from '@ui/input'
-import { RetturnButton } from '@ui/retturnButton'
+import { ControledInput } from '@components/input'
+import { RetturnButton } from '@components/retturnButton'
 
 type formState = {
   name: string

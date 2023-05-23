@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-import { AvatarWithDropDown } from '@ui/avatarDropdown'
+import { AvatarWithDropDown } from '@components/avatarDropdown'
 
 import breadcrumbs from 'src/helpers/breadcumbs'
 import { greetings } from 'src/helpers/grettings'

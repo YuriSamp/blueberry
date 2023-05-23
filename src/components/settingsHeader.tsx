@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AvatarIcon from '@ui/avatar'
+import AvatarIcon from '@components/avatar'
 
 export default function Header() {
   return (
