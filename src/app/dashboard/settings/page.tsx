@@ -78,16 +78,6 @@ export default function Perfil() {
             </SettingsContainer>
 
             <SettingsContainer
-              title={Container3.title}
-              firstChild={'teste@gamil.com'}
-            >
-              <Button
-                Children={Container3.children}
-                onClick={() => console.log('teste')}
-              />
-            </SettingsContainer>
-
-            <SettingsContainer
               title={Container4.children}
               firstChild={Container4.firstChild}
             >
