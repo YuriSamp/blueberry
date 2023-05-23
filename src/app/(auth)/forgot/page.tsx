@@ -11,6 +11,8 @@ import { recoveryContent } from 'src/translate/login/recovery'
 
 const fomrschema = z.string().email()
 
+//TODO resetar a senha com uma key gerada na primeira vez que usuário acessar a aplicação
+
 export default function Passwordchange() {
   const [email, setEmail] = useState('')
 
@@ -34,7 +36,7 @@ export default function Passwordchange() {
     <>
       <main className="flex flex-col items-center">
         <div className="pt-5 pl-10 flex self-start">
-          <RetturnButton text="" href="./auth" />
+          <RetturnButton text="" href="./login" />
         </div>
         <ToastContainer limit={3} />
         <section className="flex flex-col justify-center h-[90vh]  lg:w-96">

@@ -78,7 +78,7 @@ export default function SignUp() {
       <main className="flex flex-col items-center">
         <ToastContainer />
         <div className="pt-5 pl-10 flex self-start">
-          <RetturnButton href="./auth" text="" />
+          <RetturnButton href="./login" text="" />
         </div>
         <div className="h-[90vh] flex flex-col justify-center">
           <form className=" flex flex-col w-96" onSubmit={formHandle}>

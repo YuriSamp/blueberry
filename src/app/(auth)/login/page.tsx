@@ -104,7 +104,7 @@ export default function Auth() {
                 <label htmlFor="Session">Keep me loged in</label>
               </div>
               <div>
-                <Link href="./auth/forgot" className="text-blumine-500">
+                <Link href="./forgot" className="text-blumine-500">
                   Forget your password?
                 </Link>
               </div>
@@ -118,7 +118,7 @@ export default function Auth() {
           <div className="pt-4 place-self-center">
             <p>
               Dont have a account?{' '}
-              <Link href="/auth/signup" className="text-blumine-500">
+              <Link href="/new-user" className="text-blumine-500">
                 {' '}
                 Sign up{' '}
               </Link>{' '}
