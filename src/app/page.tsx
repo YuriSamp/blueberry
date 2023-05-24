@@ -12,13 +12,13 @@ export default function Home() {
         </div>
         <nav className="text-xl text-black flex gap-6">
           <Link
-            href="/login"
+            href="/sign-in"
             className="px-3 py-2 brutalism-box brutalism-box-hover bg-white"
           >
-            Log In
+            Sign In
           </Link>
           <Link
-            href="./new-user"
+            href="./sign-up"
             className="px-3 py-2 brutalism-box brutalism-box-hover bg-white"
           >
             Sign Up
