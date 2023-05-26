@@ -10,6 +10,7 @@ import { Select } from '@components/select'
 import SettingsAlert from '@components/settingsAlert'
 import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
+import { useUser, useAuth } from '@clerk/nextjs'
 
 const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
 
@@ -18,6 +19,16 @@ export default function Perfil() {
   const [photo, setPhoto] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
   const [sessionTime, setSessionTime] = useState('10 min')
+
+  const { user } = useUser()
+  const { signOut } = useAuth()
+
+  const updateUsername = async () => {
+    await user?.update({
+      username: name
+    })
+  }
+
 
   return (
     <>
@@ -42,7 +53,7 @@ export default function Perfil() {
             >
               <Button
                 Children='Update'
-                onClick={() => console.log('teste')}
+                onClick={() => updateUsername()}
               />
             </SettingsContainer>
 
@@ -75,8 +86,8 @@ export default function Perfil() {
             </SettingsContainer>
 
             <SettingsContainer
-              title="Tempo de sessão"
-              firstChild="Regula o tempo de inatividade antes de sua conta ser desconectada automaticamente"
+              title="Session time"
+              firstChild="Regulates the idle time before your account is automatically logged out"
             >
               <div className="relative">
                 <Select
@@ -96,10 +107,10 @@ export default function Perfil() {
               <Button
                 Children='Logout'
                 intent="danger"
-                onClick={() => console.log('teste')}
+                onClick={async () => await signOut()}
               />
             </SettingsContainer>
-            <SettingsContainer
+            {/* <SettingsContainer
               title='Delete Account'
               firstChild={`'It s a shame you re leaving' 😭`}
             >
@@ -107,7 +118,7 @@ export default function Perfil() {
                 isAlertOpen={alertOpen}
                 setIsAlertOpen={setAlertOpen}
               />
-            </SettingsContainer>
+            </SettingsContainer> */}
           </div>
         </div>
       </section>

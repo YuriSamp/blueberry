@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAtom } from 'jotai'
 import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
@@ -24,18 +24,30 @@ interface IParams {
 const NovaPagina = ({ params }: IParams) => {
   const dateInput = todayDateToDateInput()
   const router = useRouter()
-  const paramsid = params.id.slice(5, 8)
-
-  console.log(params.id.slice(5, 8))
+  const paramsid = Number(params.id.slice(5, 8))
 
   const [title, setTitle] = useState('')
   const [feeling, setFeeling] = useState('Feliz')
   const [text, setText] = useState('')
+  const [color, setColor] = useState('')
   const [data, setData] = useState(dateInput)
-  const [_, setdiary] = useAtom(diaryPage)
+
+  const [diary, setdiary] = useAtom(diaryPage)
   const [id, setdiaryId] = useAtom(diaryId)
   const [options, setoptions] = useAtom(emotionsOptions)
-  const [color, setColor] = useState('')
+
+  useEffect(() => {
+    if (paramsid !== id) {
+      setTitle(diary[paramsid - 1]?.title)
+      setFeeling(diary[paramsid - 1]?.feeling)
+      setText(diary[paramsid - 1]?.text)
+      setData(diary[paramsid - 1]?.data)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+
+
 
   const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -105,13 +117,24 @@ const NovaPagina = ({ params }: IParams) => {
           <textarea
             className="h-96 2xl:h-[400px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
             placeholder="Comece a escrever sobre o seu dia"
+            value={text}
             onChange={(e) => setText(e.target.value)}
           />
           <ToolbarComponent />
           <div className="flex ">
-            <button className="bg-green p-4 rounded-md">
-              Incluir no diario
-            </button>
+            {paramsid !== id ?
+              <button
+                className="bg-green p-4 rounded-md"
+              >
+                Atualizar o diario
+              </button>
+              :
+              <button
+                className="bg-green p-4 rounded-md"
+              >
+                Incluir no diario
+              </button>
+            }
           </div>
         </form>
       </section>
