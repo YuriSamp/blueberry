@@ -9,3 +9,30 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+  Diary    Page[]
+
+  @@map(name: "users")
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  Emotion   String
+  content   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  authorId  String
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map(name: "pages")
+}

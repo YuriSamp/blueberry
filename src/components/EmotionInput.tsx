@@ -77,7 +77,7 @@ export function EmotionInput({
         className="py-2 px-2 rounded-lg focus:outline-none bg-transparent border-[1px] border-black  h-10 w-44 text-center placeholder:text-sm"
         value={UpperCaseFirstLetter(value)}
         onChange={(e) => setInputSearch(e.target.value)}
-        placeholder='Search a feeling'
+        placeholder='Search an emotion'
         onFocus={() => setFocus(true)}
       />
       <section className="relative z-10 bg-white w-52 sm:w-64 shadow-2xl rounded-lg">
