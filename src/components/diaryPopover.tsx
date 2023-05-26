@@ -12,7 +12,7 @@ export function DiaryPopover() {
     <Popover.Root>
       <Popover.Trigger asChild>
         <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white brutalism-box  ">
-          Cores
+          Colors
         </button>
       </Popover.Trigger>
       <Popover.Portal>
@@ -21,9 +21,9 @@ export function DiaryPopover() {
           sideOffset={5}
         >
           <div className="flex flex-col gap-2.5">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <p className="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">
-                Cores das emoções
+                Colors of emotions
               </p>
               <button>
                 <Popover.Close

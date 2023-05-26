@@ -9,18 +9,18 @@ export interface monthControllerProps {
 }
 
 export const arrMeses = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'Setember',
+  'October',
+  'November',
+  'December',
 ]
 
 const MIN_MONTHINDEX = 0

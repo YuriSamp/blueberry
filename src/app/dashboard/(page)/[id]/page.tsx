@@ -136,7 +136,7 @@ const NovaPagina = ({ params }: IParams) => {
           <hr />
           <textarea
             className="h-96 2xl:h-[400px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
-            placeholder="Comece a escrever sobre o seu dia"
+            placeholder="Start writing about your day"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />

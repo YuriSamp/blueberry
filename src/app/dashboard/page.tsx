@@ -107,7 +107,7 @@ const MonthComponent = ({ diary }: IMonthComponent) => {
           href={`./dashboard/page-${id}`}
           className="w-60 h-52 bg-white flex justify-center items-center brutalism-box brutalism-box-hover"
         >
-          <p className="text-lg"> + Entrada </p>
+          <p className="text-lg"> + Page </p>
         </Link>
         {diary.map((entry) => (
           <DiarypageWritten
