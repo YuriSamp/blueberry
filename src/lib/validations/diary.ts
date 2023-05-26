@@ -5,6 +5,6 @@ export const pageSchema = z.object({
   date: z.string(),
   emotion: z.string(),
   text: z.string(),
-  id: z.number(),
+  id: z.string(),
   color: z.string(),
 })

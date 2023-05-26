@@ -8,11 +8,11 @@ export async function GET() {
     const user = await currentUser()
     if (!user) throw Error
 
-    const posts = await db.pages.findMany({
+    const posts = await db.page.findMany({
       select: {
         title: true,
         date: true,
-        emotino: true,
+        emotion: true,
         text: true,
         color: true,
         id: true,
@@ -37,11 +37,11 @@ export async function POST(req: Request) {
     const json = await req.json()
     const body = pageSchema.parse(json)
 
-    const post = await db.pages.create({
+    const post = await db.page.create({
       data: {
         title: body.title,
         date: body.date,
-        emotino: body.emotion,
+        emotion: body.emotion,
         text: body.text,
         color: body.color,
         id: body.id,

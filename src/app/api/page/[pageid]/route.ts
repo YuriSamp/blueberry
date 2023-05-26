@@ -5,7 +5,7 @@ import * as z from 'zod'
 
 const routeContextSchema = z.object({
   params: z.object({
-    postId: z.string(),
+    pageId: z.string(),
   }),
 })
 
@@ -16,13 +16,13 @@ export async function DELETE(
   try {
     const { params } = routeContextSchema.parse(context)
 
-    if (!(await verifyCurrentUserHasAccessToPost(params.postId))) {
+    if (!(await verifyCurrentUserHasAccessToPost(params.pageId))) {
       return new Response(null, { status: 403 })
     }
 
-    await db.post.delete({
+    await db.page.delete({
       where: {
-        id: params.postId as string,
+        id: params.pageId as string,
       },
     })
 
@@ -43,21 +43,21 @@ export async function PATCH(
   try {
     const { params } = routeContextSchema.parse(context)
 
-    if (!(await verifyCurrentUserHasAccessToPost(params.postId))) {
+    if (!(await verifyCurrentUserHasAccessToPost(params.pageId))) {
       return new Response(null, { status: 403 })
     }
 
     const json = await req.json()
     const body = pageSchema.parse(json)
 
-    await db.post.update({
+    await db.page.update({
       where: {
-        id: params.postId,
+        id: params.pageId,
       },
       data: {
         title: body.title,
         date: body.date,
-        emotino: body.emotion,
+        emotion: body.emotion,
         text: body.text,
         color: body.color,
         id: body.id,
@@ -77,7 +77,7 @@ export async function PATCH(
 async function verifyCurrentUserHasAccessToPost(postId: string) {
   const user = await currentUser()
 
-  const count = await db.post.count({
+  const count = await db.page.count({
     where: {
       id: postId,
       authorId: user?.id,

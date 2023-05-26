@@ -26,8 +26,9 @@ model Page {
   id        String   @id @default(cuid())
   title     String
   date      DateTime
-  Emotion   String
-  content   String
+  emotion   String
+  text      String
+  color    String
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   authorId  String
