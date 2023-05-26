@@ -9,9 +9,7 @@ import useMediaQuery from 'src/hooks/useMediaQuery'
 import { SetAtom } from 'src/types/diaryTypes'
 
 interface InputWithSelectI {
-  value?: string
-  defaultValue: string
-  placeholder?: string
+  value: string
   setState: Dispatch<SetStateAction<string>>
   options: emotionOptions[]
   setoption: SetAtom<[SetStateAction<emotionOptions[]>], void>
@@ -20,14 +18,14 @@ interface InputWithSelectI {
 
 export function EmotionInput({
   options,
-  setState,
-  placeholder,
   setoption,
+  setState,
   setColor,
-  defaultValue,
+  value,
 }: InputWithSelectI) {
+
   const [focus, setFocus] = useState(false)
-  const [inputSearch, setInputSearch] = useState(defaultValue)
+  const [inputSearch, setInputSearch] = useState(value)
   const [subModalIsOpen, setSubModalIsOpen] = useState(false)
   const [optionsState, setOptionsState] = useState(options)
   const [emotion, setEmotion] = useState('')
@@ -35,9 +33,7 @@ export function EmotionInput({
   const [y, setY] = useState(0)
   const [itemId, setItemId] = useState(0)
   const [defaultColor, setDefaultColor] = useState('')
-  const domRef = useClickOutside(() => {
-    setFocus(false)
-  })
+  const domRef = useClickOutside(() => setFocus(false))
 
   useEffect(() => {
     if (inputSearch && inputSearch.length > 1) {
@@ -54,15 +50,15 @@ export function EmotionInput({
   }, [inputSearch, options, setState])
 
   useEffect(() => {
-    if (defaultValue !== '') {
+    if (value !== '') {
       options.map((option) => {
-        if (option.name === defaultValue) {
+        if (option.name === value) {
           setColor(option.color)
         }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValue])
+  }, [value])
 
   const matches = useMediaQuery('(min-width: 500px)')
 
@@ -79,9 +75,9 @@ export function EmotionInput({
     <menu className="flex flex-col h-10" ref={domRef}>
       <input
         className="py-2 px-2 rounded-lg focus:outline-none bg-transparent border-[1px] border-black  h-10 w-44 text-center placeholder:text-sm"
-        value={inputSearch}
+        value={UpperCaseFirstLetter(value)}
         onChange={(e) => setInputSearch(e.target.value)}
-        placeholder={placeholder}
+        placeholder='Search a feeling'
         onFocus={() => setFocus(true)}
       />
       <section className="relative z-10 bg-white w-52 sm:w-64 shadow-2xl rounded-lg">

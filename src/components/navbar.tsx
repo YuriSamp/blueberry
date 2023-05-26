@@ -13,7 +13,6 @@ export const Navbar = () => {
   const msg = greetings()
   const { user } = useUser()
 
-  console.log(user)
   return (
     <header>
       <section className="flex py-4 px-8 z-20 relative bg-[#f9f5f2] drop-shadow-lg  w-full justify-between items-center ">

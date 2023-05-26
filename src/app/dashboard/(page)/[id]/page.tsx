@@ -27,7 +27,7 @@ const NovaPagina = ({ params }: IParams) => {
   const paramsid = Number(params.id.slice(5, 8))
 
   const [title, setTitle] = useState('')
-  const [feeling, setFeeling] = useState('Feliz')
+  const [feeling, setFeeling] = useState('')
   const [text, setText] = useState('')
   const [color, setColor] = useState('')
   const [data, setData] = useState(dateInput)
@@ -46,10 +46,7 @@ const NovaPagina = ({ params }: IParams) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
-
-
-  const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (title === '' || data === '') {
@@ -73,6 +70,30 @@ const NovaPagina = ({ params }: IParams) => {
     router.push('./dashboard')
   }
 
+  const updatePage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (title === '' || data === '') {
+      const notify = () => toast.warn("Por favor insira ao menos o titulo e data");
+      notify()
+      return
+    }
+
+    const updated = diary.map(item => {
+      if (item.id === paramsid) {
+        item.title = title
+        item.data = data
+        item.feeling = feeling
+        item.text = text
+        item.color = color
+      }
+      return item
+    })
+
+    setdiary(updated)
+    router.push('./dashboard')
+  }
+
   return (
     <section className="w-full">
       <ToastContainer />
@@ -80,11 +101,11 @@ const NovaPagina = ({ params }: IParams) => {
         <RetturnButton href="/dashboard" />
       </div>
       <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 ">
-        <form className="flex flex-col gap-6" onSubmit={(e) => handleForm(e)}>
+        <form className="flex flex-col gap-6" onSubmit={(e) => paramsid !== id ? updatePage(e) : submitPage(e)}>
           <div className="flex items-center justify-between">
             <input
               className="bg-transparent focus:outline-none p-4 text-3xl w-full"
-              placeholder="Insira um titulo"
+              placeholder="Give a title"
               autoFocus={true}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -108,8 +129,7 @@ const NovaPagina = ({ params }: IParams) => {
                 setoption={setoptions}
                 setState={setFeeling}
                 setColor={setColor}
-                defaultValue=""
-                placeholder={'Procure o sentimento'}
+                value={feeling}
               />
             </div>
           </div>
@@ -126,13 +146,13 @@ const NovaPagina = ({ params }: IParams) => {
               <button
                 className="bg-green p-4 rounded-md"
               >
-                Atualizar o diario
+                Update the diary
               </button>
               :
               <button
                 className="bg-green p-4 rounded-md"
               >
-                Incluir no diario
+                Insert in diary
               </button>
             }
           </div>
