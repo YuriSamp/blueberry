@@ -37,4 +37,5 @@ model Page {
   author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "pages")
+  @@index([authorId])
 }
