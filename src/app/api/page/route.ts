@@ -1,7 +1,10 @@
 import { currentUser } from '@clerk/nextjs'
-import { db } from '@lib/db'
+// import { db } from '@lib/db'
 import { pageSchema } from '@lib/validations/diary'
+import { PrismaClient } from '@prisma/client'
 import * as z from 'zod'
+
+const db = new PrismaClient()
 
 export async function GET() {
   try {
