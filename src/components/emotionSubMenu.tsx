@@ -62,7 +62,7 @@ export const SubMenu = ({
     setOption(optionWithNewColor)
 
     const diaryUpdate = diary.map((item) => {
-      if (item.feeling === emotion) {
+      if (item.emotion === emotion) {
         item.color = color
       }
       return item
