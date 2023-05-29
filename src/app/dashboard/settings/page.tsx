@@ -86,7 +86,7 @@ export default function Perfil() {
             </SettingsContainer>
 
             <SettingsContainer
-              title="Session time"
+              title="Ses sion time"
               firstChild="Regulates the idle time before your account is automatically logged out"
             >
               <div className="relative">

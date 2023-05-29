@@ -32,19 +32,19 @@ export default function Home() {
         height={500}
       />
       <div className="py-10">
-        <p className="text-6xl flex flex-col gap-2 text-center font-medium">
-          <h1>
-            The best online <span className="text-emerald-500"> diary </span>{' '}
+        <h1 className="text-6xl flex flex-col gap-2 text-center font-medium">
+          <span>
+            The best online <span className="text-emerald-500"> journal </span>{' '}
             app
-          </h1>
-          <h1>
+          </span>
+          <span>
             <span className="text-teal-500">made</span> by the{' '}
             <span className="text-red-400"> comunnity</span>
-          </h1>
-          <h1>
+          </span>
+          <span>
             <span className="text-yellow-500">for</span> the comunnity
-          </h1>
-        </p>
+          </span>
+        </h1>
       </div>
       <footer className="text-xl pt-32">
         Code by{' '}

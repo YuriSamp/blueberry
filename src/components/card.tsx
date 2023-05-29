@@ -8,7 +8,7 @@ import useHover from 'src/hooks/useHover'
 import { Idiary } from 'src/types/diaryTypes'
 
 export function DiarypageWritten({
-  data,
+  date,
   text,
   id,
   title,
@@ -18,8 +18,8 @@ export function DiarypageWritten({
 
   const formatedText = text.length > 140 ? text.slice(0, 140) + '...' : text
   const formatedTitle = title.length > 18 ? title.slice(0, 19) + '...' : title
-  const formatedData = data.slice(-5).split('-').reverse()
-  const displayString = [formatedData[0], ' / ', formatedData[1]].concat()
+  const formateddate = date.slice(-5).split('-').reverse()
+  const displayString = [formateddate[0], ' / ', formateddate[1]].concat()
 
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)

@@ -41,16 +41,16 @@ export default function Diario() {
     if (filtro === 'Todas') {
       return diario
     }
-    return diario.filter((item) => item.feeling === filtro)
+    return diario.filter((item) => item.emotion === filtro)
   }
 
   useEffect(() => {
     const compareDate = dateCalendarConvert(year, monthIndex + 1)
     const diaryPerMonth = diary.filter((item) =>
-      item.data.slice(0, 7).includes(compareDate)
+      item.date.slice(0, 7).includes(compareDate)
     )
     const diaryPerMonthSorted = diaryPerMonth.sort(
-      (a, b) => Number(b.data.slice(-2)) - Number(a.data.slice(-2))
+      (a, b) => Number(b.date.slice(-2)) - Number(a.date.slice(-2))
     )
     setdiaryRef(diaryPerMonthSorted)
   }, [monthIndex, diary, year])
@@ -86,7 +86,6 @@ export default function Diario() {
                 />
                 <span className="after:rounded-lg after:top-2 after:left-2 after:right-[-5px] after:bottom-[-5px] after:-z-10 after:absolute after:bg-black"></span>
               </div>
-
             </div>
           </div>
         </div>
@@ -113,8 +112,8 @@ const MonthComponent = ({ diary }: IMonthComponent) => {
           <DiarypageWritten
             text={entry.text}
             title={entry.title}
-            data={entry.data}
-            feeling={entry.feeling}
+            date={entry.date}
+            emotion={entry.emotion}
             id={entry.id}
             color={entry.color}
             key={entry.id}

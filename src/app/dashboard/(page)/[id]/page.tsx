@@ -7,6 +7,7 @@ import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { diaryId, diaryPage } from 'src/context/diaryContext'
+import { useUser } from '@clerk/nextjs'
 
 import { EmotionInput } from '@components/EmotionInput'
 import { RetturnButton } from '@components/retturnButton'
@@ -14,6 +15,7 @@ import ToolbarComponent from '@components/toolbar'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
+import axios from 'axios'
 
 interface IParams {
   params: {
@@ -27,54 +29,58 @@ const NovaPagina = ({ params }: IParams) => {
   const paramsid = Number(params.id.slice(5, 8))
 
   const [title, setTitle] = useState('')
-  const [feeling, setFeeling] = useState('')
+  const [emotion, setemotion] = useState('')
   const [text, setText] = useState('')
   const [color, setColor] = useState('')
-  const [data, setData] = useState(dateInput)
+  const [date, setdate] = useState(dateInput)
 
   const [diary, setdiary] = useAtom(diaryPage)
   const [id, setdiaryId] = useAtom(diaryId)
   const [options, setoptions] = useAtom(emotionsOptions)
+  const { user } = useUser()
+
 
   useEffect(() => {
     if (paramsid !== id) {
       setTitle(diary[paramsid - 1]?.title)
-      setFeeling(diary[paramsid - 1]?.feeling)
+      setemotion(diary[paramsid - 1]?.emotion)
       setText(diary[paramsid - 1]?.text)
-      setData(diary[paramsid - 1]?.data)
+      setdate(diary[paramsid - 1]?.date)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const submitPage = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitPage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (title === '' || data === '') {
+    if (title === '' || date === '') {
       const notify = () =>
-        toast.warn('Por favor insira ao menos o titulo e data')
+        toast.warn('Por favor insira ao menos o titulo e date')
       notify()
       return
     }
 
     const notes = {
       title,
-      data,
-      feeling,
+      date,
+      emotion,
       text,
-      id,
       color,
+      id: String(id),
+      authorId: user?.id
     }
 
-    setdiary((prev) => [...prev, notes])
-    setdiaryId((prev) => prev + 1)
-    router.push('./dashboard')
+    await axios.post('../api/page', notes)
+    // setdiary((prev) => [...prev, notes])
+    // setdiaryId((prev) => prev + 1)
+    // router.push('./dashboard')
   }
 
   const updatePage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (title === '' || data === '') {
-      const notify = () => toast.warn("Por favor insira ao menos o titulo e data");
+    if (title === '' || date === '') {
+      const notify = () => toast.warn("Por favor insira ao menos o titulo e date");
       notify()
       return
     }
@@ -82,8 +88,8 @@ const NovaPagina = ({ params }: IParams) => {
     const updated = diary.map(item => {
       if (item.id === paramsid) {
         item.title = title
-        item.data = data
-        item.feeling = feeling
+        item.date = date
+        item.emotion = emotion
         item.text = text
         item.color = color
       }
@@ -110,7 +116,6 @@ const NovaPagina = ({ params }: IParams) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <p>{String(paramsid).padStart(3, '0')}</p>
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex w-full gap-3 items-center">
@@ -118,8 +123,8 @@ const NovaPagina = ({ params }: IParams) => {
               <input
                 type="date"
                 className="bg-transparent h-[40px] px-2 border-[1px] w-[176px] border-black  rounded-md focus:outline-none text-center"
-                value={data}
-                onChange={(e) => setData(e.target.value)}
+                value={date}
+                onChange={(e) => setdate(e.target.value)}
               />
             </div>
             <div className="flex w-full gap-3 items-center">
@@ -127,9 +132,9 @@ const NovaPagina = ({ params }: IParams) => {
               <EmotionInput
                 options={options}
                 setoption={setoptions}
-                setState={setFeeling}
+                setState={setemotion}
                 setColor={setColor}
-                value={feeling}
+                value={emotion}
               />
             </div>
           </div>

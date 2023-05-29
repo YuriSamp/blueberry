@@ -1,7 +1,7 @@
 export interface Idiary {
   title: string
-  data: string
-  feeling: string
+  date: string
+  emotion: string
   text: string
   id: number
   color: string
