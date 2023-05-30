@@ -26,7 +26,7 @@ interface IParams {
 const NovaPagina = ({ params }: IParams) => {
   const dateInput = todayDateToDateInput()
   const router = useRouter()
-  const paramsid = Number(params.id.slice(5, 8))
+  const paramsid = params.id.slice(5, params.id.length)
 
   const [title, setTitle] = useState('')
   const [emotion, setemotion] = useState('')
@@ -35,17 +35,16 @@ const NovaPagina = ({ params }: IParams) => {
   const [date, setdate] = useState(dateInput)
 
   const [diary, setdiary] = useAtom(diaryPage)
-  const [id, setdiaryId] = useAtom(diaryId)
   const [options, setoptions] = useAtom(emotionsOptions)
   const { user } = useUser()
 
-
   useEffect(() => {
-    if (paramsid !== id) {
-      setTitle(diary[paramsid - 1]?.title)
-      setemotion(diary[paramsid - 1]?.emotion)
-      setText(diary[paramsid - 1]?.text)
-      setdate(diary[paramsid - 1]?.date)
+    if (params.id !== 'new-page') {
+      const page = diary.filter(page => String(page.id) === paramsid)
+      setTitle(page[0].title)
+      setemotion(page[0].emotion)
+      setText(page[0].text)
+      setdate(page[0].date.split('T')[0])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -66,17 +65,14 @@ const NovaPagina = ({ params }: IParams) => {
       emotion,
       text,
       color,
-      id: String(id),
       authorId: user?.id
     }
 
     await axios.post('../api/page', notes)
-    // setdiary((prev) => [...prev, notes])
-    // setdiaryId((prev) => prev + 1)
-    // router.push('./dashboard')
+    router.push('./dashboard')
   }
 
-  const updatePage = (e: React.FormEvent<HTMLFormElement>) => {
+  const updatePage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (title === '' || date === '') {
@@ -85,18 +81,15 @@ const NovaPagina = ({ params }: IParams) => {
       return
     }
 
-    const updated = diary.map(item => {
-      if (item.id === paramsid) {
-        item.title = title
-        item.date = date
-        item.emotion = emotion
-        item.text = text
-        item.color = color
-      }
-      return item
-    })
+    const notes = {
+      title,
+      date,
+      emotion,
+      text,
+      color,
+    }
 
-    setdiary(updated)
+    await axios.patch(`../api/page/pageId=${paramsid}`, notes)
     router.push('./dashboard')
   }
 
@@ -107,7 +100,7 @@ const NovaPagina = ({ params }: IParams) => {
         <RetturnButton href="/dashboard" />
       </div>
       <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 ">
-        <form className="flex flex-col gap-6" onSubmit={(e) => paramsid !== id ? updatePage(e) : submitPage(e)}>
+        <form className="flex flex-col gap-6" onSubmit={(e) => params.id !== 'new-page' ? updatePage(e) : submitPage(e)}>
           <div className="flex items-center justify-between">
             <input
               className="bg-transparent focus:outline-none p-4 text-3xl w-full"
@@ -147,7 +140,7 @@ const NovaPagina = ({ params }: IParams) => {
           />
           <ToolbarComponent />
           <div className="flex ">
-            {paramsid !== id ?
+            {params.id !== 'new-page' ?
               <button
                 className="bg-green p-4 rounded-md"
               >

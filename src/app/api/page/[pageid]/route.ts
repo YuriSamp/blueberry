@@ -1,6 +1,5 @@
-import { currentUser } from '@clerk/nextjs'
 import { db } from '@lib/db'
-import { pageSchema } from '@lib/validations/diary'
+import { pageSchema, updatePageSchema } from '@lib/validations/diary'
 import * as z from 'zod'
 
 const routeContextSchema = z.object({
@@ -14,24 +13,20 @@ export async function DELETE(
   context: z.infer<typeof routeContextSchema>
 ) {
   try {
-    const { params } = routeContextSchema.parse(context)
-
-    if (!(await verifyCurrentUserHasAccessToPost(params.pageId))) {
-      return new Response(null, { status: 403 })
-    }
+    const id = req.url?.split('=')[1]
 
     await db.page.delete({
       where: {
-        id: params.pageId as string,
+        id: id as string,
       },
     })
 
     return new Response(null, { status: 204 })
   } catch (error) {
+    console.log(error)
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }
-
     return new Response(null, { status: 500 })
   }
 }
@@ -41,18 +36,14 @@ export async function PATCH(
   context: z.infer<typeof routeContextSchema>
 ) {
   try {
-    const { params } = routeContextSchema.parse(context)
-
-    if (!(await verifyCurrentUserHasAccessToPost(params.pageId))) {
-      return new Response(null, { status: 403 })
-    }
+    const pageId = req.url?.split('=')[1]
 
     const json = await req.json()
-    const body = pageSchema.parse(json)
+    const body = updatePageSchema.parse({ ...json, date: new Date(json.date) })
 
     await db.page.update({
       where: {
-        id: params.pageId,
+        id: pageId,
       },
       data: {
         title: body.title,
@@ -60,29 +51,16 @@ export async function PATCH(
         emotion: body.emotion,
         text: body.text,
         color: body.color,
-        id: body.id,
       },
     })
 
     return new Response(null, { status: 200 })
   } catch (error) {
+    console.log(error)
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }
 
     return new Response(null, { status: 500 })
   }
-}
-
-async function verifyCurrentUserHasAccessToPost(postId: string) {
-  const user = await currentUser()
-
-  const count = await db.page.count({
-    where: {
-      id: postId,
-      authorId: user?.id,
-    },
-  })
-
-  return count > 0
 }

@@ -1,15 +1,11 @@
-import { auth, currentUser } from '@clerk/nextjs'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '@lib/db'
 import { pageSchema } from '@lib/validations/diary'
-import { PrismaClient } from '@prisma/client'
 import * as z from 'zod'
 
-export async function GET() {
+export async function GET(req: NextApiRequest) {
   try {
-    const user = await currentUser()
-    if (!user) {
-      return new Response('Unauthorized', { status: 403 })
-    }
+    const id = req.url?.split('=')[1]
     const posts = await db.page.findMany({
       select: {
         title: true,
@@ -21,7 +17,7 @@ export async function GET() {
         authorId: true,
       },
       where: {
-        authorId: user.id,
+        authorId: id,
       },
     })
     return new Response(JSON.stringify(posts))
@@ -35,9 +31,7 @@ export async function POST(req: Request) {
     const json = await req.json()
     const body = pageSchema.parse({ ...json, date: new Date(json.date) })
 
-    const prisma = new PrismaClient()
-
-    const post = await prisma.page.create({
+    const post = await db.page.create({
       data: {
         title: body.title,
         date: body.date,
@@ -50,7 +44,6 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify(post))
   } catch (error) {
-    console.log(error)
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }

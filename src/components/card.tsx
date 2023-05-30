@@ -6,6 +6,7 @@ import { BsTrash } from 'react-icons/bs'
 import { diaryPage } from 'src/context/diaryContext'
 import useHover from 'src/hooks/useHover'
 import { Idiary } from 'src/types/diaryTypes'
+import axios from 'axios'
 
 export function DiarypageWritten({
   date,
@@ -18,13 +19,13 @@ export function DiarypageWritten({
 
   const formatedText = text.length > 140 ? text.slice(0, 140) + '...' : text
   const formatedTitle = title.length > 18 ? title.slice(0, 19) + '...' : title
-  const formateddate = date.slice(-5).split('-').reverse()
-  const displayString = [formateddate[0], ' / ', formateddate[1]].concat()
+  const displaydate = date.split('T')[0].split('-').reverse().join('/').slice(0, 5)
 
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
 
-  const removeEntry = () => {
+  const removeEntry = async () => {
+    await axios.delete(`../api/page/pageId=${id}`)
     const diaryUpdated = diary.filter((entry) => entry.id !== id)
     setdiary(diaryUpdated)
   }
@@ -41,7 +42,7 @@ export function DiarypageWritten({
           className="flex justify-between absolute bottom-0 left-0 py-2 w-full px-3 rounded-b-md"
         >
           <p>{formatedTitle}</p>
-          <p>{displayString}</p>
+          <p>{displaydate}</p>
         </div>
       </Link>
       <div className={`${isHover ? 'flex' : 'hidden'}`}>

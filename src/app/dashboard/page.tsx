@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 
 import { DiarypageWritten } from '@components/card'
 import { DiaryPopover } from '@components/diaryPopover'
@@ -14,6 +14,8 @@ import { diaryId, diaryPage } from 'src/context/diaryContext'
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { dateCalendarConvert } from 'src/helpers/dateHelpers'
 import { Idiary } from 'src/types/diaryTypes'
+import { useUser } from '@clerk/nextjs'
+import axios from 'axios'
 
 interface IMonthComponent {
   diary: Idiary[]
@@ -33,9 +35,12 @@ export default function Diario() {
 
   const [monthIndex, setMonthIndex] = useState(month)
   const [year, setYear] = useState(date.getFullYear())
-  const diary = useAtomValue(diaryPage)
-  const [diaryRef, setdiaryRef] = useState(diary)
   const [emotionSelected, setEmotionSelected] = useState('Todas')
+
+  const [diary, setDiary] = useAtom(diaryPage)
+  const { user } = useUser()
+
+  const [diaryRef, setdiaryRef] = useState(diary)
 
   const diarioFiltrado = (diario: Idiary[], filtro: string) => {
     if (filtro === 'Todas') {
@@ -58,6 +63,21 @@ export default function Diario() {
   useEffect(() => {
     setdiaryRef(diary)
   }, [diary])
+
+  useEffect(() => {
+    const getPages = async () => {
+      const pages = await axios.get<Idiary[]>('../api/page', {
+        params: {
+          id: user?.id
+        }
+      })
+      setDiary(pages.data)
+      setdiaryRef(pages.data)
+    }
+    getPages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
 
   return (
     <>
@@ -103,7 +123,7 @@ const MonthComponent = ({ diary }: IMonthComponent) => {
       <hr className="mt-10 mb-5" />
       <div className="flex justify-center sm:justify-start flex-wrap gap-4 pt-4">
         <Link
-          href={`./dashboard/page-${id}`}
+          href='./dashboard/new-page'
           className="w-60 h-52 bg-white flex justify-center items-center brutalism-box brutalism-box-hover"
         >
           <p className="text-lg"> + Page </p>
