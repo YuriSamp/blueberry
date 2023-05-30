@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '@lib/db'
 import { pageSchema } from '@lib/validations/diary'
 import * as z from 'zod'
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     const id = req.url?.split('=')[1]
     const posts = await db.page.findMany({
