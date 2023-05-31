@@ -11,6 +11,7 @@ import SettingsAlert from '@components/settingsAlert'
 import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
 import { useUser, useAuth } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
 
@@ -19,7 +20,7 @@ export default function Perfil() {
   const [photo, setPhoto] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
   const [sessionTime, setSessionTime] = useState('10 min')
-
+  const router = useRouter()
   const { user } = useUser()
   const { signOut } = useAuth()
 
@@ -107,7 +108,10 @@ export default function Perfil() {
               <Button
                 Children='Logout'
                 intent="danger"
-                onClick={async () => await signOut()}
+                onClick={async () => {
+                  await signOut()
+                  router.push('./dashboard')
+                }}
               />
             </SettingsContainer>
             {/* <SettingsContainer

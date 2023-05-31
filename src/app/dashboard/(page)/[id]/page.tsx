@@ -26,7 +26,7 @@ interface IParams {
 const NovaPagina = ({ params }: IParams) => {
   const dateInput = todayDateToDateInput()
   const router = useRouter()
-  const paramsid = params.id.slice(5, params.id.length)
+  const id = params.id.slice(5, params.id.length)
 
   const [title, setTitle] = useState('')
   const [emotion, setemotion] = useState('')
@@ -36,11 +36,10 @@ const NovaPagina = ({ params }: IParams) => {
 
   const [diary, setdiary] = useAtom(diaryPage)
   const [options, setoptions] = useAtom(emotionsOptions)
-  const { user } = useUser()
 
   useEffect(() => {
     if (params.id !== 'new-page') {
-      const page = diary.filter(page => String(page.id) === paramsid)
+      const page = diary.filter(page => String(page.id) === id)
       setTitle(page[0].title)
       setemotion(page[0].emotion)
       setText(page[0].text)
@@ -65,7 +64,6 @@ const NovaPagina = ({ params }: IParams) => {
       emotion,
       text,
       color,
-      authorId: user?.id
     }
 
     await axios.post('../api/page', notes)
@@ -89,7 +87,7 @@ const NovaPagina = ({ params }: IParams) => {
       color,
     }
 
-    await axios.patch(`../api/page/pageId=${paramsid}`, notes)
+    await axios.patch(`../api/page/${id}`, notes)
     router.push('./dashboard')
   }
 

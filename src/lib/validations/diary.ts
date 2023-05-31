@@ -6,7 +6,6 @@ export const pageSchema = z.object({
   emotion: z.string(),
   text: z.string(),
   color: z.string(),
-  authorId: z.string(),
 })
 
 export const updatePageSchema = z.object({

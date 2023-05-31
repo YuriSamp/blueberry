@@ -1,10 +1,16 @@
+import { auth } from '@clerk/nextjs'
 import { db } from '@lib/db'
 import { pageSchema } from '@lib/validations/diary'
 import * as z from 'zod'
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    const id = req.url?.split('=')[1]
+    const { userId } = auth()
+
+    if (userId === null) {
+      return new Response('Unauthorized', { status: 403 })
+    }
+
     const posts = await db.page.findMany({
       select: {
         title: true,
@@ -16,7 +22,7 @@ export async function GET(req: Request) {
         authorId: true,
       },
       where: {
-        authorId: id,
+        authorId: userId,
       },
     })
     return new Response(JSON.stringify(posts))
@@ -27,6 +33,12 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const { userId } = auth()
+
+    if (userId === null) {
+      return new Response('Unauthorized', { status: 403 })
+    }
+
     const json = await req.json()
     const body = pageSchema.parse({ ...json, date: new Date(json.date) })
 
@@ -37,10 +49,9 @@ export async function POST(req: Request) {
         emotion: body.emotion,
         text: body.text,
         color: body.color,
-        authorId: body.authorId,
+        authorId: userId,
       },
     })
-
     return new Response(JSON.stringify(post))
   } catch (error) {
     if (error instanceof z.ZodError) {

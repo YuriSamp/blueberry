@@ -66,11 +66,7 @@ export default function Diario() {
 
   useEffect(() => {
     const getPages = async () => {
-      const pages = await axios.get<Idiary[]>('../api/page', {
-        params: {
-          id: user?.id
-        }
-      })
+      const pages = await axios.get<Idiary[]>('../api/page')
       setDiary(pages.data)
       setdiaryRef(pages.data)
     }

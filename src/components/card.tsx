@@ -25,7 +25,7 @@ export function DiarypageWritten({
   const isHover = useHover(hoverRef)
 
   const removeEntry = async () => {
-    await axios.delete(`../api/page/pageId=${id}`)
+    await axios.delete(`../api/page/${id}`)
     const diaryUpdated = diary.filter((entry) => entry.id !== id)
     setdiary(diaryUpdated)
   }
