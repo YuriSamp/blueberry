@@ -8,7 +8,7 @@ import { DiarypageWritten } from '@components/card'
 import { DiaryPopover } from '@components/diaryPopover'
 import { MonthController } from '@components/monthController'
 import { Navbar } from '@components/navbar'
-import { Select } from '@components/select'
+import { Select } from '@components/ui/select'
 
 import { diaryId, diaryPage } from 'src/context/diaryContext'
 import { emotionsOptions } from 'src/context/emotionsOptions'

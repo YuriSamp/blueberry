@@ -1,8 +1,12 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
-import AvatarIcon from './avatar'
+import AvatarIcon from './ui/avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { ExitIcon } from '@radix-ui/react-icons'
+import { useAuth } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 export const routes = [
   {
@@ -17,7 +21,9 @@ type Props = {
 }
 
 export function AvatarWithDropDown({ Path }: Props) {
-  // const [signOut] = useSignOut(auth);
+
+  const { signOut } = useAuth()
+  const router = useRouter()
 
   return (
     <DropdownMenu.Root>
@@ -52,12 +58,10 @@ export function AvatarWithDropDown({ Path }: Props) {
           <DropdownMenu.Item className="text-sm text-black rounded flex items-center h-6 px-5 py-0 relative pl-6 select-none outline-none cursor-pointer hover:bg-violet-900 dark:hover:bg-gray-800 hover:text-white">
             <button
               className="flex gap-2"
-            // onClick={async () => {
-            //   const sucess = await signOut()
-            //   if (sucess)
-            //     nookies.destroy(undefined, 'token')
-            //   router.push('/')
-            // }}
+              onClick={async () => {
+                await signOut()
+                router.push('./dashboard')
+              }}
             >
               <ExitIcon />
               Sair da conta

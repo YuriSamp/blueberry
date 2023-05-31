@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 
-import { Button } from '@components/button'
-import { ControledInput } from '@components/input'
+import { Button } from '@components/ui/button'
+import { ControledInput } from '@components/ui/input'
 
 import { RetturnButton } from '@components/retturnButton'
-import { Select } from '@components/select'
+import { Select } from '@components/ui/select'
 import SettingsAlert from '@components/settingsAlert'
 import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
@@ -87,7 +87,7 @@ export default function Perfil() {
             </SettingsContainer>
 
             <SettingsContainer
-              title="Ses sion time"
+              title="Session time"
               firstChild="Regulates the idle time before your account is automatically logged out"
             >
               <div className="relative">
@@ -114,7 +114,7 @@ export default function Perfil() {
                 }}
               />
             </SettingsContainer>
-            {/* <SettingsContainer
+            <SettingsContainer
               title='Delete Account'
               firstChild={`'It s a shame you re leaving' 😭`}
             >
@@ -122,7 +122,7 @@ export default function Perfil() {
                 isAlertOpen={alertOpen}
                 setIsAlertOpen={setAlertOpen}
               />
-            </SettingsContainer> */}
+            </SettingsContainer>
           </div>
         </div>
       </section>

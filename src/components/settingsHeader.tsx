@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import AvatarIcon from '@components/avatar'
+import AvatarIcon from '@components/ui/avatar'
 import { useUser } from '@clerk/nextjs'
 
 

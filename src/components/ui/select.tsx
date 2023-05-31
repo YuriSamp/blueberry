@@ -55,7 +55,7 @@ export function Select({
           key={index}
           className="dark:bg-InputGray min-w-[100px] max-w-[180px] overflow-ellipsis"
         >
-          {item}
+          {UpperCaseFirstLetter(item)}
         </option>
       ))}
     </select>

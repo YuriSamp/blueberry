@@ -45,7 +45,7 @@
 }
 
 .brutalism-box {
-  @apply border  border-black  rounded-lg relative after:rounded-lg after:top-2 after:left-2 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black  cursor-pointer;
+  @apply border  border-black  rounded-lg relative after:rounded-lg after:top-1 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black  cursor-pointer;
 }
 
 .brutalism-box-hover {
