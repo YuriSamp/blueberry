@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs'
 import { db } from '@lib/db'
-import { updatePageSchema } from '@lib/validations/diary'
+import { pageSchema } from '@lib/validations/diary'
 import * as z from 'zod'
 
 const routeContextSchema = z.object({
@@ -35,7 +35,7 @@ export async function DELETE(
   }
 }
 
-export async function PATCH(
+export async function PUT(
   req: Request,
   context: z.infer<typeof routeContextSchema>
 ) {
@@ -47,7 +47,7 @@ export async function PATCH(
     }
 
     const json = await req.json()
-    const body = updatePageSchema.parse({ ...json, date: new Date(json.date) })
+    const body = pageSchema.parse({ ...json, date: new Date(json.date) })
 
     await db.page.update({
       where: {

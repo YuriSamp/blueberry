@@ -7,21 +7,20 @@ import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import useMediaQuery from 'src/hooks/useMediaQuery'
 import { SetAtom } from 'src/types/diaryTypes'
+import { journalType } from '@lib/validations/diary'
 
 interface InputWithSelectI {
   value: string
-  setState: Dispatch<SetStateAction<string>>
   options: emotionOptions[]
   setoption: SetAtom<[SetStateAction<emotionOptions[]>], void>
-  setColor: Dispatch<SetStateAction<string>>
+  formDispatch: Dispatch<Partial<journalType>>
 }
 
 export function EmotionInput({
   options,
   setoption,
-  setState,
-  setColor,
   value,
+  formDispatch
 }: InputWithSelectI) {
 
   const [focus, setFocus] = useState(false)
@@ -42,18 +41,19 @@ export function EmotionInput({
           item.name.toLowerCase().includes(inputSearch.trim().toLowerCase())
         )
       )
-      setState(inputSearch)
+      formDispatch({ emotion: inputSearch })
     } else {
       setOptionsState(options)
-      setState(inputSearch)
+      formDispatch({ emotion: inputSearch })
+
     }
-  }, [inputSearch, options, setState])
+  }, [inputSearch, options, formDispatch])
 
   useEffect(() => {
     if (value !== '') {
       options.map((option) => {
         if (option.name === value) {
-          setColor(option.color)
+          formDispatch({ color: option.color })
         }
       })
     }
@@ -100,7 +100,7 @@ export function EmotionInput({
                         onClick={() => {
                           setInputSearch(item.name)
                           setFocus(false)
-                          setColor(item.color)
+                          formDispatch({ color: item.color })
                         }}
                       >
                         <p
@@ -133,7 +133,7 @@ export function EmotionInput({
                       .sort(() => 0.5 - Math.random())
                       .slice(0, 1)
                       .map((item) => item.color)
-                    setColor(randomColor[0])
+                    formDispatch({ color: randomColor[0] })
                     setoption((prev) => [
                       ...prev,
                       {

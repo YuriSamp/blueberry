@@ -10,11 +10,10 @@ import { MonthController } from '@components/monthController'
 import { Navbar } from '@components/navbar'
 import { Select } from '@components/ui/select'
 
-import { diaryId, diaryPage } from 'src/context/diaryContext'
+import { diaryPage } from 'src/context/diaryContext'
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { dateCalendarConvert } from 'src/helpers/dateHelpers'
 import { Idiary } from 'src/types/diaryTypes'
-import { useUser } from '@clerk/nextjs'
 import axios from 'axios'
 
 interface IMonthComponent {
@@ -38,8 +37,6 @@ export default function Diario() {
   const [emotionSelected, setEmotionSelected] = useState('Todas')
 
   const [diary, setDiary] = useAtom(diaryPage)
-  const { user } = useUser()
-
   const [diaryRef, setdiaryRef] = useState(diary)
 
   const diarioFiltrado = (diario: Idiary[], filtro: string) => {
@@ -113,7 +110,6 @@ export default function Diario() {
 
 const MonthComponent = ({ diary }: IMonthComponent) => {
 
-  const id = useAtomValue(diaryId)
   return (
     <div>
       <hr className="mt-10 mb-5" />

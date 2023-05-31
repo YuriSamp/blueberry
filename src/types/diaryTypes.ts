@@ -3,8 +3,8 @@ export interface Idiary {
   date: string
   emotion: string
   text: string
-  id: number
   color: string
+  id: number
 }
 
 export type SetAtom<Args extends unknown[], Result> = <A extends Args>(

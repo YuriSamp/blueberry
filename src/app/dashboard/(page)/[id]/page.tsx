@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 
-import { diaryId, diaryPage } from 'src/context/diaryContext'
-import { useUser } from '@clerk/nextjs'
+import { diaryPage } from 'src/context/diaryContext'
 
 import { EmotionInput } from '@components/EmotionInput'
 import { RetturnButton } from '@components/retturnButton'
@@ -16,6 +15,7 @@ import ToolbarComponent from '@components/toolbar'
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
 import axios from 'axios'
+import { journalSchema, journalType } from '@lib/validations/diary'
 
 interface IParams {
   params: {
@@ -23,27 +23,40 @@ interface IParams {
   }
 }
 
+
+const dateInput = todayDateToDateInput()
+
+const initialState: journalType = {
+  title: '',
+  color: '',
+  date: dateInput,
+  emotion: '',
+  text: '',
+}
+
+function reducer(state: journalType, action: Partial<journalType>) {
+  return { ...state, ...action }
+}
+
+
 const NovaPagina = ({ params }: IParams) => {
-  const dateInput = todayDateToDateInput()
   const router = useRouter()
   const id = params.id.slice(5, params.id.length)
 
-  const [title, setTitle] = useState('')
-  const [emotion, setemotion] = useState('')
-  const [text, setText] = useState('')
-  const [color, setColor] = useState('')
-  const [date, setdate] = useState(dateInput)
+  const [form, formDispatch] = useReducer(reducer, initialState)
 
-  const [diary, setdiary] = useAtom(diaryPage)
+  const inputHandle = (type: keyof journalType) => (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => formDispatch({ [type]: e.target.value })
+
+  const diary = useAtomValue(diaryPage)
   const [options, setoptions] = useAtom(emotionsOptions)
 
   useEffect(() => {
     if (params.id !== 'new-page') {
-      const page = diary.filter(page => String(page.id) === id)
-      setTitle(page[0].title)
-      setemotion(page[0].emotion)
-      setText(page[0].text)
-      setdate(page[0].date.split('T')[0])
+      const page = diary.filter(page => String(page.id) === id)[0]
+      formDispatch({ title: page.title })
+      formDispatch({ emotion: page.emotion })
+      formDispatch({ text: page.text })
+      formDispatch({ date: page.date.split('T')[0] })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -51,44 +64,23 @@ const NovaPagina = ({ params }: IParams) => {
   const submitPage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (title === '' || date === '') {
-      const notify = () =>
-        toast.warn('Por favor insira ao menos o titulo e date')
-      notify()
+    const parsedFields = journalSchema.safeParse(form)
+
+    if (!parsedFields.success) {
+      const fieldErrors = parsedFields.error.formErrors.fieldErrors
+      const teste: readonly string[] = Object.keys(fieldErrors)
+      toast.error(fieldErrors[teste.at(0) as keyof journalType]?.at(0))
       return
     }
 
-    const notes = {
-      title,
-      date,
-      emotion,
-      text,
-      color,
+    if (params.id !== 'new-page') {
+      await axios.put(`../api/page/${id}`, form)
+    } else {
+      await axios.post('../api/page', form)
     }
 
-    await axios.post('../api/page', notes)
     router.push('./dashboard')
-  }
-
-  const updatePage = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    if (title === '' || date === '') {
-      const notify = () => toast.warn("Por favor insira ao menos o titulo e date");
-      notify()
-      return
-    }
-
-    const notes = {
-      title,
-      date,
-      emotion,
-      text,
-      color,
-    }
-
-    await axios.patch(`../api/page/${id}`, notes)
-    router.push('./dashboard')
+    return
   }
 
   return (
@@ -98,14 +90,14 @@ const NovaPagina = ({ params }: IParams) => {
         <RetturnButton href="/dashboard" />
       </div>
       <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 ">
-        <form className="flex flex-col gap-6" onSubmit={(e) => params.id !== 'new-page' ? updatePage(e) : submitPage(e)}>
+        <form className="flex flex-col gap-6" onSubmit={submitPage}>
           <div className="flex items-center justify-between">
             <input
               className="bg-transparent focus:outline-none p-4 text-3xl w-full"
               placeholder="Give a title"
               autoFocus={true}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={form.title}
+              onChange={inputHandle('title')}
             />
           </div>
           <div className="flex flex-col gap-6">
@@ -114,8 +106,8 @@ const NovaPagina = ({ params }: IParams) => {
               <input
                 type="date"
                 className="bg-transparent h-[40px] px-2 border-[1px] w-[176px] border-black  rounded-md focus:outline-none text-center"
-                value={date}
-                onChange={(e) => setdate(e.target.value)}
+                value={form.date}
+                onChange={inputHandle('date')}
               />
             </div>
             <div className="flex w-full gap-3 items-center">
@@ -123,9 +115,8 @@ const NovaPagina = ({ params }: IParams) => {
               <EmotionInput
                 options={options}
                 setoption={setoptions}
-                setState={setemotion}
-                setColor={setColor}
-                value={emotion}
+                formDispatch={formDispatch}
+                value={form.emotion}
               />
             </div>
           </div>
@@ -133,24 +124,16 @@ const NovaPagina = ({ params }: IParams) => {
           <textarea
             className="h-96 2xl:h-[400px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
             placeholder="Start writing about your day"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={form.text}
+            onChange={inputHandle('text')}
           />
           <ToolbarComponent />
           <div className="flex ">
-            {params.id !== 'new-page' ?
-              <button
-                className="bg-green p-4 rounded-md"
-              >
-                Update the diary
-              </button>
-              :
-              <button
-                className="bg-green p-4 rounded-md"
-              >
-                Insert in diary
-              </button>
-            }
+            <button
+              className="bg-green p-4 rounded-md"
+            >
+              {params.id !== 'new-page' ? 'Update the diary' : 'Insert in diary'}
+            </button>
           </div>
         </form>
       </section>
