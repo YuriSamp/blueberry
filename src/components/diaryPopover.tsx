@@ -4,15 +4,16 @@ import { RxCross1 } from 'react-icons/rx'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
-
+import { BsInfoCircle } from 'react-icons/bs'
 export function DiaryPopover() {
   const options = useAtomValue(emotionsOptions)
 
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white brutalism-box  ">
-          Colors
+        <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white brutalism-box flex justify-between items-center px-8  ">
+          <p>Colors</p>
+          < BsInfoCircle />
         </button>
       </Popover.Trigger>
       <Popover.Portal>

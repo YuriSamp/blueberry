@@ -39,7 +39,7 @@ export default function Perfil() {
       <section className="px-10 sm:px-20 lg:px-40 2xl:px-96 pt-16">
         <div className={`${alertOpen ? 'blur-sm' : ''}`}>
           <Header />
-          <div className="sm:max-h-[600px] overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
+          <div className="sm:max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
             <SettingsContainer
               title='Name'
               firstChild={
