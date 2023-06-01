@@ -70,8 +70,8 @@ const NovaPagina = ({ params }: IParams) => {
 
       if (!parsedFields.success) {
         const fieldErrors = parsedFields.error.formErrors.fieldErrors
-        const teste: readonly string[] = Object.keys(fieldErrors)
-        toast.error(fieldErrors[teste.at(0) as keyof journalType]?.at(0))
+        const errorArray: readonly string[] = Object.keys(fieldErrors)
+        toast.error(fieldErrors[errorArray.at(0) as keyof journalType]?.at(0))
         return
       }
 
