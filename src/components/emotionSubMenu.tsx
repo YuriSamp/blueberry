@@ -10,8 +10,8 @@ import { SetAtom } from 'src/types/diaryTypes'
 
 interface ISubMenu {
   setSubModalIsOpen: Dispatch<SetStateAction<boolean>>
-  y: number
-  x: number
+  yCoordinates: number
+  xCoordinates: number
   emotion: string
   setEmotion: Dispatch<SetStateAction<string>>
   options: emotionOptions[]
@@ -23,8 +23,8 @@ interface ISubMenu {
 
 export const SubMenu = ({
   setSubModalIsOpen,
-  x,
-  y,
+  xCoordinates,
+  yCoordinates,
   emotion,
   setEmotion,
   options,
@@ -77,7 +77,7 @@ export const SubMenu = ({
 
   return (
     <menu
-      style={{ transform: `translate(${x + 'px'}, ${y + 'px'})` }}
+      style={{ transform: `translate(${xCoordinates + 'px'}, ${yCoordinates + 'px'})` }}
       className=" bg-white  shadow-2xl  z-20 px-5 relative "
       ref={domRef}
     >

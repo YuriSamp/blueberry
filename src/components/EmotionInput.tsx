@@ -28,8 +28,8 @@ export function EmotionInput({
   const [subModalIsOpen, setSubModalIsOpen] = useState(false)
   const [optionsState, setOptionsState] = useState(options)
   const [emotion, setEmotion] = useState('')
-  const [x, setX] = useState(0)
-  const [y, setY] = useState(0)
+  const [xCoordinates, setX] = useState(0)
+  const [yCoordinates, setY] = useState(0)
   const [itemId, setItemId] = useState(0)
   const [defaultColor, setDefaultColor] = useState('')
   const domRef = useClickOutside(() => setFocus(false))
@@ -69,6 +69,24 @@ export function EmotionInput({
     setY(-100)
     setItemId(id)
     setDefaultColor(color)
+  }
+
+  const newOption = () => {
+    const randomColor = emotionColors
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 1)
+      .map((item) => item.color)
+    formDispatch({ color: randomColor[0] })
+    setoption((prev) => [
+      ...prev,
+      {
+        name: inputSearch,
+        id: options.length,
+        color: randomColor[0],
+      },
+    ])
+    setInputSearch('')
+    setFocus(false)
   }
 
   return (
@@ -128,26 +146,10 @@ export function EmotionInput({
                 <button
                   type="button"
                   className="hover:bg-gray-200 cursor-pointer w-full"
-                  onClick={() => {
-                    const randomColor = emotionColors
-                      .sort(() => 0.5 - Math.random())
-                      .slice(0, 1)
-                      .map((item) => item.color)
-                    formDispatch({ color: randomColor[0] })
-                    setoption((prev) => [
-                      ...prev,
-                      {
-                        name: inputSearch,
-                        id: options.length,
-                        color: randomColor[0],
-                      },
-                    ])
-                    setInputSearch('')
-                    setFocus(false)
-                  }}
+                  onClick={() => newOption()}
                 >
                   <p className="flex gap-5 items-center py-1 px-4 ">
-                    <span>Criar</span>
+                    <span>Add</span>
                     <span>{inputSearch}</span>
                   </p>
                 </button>
@@ -159,8 +161,8 @@ export function EmotionInput({
       {subModalIsOpen && (
         <SubMenu
           setSubModalIsOpen={setSubModalIsOpen}
-          y={y}
-          x={x}
+          yCoordinates={yCoordinates}
+          xCoordinates={xCoordinates}
           emotion={emotion}
           setEmotion={setEmotion}
           options={options}

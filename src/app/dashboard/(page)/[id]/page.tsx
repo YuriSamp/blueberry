@@ -14,7 +14,7 @@ import ToolbarComponent from '@components/toolbar'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { journalSchema, journalType } from '@lib/validations/diary'
 
 interface IParams {
@@ -50,8 +50,10 @@ const NovaPagina = ({ params }: IParams) => {
   const diary = useAtomValue(diaryPage)
   const [options, setoptions] = useAtom(emotionsOptions)
 
+  const isEditing = params.id !== 'new-page'
+
   useEffect(() => {
-    if (params.id !== 'new-page') {
+    if (isEditing) {
       const page = diary.filter(page => String(page.id) === id)[0]
       formDispatch({ title: page.title })
       formDispatch({ emotion: page.emotion })
@@ -63,20 +65,27 @@ const NovaPagina = ({ params }: IParams) => {
 
   const submitPage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    try {
+      const parsedFields = journalSchema.safeParse(form)
 
-    const parsedFields = journalSchema.safeParse(form)
+      if (!parsedFields.success) {
+        const fieldErrors = parsedFields.error.formErrors.fieldErrors
+        const teste: readonly string[] = Object.keys(fieldErrors)
+        toast.error(fieldErrors[teste.at(0) as keyof journalType]?.at(0))
+        return
+      }
 
-    if (!parsedFields.success) {
-      const fieldErrors = parsedFields.error.formErrors.fieldErrors
-      const teste: readonly string[] = Object.keys(fieldErrors)
-      toast.error(fieldErrors[teste.at(0) as keyof journalType]?.at(0))
-      return
-    }
-
-    if (params.id !== 'new-page') {
-      await axios.put(`../api/page/${id}`, form)
-    } else {
-      await axios.post('../api/page', form)
+      if (isEditing) {
+        await axios.put(`../api/page/${id}`, form)
+      } else {
+        await axios.post('../api/page', form)
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error('A server error occurred, please try again')
+        return
+      }
+      toast.error('An unexpected error occurred please try again')
     }
 
     router.push('./dashboard')
@@ -89,7 +98,7 @@ const NovaPagina = ({ params }: IParams) => {
       <div className="pt-7 pl-10">
         <RetturnButton href="/dashboard" />
       </div>
-      <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-64 py-5 ">
+      <section className="flex flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 border border-black rounded-md px-5 mx-14 md:mx-28 lg:mx-40  xl:mx-52 2xl:mx-64 py-5 mt-2 ">
         <form className="flex flex-col gap-6" onSubmit={submitPage}>
           <div className="flex items-center justify-between">
             <input
@@ -132,7 +141,7 @@ const NovaPagina = ({ params }: IParams) => {
             <button
               className="bg-green p-4 rounded-md"
             >
-              {params.id !== 'new-page' ? 'Update the diary' : 'Insert in diary'}
+              {isEditing ? 'Update the diary' : 'Insert in diary'}
             </button>
           </div>
         </form>
