@@ -16,4 +16,15 @@ export const journalSchema = z.object({
   color: z.string().min(1),
 })
 
+export const emotionSchema = z.object({
+  emotion: z.string().min(1, 'Empty emotion field'),
+  color: z.string().min(1, 'No associated color'),
+})
+
+type Tags = z.infer<typeof emotionSchema>
+
+export interface ITags extends Tags {
+  id: string
+}
+
 export type journalType = z.infer<typeof journalSchema>

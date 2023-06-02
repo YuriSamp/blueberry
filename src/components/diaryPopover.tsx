@@ -11,10 +11,10 @@ export function DiaryPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white brutalism-box flex justify-between items-center px-8  ">
+        <div className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white brutalism-box flex justify-between items-center px-8  ">
           <p>Colors</p>
           < BsInfoCircle />
-        </button>
+        </div>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
@@ -46,7 +46,7 @@ export function DiaryPopover() {
                       style={{ backgroundColor: option.color }}
                       className={`h-5 w-5 rounded-md`}
                     ></div>
-                    <p className="">{UpperCaseFirstLetter(option.name)}</p>
+                    <p className="">{UpperCaseFirstLetter(option.emotion)}</p>
                   </div>
                 </li>
               ))}

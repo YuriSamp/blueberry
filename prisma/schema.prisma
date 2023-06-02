@@ -11,14 +11,14 @@ datasource db {
   relationMode = "prisma"
 }
 
-
+// i'm not using this model on db, but clerk provide a User Object and I build this here to guide me
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
-
-  Diary    Page[]
+  Diary         Page[]
+  Emotions      Emotion[]
 
   @@map(name: "users")
 }
@@ -38,4 +38,15 @@ model Page {
 
   @@map(name: "pages")
   @@index([authorId])
+}
+
+model Emotion {
+  id        String   @id @default(cuid())
+  emotion   String
+  color    String
+  authorId  String
+
+  author User @relation(fields: [authorId], references: [id])
+  @@index([authorId])
+  @@map(name: "emotions")
 }

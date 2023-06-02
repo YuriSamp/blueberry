@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 
 import { DiarypageWritten } from '@components/card'
 import { DiaryPopover } from '@components/diaryPopover'
@@ -15,6 +15,7 @@ import { emotionsOptions } from 'src/context/emotionsOptions'
 import { dateCalendarConvert } from 'src/helpers/dateHelpers'
 import { Idiary } from 'src/types/diaryTypes'
 import axios from 'axios'
+import { ITags } from '@lib/validations/diary'
 
 interface IMonthComponent {
   diary: Idiary[]
@@ -24,11 +25,11 @@ const date = new Date()
 const month = date.getMonth()
 
 export default function Diario() {
-  const options = useAtomValue(emotionsOptions)
+  const [options, setOptions] = useAtom(emotionsOptions)
 
   const selectOptions = useMemo(() => {
-    const optionsName = options.map((item) => item.name)
-    optionsName.unshift('Todas')
+    const optionsName = options.map((item) => item.emotion)
+    optionsName.unshift('All')
     return optionsName
   }, [options])
 
@@ -64,13 +65,14 @@ export default function Diario() {
   useEffect(() => {
     const getPages = async () => {
       const pages = await axios.get<Idiary[]>('../api/page')
+      const tags = await axios.get<ITags[]>('../api/tags')
+      setOptions(tags.data)
       setDiary(pages.data)
       setdiaryRef(pages.data)
     }
     getPages()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
 
   return (
     <>

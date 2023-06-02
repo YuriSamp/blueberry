@@ -4,9 +4,10 @@ import { AiOutlineCheck } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 
 import { diaryPage } from 'src/context/diaryContext'
-import { emotionColors, emotionOptions } from 'src/context/emotionsOptions'
+import { colors } from 'src/context/emotionsOptions'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import { SetAtom } from 'src/types/diaryTypes'
+import { ITags } from '@lib/validations/diary'
 
 interface ISubMenu {
   setSubModalIsOpen: Dispatch<SetStateAction<boolean>>
@@ -14,10 +15,10 @@ interface ISubMenu {
   xCoordinates: number
   emotion: string
   setEmotion: Dispatch<SetStateAction<string>>
-  options: emotionOptions[]
-  setOption: SetAtom<[SetStateAction<emotionOptions[]>], void>
-  setOptionsState: Dispatch<React.SetStateAction<emotionOptions[]>>
-  itemId: number
+  options: ITags[]
+  setOption: SetAtom<[SetStateAction<ITags[]>], void>
+  setOptionsState: Dispatch<React.SetStateAction<ITags[]>>
+  itemId: string
   defaultColor: string
 }
 
@@ -47,7 +48,7 @@ export const SubMenu = ({
 
   const optionsEdited = options.map((item) => {
     if (item.id === itemId) {
-      item.name = emotion
+      item.emotion = emotion
     }
     return item
   })
@@ -104,7 +105,7 @@ export const SubMenu = ({
       </section>
       <p className="pb-3 text-lg">Colors</p>
       <ul className="flex flex-col gap-2 pb-2 max-h-[200px] overflow-y-scroll scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400">
-        {emotionColors.map((item, index) => (
+        {colors.map((item, index) => (
           <li className="hover:bg-gray-200  pr-3 " key={index}>
             <button
               type="button"

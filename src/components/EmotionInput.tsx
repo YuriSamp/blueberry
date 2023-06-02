@@ -2,17 +2,18 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { SubMenu } from './emotionSubMenu'
 import { BsThreeDots } from 'react-icons/bs'
 
-import { emotionColors, emotionOptions } from 'src/context/emotionsOptions'
+import { colors } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import useMediaQuery from 'src/hooks/useMediaQuery'
 import { SetAtom } from 'src/types/diaryTypes'
-import { journalType } from '@lib/validations/diary'
+import { ITags, journalType } from '@lib/validations/diary'
+import axios from 'axios'
 
 interface InputWithSelectI {
   value: string
-  options: emotionOptions[]
-  setoption: SetAtom<[SetStateAction<emotionOptions[]>], void>
+  options: ITags[]
+  setoption: SetAtom<[SetStateAction<ITags[]>], void>
   formDispatch: Dispatch<Partial<journalType>>
 }
 
@@ -26,19 +27,20 @@ export function EmotionInput({
   const [focus, setFocus] = useState(false)
   const [inputSearch, setInputSearch] = useState(value)
   const [subModalIsOpen, setSubModalIsOpen] = useState(false)
-  const [optionsState, setOptionsState] = useState(options)
-  const [emotion, setEmotion] = useState('')
   const [xCoordinates, setX] = useState(0)
   const [yCoordinates, setY] = useState(0)
-  const [itemId, setItemId] = useState(0)
-  const [defaultColor, setDefaultColor] = useState('')
   const domRef = useClickOutside(() => setFocus(false))
+
+  const [optionsState, setOptionsState] = useState(options)
+  const [itemId, setItemId] = useState('')
+  const [defaultColor, setDefaultColor] = useState('')
+  const [emotion, setEmotion] = useState('')
 
   useEffect(() => {
     if (inputSearch && inputSearch.length > 1) {
       setOptionsState(
         options.filter((item) =>
-          item.name.toLowerCase().includes(inputSearch.trim().toLowerCase())
+          item.emotion.toLowerCase().includes(inputSearch.trim().toLowerCase())
         )
       )
       formDispatch({ emotion: inputSearch })
@@ -52,7 +54,7 @@ export function EmotionInput({
   useEffect(() => {
     if (value !== '') {
       options.map((option) => {
-        if (option.name === value) {
+        if (option.emotion === value) {
           formDispatch({ color: option.color })
         }
       })
@@ -62,7 +64,7 @@ export function EmotionInput({
 
   const matches = useMediaQuery('(min-width: 500px)')
 
-  const setter = (name: string, id: number, color: string) => {
+  const setter = (name: string, id: string, color: string) => {
     setEmotion(name)
     setSubModalIsOpen(true)
     setX(matches ? 260 : 20)
@@ -71,22 +73,25 @@ export function EmotionInput({
     setDefaultColor(color)
   }
 
-  const newOption = () => {
-    const randomColor = emotionColors
+  const newOption = async () => {
+    const randomColor = colors
       .sort(() => 0.5 - Math.random())
       .slice(0, 1)
       .map((item) => item.color)
+
+    const newEmotion = {
+      emotion: inputSearch,
+      id: String(options.length),
+      color: randomColor[0],
+    }
+
+
+    await axios.post('../api/tags', { emotion: inputSearch, color: randomColor[0] })
+
     formDispatch({ color: randomColor[0] })
-    setoption((prev) => [
-      ...prev,
-      {
-        name: inputSearch,
-        id: options.length,
-        color: randomColor[0],
-      },
-    ])
-    setInputSearch('')
+    setoption((prev) => [...prev, newEmotion])
     setFocus(false)
+
   }
 
   return (
@@ -116,7 +121,7 @@ export function EmotionInput({
                         type="button"
                         className="flex items-center w-full"
                         onClick={() => {
-                          setInputSearch(item.name)
+                          setInputSearch(item.emotion)
                           setFocus(false)
                           formDispatch({ color: item.color })
                         }}
@@ -125,16 +130,16 @@ export function EmotionInput({
                           style={{ backgroundColor: item.color }}
                           className="px-2 py-1 bg-red-300 rounded-md min-w-[70px] flex justify-center"
                         >
-                          {UpperCaseFirstLetter(item.name)}
+                          {UpperCaseFirstLetter(item.emotion)}
                         </p>
                       </button>
                       <button
                         type="button"
                         className="hover:bg-gray-300  w-6 h-6 flex justify-center items-center"
-                        onClick={() => setter(item.name, item.id, item.color)}
+                        onClick={() => setter(item.emotion, item.id, item.color)}
                         onKeyDown={(e) =>
                           e.key == 'Enter' &&
-                          setter(item.name, item.id, item.color)
+                          setter(item.emotion, item.id, item.color)
                         }
                       >
                         <BsThreeDots />
