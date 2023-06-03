@@ -1,14 +1,35 @@
 import { Dispatch, SetStateAction } from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
+import axios, { AxiosError } from 'axios'
 
 import { Button } from '@components/ui/button'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+
 
 interface Props {
   isAlertOpen: boolean
   setIsAlertOpen: Dispatch<SetStateAction<boolean>>
 }
 
+
 function SettingsAlert({ isAlertOpen, setIsAlertOpen }: Props) {
+
+  const router = useRouter()
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete('../api/user')
+      router.push('/')
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error('A server error occurred, please try again')
+        return
+      }
+    }
+  }
+
+
   return (
     <AlertDialog.Root open={isAlertOpen} onOpenChange={setIsAlertOpen}>
       <AlertDialog.Trigger asChild>
@@ -32,11 +53,7 @@ function SettingsAlert({ isAlertOpen, setIsAlertOpen }: Props) {
             <AlertDialog.Action asChild>
               <button
                 className=" bg-[#B3202C] text-white focus:shadow-red7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]"
-              // onClick={async () => {
-              //   await HandlePromise(deleteUser())
-              //   nookies.destroy(undefined, 'token')
-              //   router.push('/')
-              // }}
+                onClick={deleteUser}
               >
                 Yes, delete account
               </button>

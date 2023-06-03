@@ -8,7 +8,7 @@ const ButtonStyles = cva(
         primary: 'bg-white',
         danger: 'bg-[#B3202C] border-none text-white',
         success:
-          'bg-blue-400 dark:bg-DarkModeGreen rounded-lg border-none text-white',
+          'bg-green rounded-lg border-none text-white',
         Selected:
           'text-violet-700 bg-gray-200 dark:text-DarkModeGreen dark:bg-neutral-800',
       },

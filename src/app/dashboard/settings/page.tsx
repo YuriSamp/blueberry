@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+
 
 import { Button } from '@components/ui/button'
 import { ControledInput } from '@components/ui/input'
@@ -12,14 +14,18 @@ import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
 import { useUser, useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
+import { Fileinput } from '@components/fileinput'
 
 const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
 
+//TODO se ele logar com Oauth ele pode veicular uma senha, se não ele pode trocar de senha
+
 export default function Perfil() {
   const [name, setName] = useState<string>('')
-  const [photo, setPhoto] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
   const [sessionTime, setSessionTime] = useState('10 min')
+  const [file, setFile] = useState<null | File>(null)
+
   const router = useRouter()
   const { user } = useUser()
   const { signOut } = useAuth()
@@ -30,9 +36,19 @@ export default function Perfil() {
     })
   }
 
+  const updatePhoto = async () => {
+    await user?.setProfileImage({
+      file: file
+    })
+  }
+
+  const onSizeError = () => toast.error('Tamanho excede o limite de 5mb')
+  const onTypeError = () => toast.error('Tipo de arquivo não suportado')
+
 
   return (
     <>
+      <ToastContainer />
       <div className="pt-5 pl-10 flex self-start">
         <RetturnButton href="/dashboard" text="" />
       </div>
@@ -54,25 +70,34 @@ export default function Perfil() {
             >
               <Button
                 Children='Update'
-                onClick={() => updateUsername()}
+                onClick={updateUsername}
               />
             </SettingsContainer>
 
             <SettingsContainer
               title='Photo'
               firstChild={
-                <ControledInput
-                  type="text"
-                  Width="lg"
-                  placeholder='Insert the new url'
-                  value={photo}
-                  onChange={setPhoto}
+                <Fileinput
+                  file={file}
+                  setFile={setFile}
+                  onSizeError={onSizeError}
+                  onTypeError={onTypeError}
                 />
               }
             >
               <Button
                 Children='Update'
-                onClick={() => console.log('teste')}
+                onClick={updatePhoto}
+              />
+            </SettingsContainer>
+
+            <SettingsContainer
+              title='Email'
+              firstChild='You will be redirect to another page to change your email address'
+            >
+              <Button
+                Children='Update'
+                onClick={() => router.push('/reset/email')}
               />
             </SettingsContainer>
 
@@ -82,7 +107,7 @@ export default function Perfil() {
             >
               <Button
                 Children='Update'
-                onClick={() => console.log('teste')}
+                onClick={() => router.push('/reset/password')}
               />
             </SettingsContainer>
 
@@ -116,7 +141,7 @@ export default function Perfil() {
             </SettingsContainer>
             <SettingsContainer
               title='Delete Account'
-              firstChild={`'It s a shame you re leaving' 😭`}
+              firstChild={`It s a shame you re leaving 😭`}
             >
               <SettingsAlert
                 isAlertOpen={alertOpen}
