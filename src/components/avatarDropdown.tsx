@@ -32,7 +32,7 @@ export function AvatarWithDropDown({ Path }: Props) {
           className="rounded-full h-9 w-9 "
           aria-label="Customise options"
         >
-          <AvatarIcon Width="md" userPhoto={Path} />
+          <AvatarIcon Width="md" userPhoto={Path} cursor={'pointer'} />
         </button>
       </DropdownMenu.Trigger>
 

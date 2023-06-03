@@ -35,7 +35,7 @@ export const Fileinput = ({ file, setFile, onTypeError, onSizeError }: Fileinput
 
   return (
     <div className='flex flex-col gap-2 pt-4 relative'>
-      <label htmlFor="file-upload" className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2] focus:outline-none w-60 text-center">
+      <label htmlFor="file-upload" className="py-2 px-2 rounded-lg border border-black bg-[#f9f5f2] focus:outline-none w-60 text-center cursor-pointer">
         {file === null ? 'Select file' : file.name}
       </label>
       <span className="after:rounded-lg after:top-6 after:left-1 after:right-[-6px] after:bottom-1 after:-z-10 after:absolute after:bg-black" />
