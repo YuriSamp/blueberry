@@ -43,7 +43,7 @@ model Page {
 model Emotion {
   id        String   @id @default(cuid())
   emotion   String
-  color    String
+  color     String
   authorId  String
 
   author User @relation(fields: [authorId], references: [id])

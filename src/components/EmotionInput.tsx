@@ -1,28 +1,26 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { SubMenu } from './emotionSubMenu'
 import { BsThreeDots } from 'react-icons/bs'
 
-import { colors } from 'src/context/emotionsOptions'
+import { colors, emotionsOptions } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import useMediaQuery from 'src/hooks/useMediaQuery'
-import { SetAtom } from 'src/types/diaryTypes'
-import { ITags, journalType } from '@lib/validations/diary'
+import { journalType } from '@lib/validations/diary'
 import axios from 'axios'
+import { useAtom } from 'jotai'
 
 interface InputWithSelectI {
   value: string
-  options: ITags[]
-  setoption: SetAtom<[SetStateAction<ITags[]>], void>
   formDispatch: Dispatch<Partial<journalType>>
 }
 
 export function EmotionInput({
-  options,
-  setoption,
   value,
   formDispatch
 }: InputWithSelectI) {
+
+  const [options, setoptions] = useAtom(emotionsOptions)
 
   const [focus, setFocus] = useState(false)
   const [inputSearch, setInputSearch] = useState(value)
@@ -85,13 +83,11 @@ export function EmotionInput({
       color: randomColor[0],
     }
 
-
     await axios.post('../api/tags', { emotion: inputSearch, color: randomColor[0] })
 
     formDispatch({ color: randomColor[0] })
-    setoption((prev) => [...prev, newEmotion])
+    setoptions((prev) => [...prev, newEmotion])
     setFocus(false)
-
   }
 
   return (
@@ -172,7 +168,7 @@ export function EmotionInput({
           setEmotion={setEmotion}
           options={options}
           itemId={itemId}
-          setOption={setoption}
+          setOption={setoptions}
           setOptionsState={setOptionsState}
           defaultColor={defaultColor}
         />

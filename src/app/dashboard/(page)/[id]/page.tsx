@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -12,7 +12,6 @@ import { EmotionInput } from '@components/EmotionInput'
 import { RetturnButton } from '@components/retturnButton'
 import ToolbarComponent from '@components/toolbar'
 
-import { emotionsOptions } from 'src/context/emotionsOptions'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
 import axios, { AxiosError } from 'axios'
 import { journalSchema, journalType } from '@lib/validations/diary'
@@ -48,7 +47,6 @@ const NovaPagina = ({ params }: IParams) => {
   const inputHandle = (type: keyof journalType) => (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => formDispatch({ [type]: e.target.value })
 
   const diary = useAtomValue(diaryPage)
-  const [options, setoptions] = useAtom(emotionsOptions)
 
   const isEditing = params.id !== 'new-page'
 
@@ -122,8 +120,6 @@ const NovaPagina = ({ params }: IParams) => {
             <div className="flex w-full gap-3 items-center">
               <AiOutlineHeart className="w-6 h-6" />
               <EmotionInput
-                options={options}
-                setoption={setoptions}
                 formDispatch={formDispatch}
                 value={form.emotion}
               />

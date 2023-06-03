@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useAtom } from 'jotai'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 
-import { diaryPage } from 'src/context/diaryContext'
 import { colors } from 'src/context/emotionsOptions'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import { SetAtom } from 'src/types/diaryTypes'
 import { ITags } from '@lib/validations/diary'
+import axios from 'axios'
 
 interface ISubMenu {
   setSubModalIsOpen: Dispatch<SetStateAction<boolean>>
@@ -34,13 +33,11 @@ export const SubMenu = ({
   setOptionsState,
   defaultColor,
 }: ISubMenu) => {
-  const [diary, setDiary] = useAtom(diaryPage)
   const [colorSelected, setColorSelected] = useState(defaultColor)
-  const domRef = useClickOutside(() => {
-    setSubModalIsOpen(false)
-  })
+  const domRef = useClickOutside(() => setSubModalIsOpen(false))
 
-  const deleteItem = () => {
+  const deleteItem = async () => {
+    await axios.delete(`../api/tags/${itemId}`)
     const optionsEdited = options.filter((item) => item.id != itemId)
     setOption(optionsEdited)
     setOptionsState(optionsEdited)
@@ -53,7 +50,7 @@ export const SubMenu = ({
     return item
   })
 
-  const changeColor = (color: string) => {
+  const changeColor = async (color: string) => {
     const optionWithNewColor = options.map((item) => {
       if (item.id === itemId) {
         item.color = color
@@ -61,17 +58,12 @@ export const SubMenu = ({
       return item
     })
     setOption(optionWithNewColor)
+    await axios.put(`../api/tags/${itemId}`, { emotion: emotion, color: colorSelected })
 
-    const diaryUpdate = diary.map((item) => {
-      if (item.emotion === emotion) {
-        item.color = color
-      }
-      return item
-    })
-    setDiary(diaryUpdate)
   }
 
   useEffect(() => {
+    //Aqui precisa de um useDebounce
     setOption(optionsEdited)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emotion])
