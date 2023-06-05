@@ -36,7 +36,7 @@ export function DiarypageWritten({
       className="w-60 h-52 bg-white flex brutalism-box brutalism-box-hover"
     >
       <Link href={`./dashboard/page-${id}`}>
-        <p className="text p-2 max-w-[240px] break-all"> {formatedText}</p>
+        <p className="text p-2 max-w-[240px] break-normal"> {formatedText}</p>
         <div
           style={{ backgroundColor: color }}
           className="flex justify-between absolute bottom-0 left-0 py-2 w-full px-3 rounded-b-md"

@@ -8,7 +8,6 @@ import { Button } from '@components/ui/button'
 import { ControledInput } from '@components/ui/input'
 
 import { RetturnButton } from '@components/retturnButton'
-import { Select } from '@components/ui/select'
 import SettingsAlert from '@components/settingsAlert'
 import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
@@ -16,18 +15,16 @@ import { useUser, useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { Fileinput } from '@components/fileinput'
 
-const SESSION_TIME = ['10 min', '15 min', '20 min', '30 min']
-
 //TODO se ele logar com Oauth ele pode veicular uma senha, se não ele pode trocar de senha
+//TODO fazer a api pra senha e email
 
 export default function Perfil() {
   const [name, setName] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
-  const [sessionTime, setSessionTime] = useState('10 min')
   const [file, setFile] = useState<null | File>(null)
 
-  const router = useRouter()
   const { user } = useUser()
+  const router = useRouter()
   const { signOut } = useAuth()
 
   const updateUsername = async () => {
@@ -109,21 +106,6 @@ export default function Perfil() {
                 Children='Update'
                 onClick={() => router.push('/reset/password')}
               />
-            </SettingsContainer>
-
-            <SettingsContainer
-              title="Session time"
-              firstChild="Regulates the idle time before your account is automatically logged out"
-            >
-              <div className="relative">
-                <Select
-                  Options={SESSION_TIME}
-                  onChange={setSessionTime}
-                  value={sessionTime}
-                  background="white"
-                />
-                <span className="after:rounded-lg after:top-2 after:left-1 after:right-[-6px] after:bottom-[-6px] after:-z-10 after:absolute after:bg-black"></span>
-              </div>
             </SettingsContainer>
 
             <SettingsContainer

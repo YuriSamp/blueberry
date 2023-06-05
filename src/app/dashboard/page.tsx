@@ -16,9 +16,11 @@ import { dateCalendarConvert } from 'src/helpers/dateHelpers'
 import { Idiary } from 'src/types/diaryTypes'
 import axios from 'axios'
 import { ITags } from '@lib/validations/diary'
+import CardSkeleton from '@components/cardSkeleton'
 
 interface IMonthComponent {
-  diary: Idiary[]
+  diary: Idiary[] | null | undefined
+  isLoading: boolean
 }
 
 const date = new Date()
@@ -35,19 +37,20 @@ export default function Diario() {
 
   const [monthIndex, setMonthIndex] = useState(month)
   const [year, setYear] = useState(date.getFullYear())
-  const [emotionSelected, setEmotionSelected] = useState('Todas')
+  const [emotionSelected, setEmotionSelected] = useState('All')
+  const [isLoading, setIsLoading] = useState(true);
 
   const [diary, setDiary] = useAtom(diaryPage)
-  const [diaryRef, setdiaryRef] = useState(diary)
+  const [diaryRef, setdiaryRef] = useState<null | Idiary[]>(null)
 
-  const diarioFiltrado = (diario: Idiary[], filtro: string) => {
-    if (filtro === 'Todas') {
+  const diarioFiltrado = (diario: Idiary[] | null, filtro: string) => {
+    if (filtro === 'All') {
       return diario
     }
-    return diario.filter((item) => item.emotion === filtro)
+    return diario?.filter((item) => item.emotion === filtro)
   }
 
-  useEffect(() => {
+  const diaryMonthFilter = (diary: Idiary[]) => {
     const compareDate = dateCalendarConvert(year, monthIndex + 1)
     const diaryPerMonth = diary.filter((item) =>
       item.date.slice(0, 7).includes(compareDate)
@@ -55,24 +58,28 @@ export default function Diario() {
     const diaryPerMonthSorted = diaryPerMonth.sort(
       (a, b) => Number(b.date.slice(-2)) - Number(a.date.slice(-2))
     )
-    setdiaryRef(diaryPerMonthSorted)
-  }, [monthIndex, diary, year])
-
-  useEffect(() => {
-    setdiaryRef(diary)
-  }, [diary])
+    return diaryPerMonthSorted
+  }
 
   useEffect(() => {
     const getPages = async () => {
+      setIsLoading(true)
       const pages = await axios.get<Idiary[]>('../api/page')
       const tags = await axios.get<ITags[]>('../api/tags')
       setOptions(tags.data)
       setDiary(pages.data)
-      setdiaryRef(pages.data)
+      setdiaryRef(diaryMonthFilter(pages.data))
+      setIsLoading(false)
     }
     getPages()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    setdiaryRef(diaryMonthFilter(diary))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monthIndex, diary, year])
+
 
   return (
     <>
@@ -104,13 +111,18 @@ export default function Diario() {
             </div>
           </div>
         </div>
-        <MonthComponent diary={diarioFiltrado(diaryRef, emotionSelected)} />
+        <MonthComponent
+          diary={diarioFiltrado(diaryRef, emotionSelected)}
+          isLoading={isLoading}
+        />
       </section>
     </>
   )
 }
 
-const MonthComponent = ({ diary }: IMonthComponent) => {
+const MonthComponent = ({ diary, isLoading }: IMonthComponent) => {
+
+  const loadingSkeletons = new Array(13).fill('')
 
   return (
     <div>
@@ -122,17 +134,27 @@ const MonthComponent = ({ diary }: IMonthComponent) => {
         >
           <p className="text-lg"> + Page </p>
         </Link>
-        {diary.map((entry) => (
-          <DiarypageWritten
-            text={entry.text}
-            title={entry.title}
-            date={entry.date}
-            emotion={entry.emotion}
-            id={entry.id}
-            color={entry.color}
-            key={entry.id}
-          />
-        ))}
+        {isLoading ?
+          <>
+            {loadingSkeletons.map((_, id) =>
+              <CardSkeleton key={id} />
+            )}
+          </>
+          :
+          <>
+            {diary?.map((entry) => (
+              <DiarypageWritten
+                text={entry.text}
+                title={entry.title}
+                date={entry.date}
+                emotion={entry.emotion}
+                id={entry.id}
+                color={entry.color}
+                key={entry.id}
+              />
+            ))}
+          </>
+        }
       </div>
     </div>
   )

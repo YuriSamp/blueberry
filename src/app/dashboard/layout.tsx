@@ -3,6 +3,7 @@ import { useAuth } from '@clerk/nextjs';
 import useIdleTimeout from '@hooks/useIdleTimeout';
 import { useRouter } from 'next/navigation';
 
+
 export default function DashboardLayout({
   children
 }: {
@@ -12,6 +13,7 @@ export default function DashboardLayout({
 
   const { signOut } = useAuth()
   const router = useRouter()
+
 
   const handleIdle = async () => {
     await signOut()
