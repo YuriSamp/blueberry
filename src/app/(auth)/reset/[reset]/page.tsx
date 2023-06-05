@@ -1,30 +1,39 @@
 'use client'
 
+import { useUser } from '@clerk/nextjs';
 import { Button } from '@components/ui/button';
 import { ControledInput } from '@components/ui/input';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
-export default function Passwordchange() {
-  const [password, setPassword] = useState('')
-  const [passwordVerify, setPasswordVerify] = useState('')
+export default function Fieldchange() {
+  const [field, setfield] = useState('')
+  const [fieldVerify, setfieldVerify] = useState('')
 
   const router = useRouter()
   const params = useParams()
-  console.log(params)
+  const { user } = useUser()
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (password !== passwordVerify) {
-      const notify = () => toast.error("As senhas inseridas estão diferentes");
+    if (field !== fieldVerify) {
+      const notify = () => toast.error("As campos inseridos estão diferentes");
       notify()
       return
     }
 
+
     try {
-      // const DidUpdate = await updatePassword(password)
-      // if (DidUpdate) router.push('/login')
+      if (params.reset === 'email') {
+        await user?.update({ primaryEmailAddressId: field })
+        router.push('/login')
+        return
+      }
+      await user?.updatePassword({ newPassword: field })
+      router.push('/login')
+      return
     } catch (error) {
       console.log(error)
     }
@@ -43,13 +52,13 @@ export default function Passwordchange() {
             <label htmlFor='reset1'>
               {params.reset}
             </label>
-            <ControledInput type={params.reset} id='reset1' placeholder={params.reset} value={password} onChange={setPassword} />
+            <ControledInput type={params.reset} id='reset1' placeholder={params.reset} value={field} onChange={setfield} />
           </div>
           <div className='flex flex-col gap-3'>
             <label htmlFor='reset2'>
               {`Confirm your ${params.reset}`}
             </label>
-            <ControledInput type={params.reset} id='reset2' placeholder={`your new ${params.reset}`} value={passwordVerify} onChange={setPasswordVerify} />
+            <ControledInput type={params.reset} id='reset2' placeholder={`your new ${params.reset}`} value={fieldVerify} onChange={setfieldVerify} />
           </div>
         </div>
         <div className='pt-4'>

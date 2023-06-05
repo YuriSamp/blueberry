@@ -6,10 +6,6 @@ import { neobrutalism } from '@clerk/themes'
 
 const inter = Inter({ subsets: ['latin'] })
 
-//TODO add metadata for every page
-//TODO componentizar e deixar eles pro client, o resto pro server
-//TODO use notFound() on diary
-
 export const metadata = {
   title: 'Blueberry',
   description: 'The best diary app online',

@@ -15,9 +15,6 @@ import { useUser, useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { Fileinput } from '@components/fileinput'
 
-//TODO se ele logar com Oauth ele pode veicular uma senha, se não ele pode trocar de senha
-//TODO fazer a api pra senha e email
-
 export default function Perfil() {
   const [name, setName] = useState<string>('')
   const [alertOpen, setAlertOpen] = useState(false)
@@ -39,6 +36,8 @@ export default function Perfil() {
     })
   }
 
+  console.log(user)
+
   const onSizeError = () => toast.error('Tamanho excede o limite de 5mb')
   const onTypeError = () => toast.error('Tipo de arquivo não suportado')
 
@@ -49,7 +48,7 @@ export default function Perfil() {
       <div className="pt-5 pl-10 flex self-start">
         <RetturnButton href="/dashboard" text="" />
       </div>
-      <section className="px-10 sm:px-20 lg:px-40 2xl:px-96 pt-16">
+      <section className="px-10 sm:px-20 lg:px-40 2xl:px-96 pt-16 ">
         <div className={`${alertOpen ? 'blur-sm' : ''}`}>
           <Header />
           <div className="sm:max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
@@ -105,6 +104,9 @@ export default function Perfil() {
               <Button
                 Children='Update'
                 onClick={() => router.push('/reset/password')}
+                disable={!user?.passwordEnabled}
+                intent={!user?.passwordEnabled === true ? 'disable' : 'primary'}
+                title='Caso esteja usando OAuth não existe a possibilidade de trocar de senha'
               />
             </SettingsContainer>
 
