@@ -30,7 +30,7 @@ git clone https://github.com/YuriSamp/blueberry
 
 ### Storing the API keys in .env
 
-Create a file in the root directory of the project with env. And store your API keys in it, as shown in the .example.env file.
+Create a file in the root directory of the project with env.mjs And store your API keys in it, as shown in the .example.env file.
 
 ### Installing the dependencies
 
