@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
+
 import { AvatarWithDropDown } from '@components/avatarDropdown'
 
 import breadcrumbs from 'src/helpers/breadcumbs'
@@ -18,7 +19,9 @@ export const Navbar = () => {
       <section className="flex py-4 px-8 z-20 relative bg-[#f9f5f2] drop-shadow-lg  w-full justify-between items-center ">
         <p>{formatedPathname}</p>
         <div className="flex gap-6 items-center">
-          <p>{msg}, {user?.username}</p>
+          <p>
+            {msg}, {user?.username}
+          </p>
           <AvatarWithDropDown Path={user?.profileImageUrl} />
         </div>
       </section>

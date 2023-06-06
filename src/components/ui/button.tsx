@@ -6,10 +6,11 @@ const ButtonStyles = cva(
     variants: {
       intent: {
         primary: 'bg-white brutalism-box-hover cursor-pointer ',
-        danger: 'bg-[#B3202C] border-none text-white brutalism-box-hover cursor-pointer ',
+        danger:
+          'bg-[#B3202C] border-none text-white brutalism-box-hover cursor-pointer ',
         success:
           'bg-green rounded-lg border-none text-white brutalism-box-hover cursor-pointer ',
-        disable: 'bg-white hover:cursor-not-allowed'
+        disable: 'bg-white hover:cursor-not-allowed',
       },
       Width: {
         sm: 'w-4',
@@ -30,7 +31,14 @@ interface IButton extends VariantProps<typeof ButtonStyles> {
   title?: string
 }
 
-export function Button({ Width, intent, Children, onClick, disable, title }: IButton) {
+export function Button({
+  Width,
+  intent,
+  Children,
+  onClick,
+  disable,
+  title,
+}: IButton) {
   return (
     <button
       className={ButtonStyles({ Width, intent })}

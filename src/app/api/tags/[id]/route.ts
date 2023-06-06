@@ -1,7 +1,8 @@
 import { auth } from '@clerk/nextjs'
+import * as z from 'zod'
+
 import { db } from '@lib/db'
 import { emotionSchema } from '@lib/validations/diary'
-import * as z from 'zod'
 
 const routeContextSchema = z.object({
   params: z.object({

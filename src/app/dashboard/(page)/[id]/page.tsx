@@ -2,26 +2,23 @@
 
 import { ChangeEvent, useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
+import axios, { AxiosError } from 'axios'
 import { useAtomValue } from 'jotai'
 import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 
-import { diaryPage } from 'src/context/diaryContext'
-
 import { EmotionInput } from '@components/EmotionInput'
 import { RetturnButton } from '@components/retturnButton'
-import ToolbarComponent from '@components/toolbar'
-
-import { todayDateToDateInput } from 'src/helpers/dateHelpers'
-import axios, { AxiosError } from 'axios'
 import { journalSchema, journalType } from '@lib/validations/diary'
+
+import { diaryPage } from 'src/context/diaryContext'
+import { todayDateToDateInput } from 'src/helpers/dateHelpers'
 
 interface IParams {
   params: {
     id: string
   }
 }
-
 
 const dateInput = todayDateToDateInput()
 
@@ -37,14 +34,16 @@ function reducer(state: journalType, action: Partial<journalType>) {
   return { ...state, ...action }
 }
 
-
 const NovaPagina = ({ params }: IParams) => {
   const router = useRouter()
   const id = params.id.slice(5, params.id.length)
 
   const [form, formDispatch] = useReducer(reducer, initialState)
 
-  const inputHandle = (type: keyof journalType) => (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => formDispatch({ [type]: e.target.value })
+  const inputHandle =
+    (type: keyof journalType) =>
+    (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) =>
+      formDispatch({ [type]: e.target.value })
 
   const diary = useAtomValue(diaryPage)
 
@@ -52,7 +51,7 @@ const NovaPagina = ({ params }: IParams) => {
 
   useEffect(() => {
     if (isEditing) {
-      const page = diary.filter(page => String(page.id) === id)[0]
+      const page = diary.filter((page) => String(page.id) === id)[0]
       formDispatch({ title: page.title })
       formDispatch({ emotion: page.emotion })
       formDispatch({ text: page.text })
@@ -119,24 +118,18 @@ const NovaPagina = ({ params }: IParams) => {
             </div>
             <div className="flex w-full gap-3 items-center">
               <AiOutlineHeart className="w-6 h-6" />
-              <EmotionInput
-                formDispatch={formDispatch}
-                value={form.emotion}
-              />
+              <EmotionInput formDispatch={formDispatch} value={form.emotion} />
             </div>
           </div>
           <hr />
           <textarea
-            className="h-96 2xl:h-[400px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
+            className="h-96 lg:h-[425px] xl:h-[450px] bg-transparent focus:outline-none p-3 text-lg placeholder:italic resize-none tracking-wide leading-relaxed sm:indent-5 scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400"
             placeholder="Start writing about your day"
             value={form.text}
             onChange={inputHandle('text')}
           />
-          <ToolbarComponent />
           <div className="flex ">
-            <button
-              className="bg-green p-4 rounded-md"
-            >
+            <button className="bg-green p-4 rounded-md">
               {isEditing ? 'Update the diary' : 'Insert in diary'}
             </button>
           </div>

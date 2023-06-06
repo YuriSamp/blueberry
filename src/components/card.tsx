@@ -1,25 +1,24 @@
 import { useRef } from 'react'
 import Link from 'next/link'
+import axios from 'axios'
 import { useAtom } from 'jotai'
 import { BsTrash } from 'react-icons/bs'
 
 import { diaryPage } from 'src/context/diaryContext'
 import useHover from 'src/hooks/useHover'
 import { Idiary } from 'src/types/diaryTypes'
-import axios from 'axios'
 
-export function DiarypageWritten({
-  date,
-  text,
-  id,
-  title,
-  color,
-}: Idiary) {
+export function DiarypageWritten({ date, text, id, title, color }: Idiary) {
   const [diary, setdiary] = useAtom(diaryPage)
 
   const formatedText = text.length > 140 ? text.slice(0, 140) + '...' : text
   const formatedTitle = title.length > 18 ? title.slice(0, 19) + '...' : title
-  const displaydate = date.split('T')[0].split('-').reverse().join('/').slice(0, 5)
+  const displaydate = date
+    .split('T')[0]
+    .split('-')
+    .reverse()
+    .join('/')
+    .slice(0, 5)
 
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)

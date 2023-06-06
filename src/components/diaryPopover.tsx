@@ -1,10 +1,11 @@
 import * as Popover from '@radix-ui/react-popover'
 import { useAtomValue } from 'jotai'
+import { BsInfoCircle } from 'react-icons/bs'
 import { RxCross1 } from 'react-icons/rx'
 
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
-import { BsInfoCircle } from 'react-icons/bs'
+
 export function DiaryPopover() {
   const options = useAtomValue(emotionsOptions)
 
@@ -13,7 +14,7 @@ export function DiaryPopover() {
       <Popover.Trigger asChild>
         <div className="border border-[#2A292B] w-36 h-12 cursor-pointer rounded-md bg-white brutalism-box flex justify-between items-center px-8  ">
           <p>Colors</p>
-          < BsInfoCircle />
+          <BsInfoCircle />
         </div>
       </Popover.Trigger>
       <Popover.Portal>

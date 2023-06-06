@@ -12,7 +12,7 @@ const inputStyles = cva(
         lg: ' w-14 h-14 sm:w-24 sm:h-24 ',
       },
       cursor: {
-        pointer: 'cursor-pointer '
+        pointer: 'cursor-pointer ',
       },
     },
     defaultVariants: {

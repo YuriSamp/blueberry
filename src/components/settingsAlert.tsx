@@ -1,20 +1,17 @@
 import { Dispatch, SetStateAction } from 'react'
+import { useRouter } from 'next/navigation'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import axios, { AxiosError } from 'axios'
-
-import { Button } from '@components/ui/button'
-import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 
+import { Button } from '@components/ui/button'
 
 interface Props {
   isAlertOpen: boolean
   setIsAlertOpen: Dispatch<SetStateAction<boolean>>
 }
 
-
 function SettingsAlert({ isAlertOpen, setIsAlertOpen }: Props) {
-
   const router = useRouter()
 
   const deleteUser = async () => {
@@ -29,7 +26,6 @@ function SettingsAlert({ isAlertOpen, setIsAlertOpen }: Props) {
     }
   }
 
-
   return (
     <AlertDialog.Root open={isAlertOpen} onOpenChange={setIsAlertOpen}>
       <AlertDialog.Trigger asChild>
@@ -42,7 +38,8 @@ function SettingsAlert({ isAlertOpen, setIsAlertOpen }: Props) {
             Are you absolutely sure?
           </AlertDialog.Title>
           <AlertDialog.Description className=" mt-4 mb-5 text-[15px] leading-normal">
-            This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
           </AlertDialog.Description>
           <div className="flex justify-end gap-[25px]">
             <AlertDialog.Cancel asChild>

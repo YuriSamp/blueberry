@@ -5,10 +5,10 @@ import { BookOpen } from 'lucide-react'
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <header className="flex px-80 py-5 items-center justify-between w-full">
+      <header className="flex px-12 sm:px-24 md:px-34 lg:px-52 xl:px-80 py-5 items-center justify-between w-full">
         <div className="text-4xl flex items-center gap-2">
-          <BookOpen className="w-7 h-7" />
-          <h2>Blueberry</h2>
+          <BookOpen className="w-9 h-9" />
+          <h2 className="hidden sm:flex">Blueberry</h2>
         </div>
         <nav className="text-xl text-black flex gap-6">
           <Link
@@ -46,7 +46,7 @@ export default function Home() {
           </span>
         </h1>
       </div>
-      <footer className="text-xl pt-32">
+      <footer className="text-center text-xl pt-32">
         Code by{' '}
         <Link
           href="https://github.com/YuriSamp"

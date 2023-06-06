@@ -1,5 +1,6 @@
-import { ITags } from '@lib/validations/diary'
 import { atom } from 'jotai'
+
+import { ITags } from '@lib/validations/diary'
 
 export const colors = [
   { name: 'Blue', color: '#47B7DC' },

@@ -1,7 +1,8 @@
 import { auth } from '@clerk/nextjs'
+import * as z from 'zod'
+
 import { db } from '@lib/db'
 import { pageSchema } from '@lib/validations/diary'
-import * as z from 'zod'
 
 export async function GET() {
   try {

@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import axios from 'axios'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
+
+import { ITags } from '@lib/validations/diary'
 
 import { colors } from 'src/context/emotionsOptions'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import { SetAtom } from 'src/types/diaryTypes'
-import { ITags } from '@lib/validations/diary'
-import axios from 'axios'
 
 interface ISubMenu {
   setSubModalIsOpen: Dispatch<SetStateAction<boolean>>
@@ -58,20 +59,23 @@ export const SubMenu = ({
       return item
     })
     setOption(optionWithNewColor)
-    await axios.put(`../api/tags/${itemId}`, { emotion: emotion, color: colorSelected })
-
+    await axios.put(`../api/tags/${itemId}`, {
+      emotion: emotion,
+      color: colorSelected,
+    })
   }
 
   useEffect(() => {
-    //Aqui precisa de um useDebounce
     setOption(optionsEdited)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emotion])
 
   return (
     <menu
-      style={{ transform: `translate(${xCoordinates + 'px'}, ${yCoordinates + 'px'})` }}
-      className=" bg-white  shadow-2xl  z-20 px-5 relative "
+      style={{
+        transform: `translate(${xCoordinates + 'px'}, ${yCoordinates + 'px'})`,
+      }}
+      className=" bg-white  shadow-2xl  z-20 px-5 relative w-44 sm:w-64"
       ref={domRef}
     >
       <section className="pt-4 flex flex-col">

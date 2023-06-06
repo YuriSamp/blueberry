@@ -1,25 +1,22 @@
 import { Dispatch, useEffect, useState } from 'react'
 import { SubMenu } from './emotionSubMenu'
+import axios from 'axios'
+import { useAtom } from 'jotai'
 import { BsThreeDots } from 'react-icons/bs'
+
+import { journalType } from '@lib/validations/diary'
 
 import { colors, emotionsOptions } from 'src/context/emotionsOptions'
 import { UpperCaseFirstLetter } from 'src/helpers/uppercaseFirstLetter'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import useMediaQuery from 'src/hooks/useMediaQuery'
-import { journalType } from '@lib/validations/diary'
-import axios from 'axios'
-import { useAtom } from 'jotai'
 
 interface InputWithSelectI {
   value: string
   formDispatch: Dispatch<Partial<journalType>>
 }
 
-export function EmotionInput({
-  value,
-  formDispatch
-}: InputWithSelectI) {
-
+export function EmotionInput({ value, formDispatch }: InputWithSelectI) {
   const [options, setoptions] = useAtom(emotionsOptions)
 
   const [focus, setFocus] = useState(false)
@@ -45,7 +42,6 @@ export function EmotionInput({
     } else {
       setOptionsState(options)
       formDispatch({ emotion: inputSearch })
-
     }
   }, [inputSearch, options, formDispatch])
 
@@ -83,7 +79,10 @@ export function EmotionInput({
       color: randomColor[0],
     }
 
-    await axios.post('../api/tags', { emotion: inputSearch, color: randomColor[0] })
+    await axios.post('../api/tags', {
+      emotion: inputSearch,
+      color: randomColor[0],
+    })
 
     formDispatch({ color: randomColor[0] })
     setoptions((prev) => [...prev, newEmotion])
@@ -96,14 +95,14 @@ export function EmotionInput({
         className="py-2 px-2 rounded-lg focus:outline-none bg-transparent border-[1px] border-black  h-10 w-44 text-center placeholder:text-sm"
         value={UpperCaseFirstLetter(value)}
         onChange={(e) => setInputSearch(e.target.value)}
-        placeholder='Search an emotion'
+        placeholder="Search an emotion"
         onFocus={() => setFocus(true)}
       />
-      <section className="relative z-10 bg-white w-52 sm:w-64 shadow-2xl rounded-lg">
+      <section className="relative z-10 bg-white w-44 sm:w-64 shadow-2xl rounded-lg">
         {focus && (
           <>
             <p className="text-sm pt-4 px-4 pb-3">
-              Selecione uma opção ou crie uma
+              Select an option or create one
             </p>
             <div className="max-h-[160px] overflow-y-scroll scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400">
               {optionsState.length > 0 ? (
@@ -112,7 +111,7 @@ export function EmotionInput({
                     className="hover:bg-gray-200 cursor-pointer"
                     key={item.id}
                   >
-                    <div className="flex  items-center py-1 px-4 ">
+                    <div className="flex items-center py-1 px-4 ">
                       <button
                         type="button"
                         className="flex items-center w-full"
@@ -132,7 +131,9 @@ export function EmotionInput({
                       <button
                         type="button"
                         className="hover:bg-gray-300  w-6 h-6 flex justify-center items-center"
-                        onClick={() => setter(item.emotion, item.id, item.color)}
+                        onClick={() =>
+                          setter(item.emotion, item.id, item.color)
+                        }
                         onKeyDown={(e) =>
                           e.key == 'Enter' &&
                           setter(item.emotion, item.id, item.color)

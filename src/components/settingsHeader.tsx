@@ -1,13 +1,11 @@
 'use client'
 
 import React from 'react'
-
-import AvatarIcon from '@components/ui/avatar'
 import { useUser } from '@clerk/nextjs'
 
+import AvatarIcon from '@components/ui/avatar'
 
 export default function Header() {
-
   const { user } = useUser()
 
   return (

@@ -2,11 +2,11 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import AvatarIcon from './ui/avatar'
+import { useAuth } from '@clerk/nextjs'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { ExitIcon } from '@radix-ui/react-icons'
-import { useAuth } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
 
 export const routes = [
   {
@@ -15,13 +15,11 @@ export const routes = [
   },
 ]
 
-
 type Props = {
   Path: string | undefined
 }
 
 export function AvatarWithDropDown({ Path }: Props) {
-
   const { signOut } = useAuth()
   const router = useRouter()
 

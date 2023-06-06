@@ -1,19 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import { useAuth, useUser } from '@clerk/nextjs'
+import { ToastContainer, toast } from 'react-toastify'
 
-
-import { Button } from '@components/ui/button'
-import { ControledInput } from '@components/ui/input'
-
+import { Fileinput } from '@components/fileinput'
 import { RetturnButton } from '@components/retturnButton'
 import SettingsAlert from '@components/settingsAlert'
 import { SettingsContainer } from '@components/settingsContainer'
 import Header from '@components/settingsHeader'
-import { useUser, useAuth } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-import { Fileinput } from '@components/fileinput'
+import { Button } from '@components/ui/button'
+import { ControledInput } from '@components/ui/input'
 
 export default function Perfil() {
   const [name, setName] = useState<string>('')
@@ -26,21 +24,18 @@ export default function Perfil() {
 
   const updateUsername = async () => {
     await user?.update({
-      username: name
+      username: name,
     })
   }
 
   const updatePhoto = async () => {
     await user?.setProfileImage({
-      file: file
+      file: file,
     })
   }
 
-  console.log(user)
-
   const onSizeError = () => toast.error('Tamanho excede o limite de 5mb')
   const onTypeError = () => toast.error('Tipo de arquivo não suportado')
-
 
   return (
     <>
@@ -53,25 +48,22 @@ export default function Perfil() {
           <Header />
           <div className="sm:max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-slate-400 px-2">
             <SettingsContainer
-              title='Name'
+              title="Name"
               firstChild={
                 <ControledInput
                   type="text"
                   Width="lg"
-                  placeholder='Insert your new nickname'
+                  placeholder="Insert your new nickname"
                   value={name}
                   onChange={setName}
                 />
               }
             >
-              <Button
-                Children='Update'
-                onClick={updateUsername}
-              />
+              <Button Children="Update" onClick={updateUsername} />
             </SettingsContainer>
 
             <SettingsContainer
-              title='Photo'
+              title="Photo"
               firstChild={
                 <Fileinput
                   file={file}
@@ -81,41 +73,38 @@ export default function Perfil() {
                 />
               }
             >
-              <Button
-                Children='Update'
-                onClick={updatePhoto}
-              />
+              <Button Children="Update" onClick={updatePhoto} />
             </SettingsContainer>
 
             <SettingsContainer
-              title='Email'
-              firstChild='You will be redirect to another page to change your email address'
+              title="Email"
+              firstChild="You will be redirect to another page to change your email address"
             >
               <Button
-                Children='Update'
+                Children="Update"
                 onClick={() => router.push('/reset/email')}
               />
             </SettingsContainer>
 
             <SettingsContainer
-              title='Password'
-              firstChild='Choose a strong password, after all you dont want anyone to know your secrets'
+              title="Password"
+              firstChild="Choose a strong password, after all you dont want anyone to know your secrets"
             >
               <Button
-                Children='Update'
+                Children="Update"
                 onClick={() => router.push('/reset/password')}
                 disable={!user?.passwordEnabled}
                 intent={!user?.passwordEnabled === true ? 'disable' : 'primary'}
-                title='Caso esteja usando OAuth não existe a possibilidade de trocar de senha'
+                title="Caso esteja usando OAuth não existe a possibilidade de trocar de senha"
               />
             </SettingsContainer>
 
             <SettingsContainer
-              title='Logout'
-              firstChild='It will redirect you to the login page.'
+              title="Logout"
+              firstChild="It will redirect you to the login page."
             >
               <Button
-                Children='Logout'
+                Children="Logout"
                 intent="danger"
                 onClick={async () => {
                   await signOut()
@@ -124,7 +113,7 @@ export default function Perfil() {
               />
             </SettingsContainer>
             <SettingsContainer
-              title='Delete Account'
+              title="Delete Account"
               firstChild={`It s a shame you re leaving 😭`}
             >
               <SettingsAlert
