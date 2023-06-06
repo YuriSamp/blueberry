@@ -46,7 +46,7 @@ export default function Home() {
           </span>
         </h1>
       </div>
-      <footer className="text-center text-xl pt-32 pb-5 sm:pb-0">
+      <footer className="text-center text-xl pt-32 pb-5 sm:pb-0 px-5">
         Code by{' '}
         <Link
           href="https://github.com/YuriSamp"
