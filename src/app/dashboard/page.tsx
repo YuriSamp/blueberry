@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import { useAtom } from 'jotai'
@@ -28,12 +28,6 @@ const month = date.getMonth()
 
 export default function Diario() {
   const [options, setOptions] = useAtom(emotionsOptions)
-
-  const selectOptions = useMemo(() => {
-    const optionsName = options.map((item) => item.emotion)
-    optionsName.unshift('All')
-    return optionsName
-  }, [options])
 
   const [monthIndex, setMonthIndex] = useState(month)
   const [year, setYear] = useState(date.getFullYear())
@@ -67,6 +61,7 @@ export default function Diario() {
       try {
         const pages = await axios.get<Idiary[]>('../api/page')
         const tags = await axios.get<ITags[]>('../api/tags')
+        console.log(tags)
         setOptions(tags.data)
         setDiary(pages.data)
         setdiaryRef(diaryMonthFilter(pages.data))
@@ -83,6 +78,12 @@ export default function Diario() {
     setdiaryRef(diaryMonthFilter(diary))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [monthIndex, diary, year])
+
+  const selectOptions = () => {
+    const optionsName = options?.map((item) => item.emotion)
+    optionsName.unshift('All')
+    return optionsName
+  }
 
   return (
     <>
@@ -104,7 +105,7 @@ export default function Diario() {
             <div className="button2 ">
               <div className="relative">
                 <Select
-                  Options={selectOptions}
+                  Options={selectOptions()}
                   onChange={setEmotionSelected}
                   value={emotionSelected}
                   background="white"

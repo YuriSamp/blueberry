@@ -36,10 +36,11 @@ export async function GET() {
         authorId: userId,
       }))
 
-      const post = await db.emotion.createMany({
+      await db.emotion.createMany({
         data: initialOptionsWithId,
       })
-      return new Response(JSON.stringify(post))
+
+      return new Response(JSON.stringify(initialOptionsWithId))
     }
 
     return new Response(JSON.stringify(posts))
