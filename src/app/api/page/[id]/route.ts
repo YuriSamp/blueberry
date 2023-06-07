@@ -57,9 +57,8 @@ export async function PUT(
       data: {
         title: body.title,
         date: body.date,
-        emotion: body.emotion,
+        emotionID: body.emotionID,
         text: body.text,
-        color: body.color,
       },
     })
 

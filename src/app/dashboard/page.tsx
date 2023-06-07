@@ -16,7 +16,7 @@ import { ITags } from '@lib/validations/diary'
 import { diaryPage } from 'src/context/diaryContext'
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { dateCalendarConvert } from 'src/helpers/dateHelpers'
-import { Idiary } from 'src/types/diaryTypes'
+import { Idiary } from '@lib/validations/diary'
 
 interface IMonthComponent {
   diary: Idiary[] | null | undefined
@@ -32,7 +32,7 @@ export default function Diario() {
   const [monthIndex, setMonthIndex] = useState(month)
   const [year, setYear] = useState(date.getFullYear())
   const [emotionSelected, setEmotionSelected] = useState('All')
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [diary, setDiary] = useAtom(diaryPage)
   const [diaryRef, setdiaryRef] = useState<Idiary[]>([])
@@ -41,7 +41,8 @@ export default function Diario() {
     if (filtro === 'All') {
       return diario
     }
-    return diario.filter((item) => item.emotion === filtro)
+    const filtroid = options.filter(emotion => emotion.emotion === filtro)[0].id
+    return diario.filter((item) => item.emotionID === filtroid)
   }
 
   const diaryMonthFilter = (diary: Idiary[]) => {
@@ -61,7 +62,6 @@ export default function Diario() {
       try {
         const pages = await axios.get<Idiary[]>('../api/page')
         const tags = await axios.get<ITags[]>('../api/tags')
-        console.log(tags)
         setOptions(tags.data)
         setDiary(pages.data)
         setdiaryRef(diaryMonthFilter(pages.data))
@@ -150,10 +150,9 @@ const MonthComponent = ({ diary, isLoading }: IMonthComponent) => {
                 text={entry.text}
                 title={entry.title}
                 date={entry.date}
-                emotion={entry.emotion}
                 id={entry.id}
-                color={entry.color}
                 key={entry.id}
+                emotionID={entry.emotionID}
               />
             ))}
           </>

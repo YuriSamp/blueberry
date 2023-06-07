@@ -12,7 +12,6 @@ const useIdleTimeout = ({ onIdle, idleTime = 1 }: Props) => {
 
   const handleIdle = () => {
     setIdle(true)
-    console.log('Voce foi desconectado')
   }
 
   const idleTimer = useIdleTimer({

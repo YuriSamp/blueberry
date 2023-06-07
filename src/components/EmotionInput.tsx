@@ -12,24 +12,28 @@ import { useClickOutside } from 'src/hooks/useClickOutside'
 import useMediaQuery from 'src/hooks/useMediaQuery'
 
 interface InputWithSelectI {
-  value: string
   formDispatch: Dispatch<Partial<journalType>>
+  value: string
 }
 
-export function EmotionInput({ value, formDispatch }: InputWithSelectI) {
+export function EmotionInput({ formDispatch, value }: InputWithSelectI) {
+  const matches = useMediaQuery('(min-width: 500px)')
+
   const [options, setoptions] = useAtom(emotionsOptions)
 
   const [focus, setFocus] = useState(false)
-  const [inputSearch, setInputSearch] = useState(value)
   const [subModalIsOpen, setSubModalIsOpen] = useState(false)
-  const [xCoordinates, setX] = useState(0)
+  const [inputSearch, setInputSearch] = useState(value)
   const [yCoordinates, setY] = useState(0)
-  const domRef = useClickOutside(() => setFocus(false))
+  const [xCoordinates, setX] = useState(0)
 
   const [optionsState, setOptionsState] = useState(options)
   const [itemId, setItemId] = useState('')
+  const [optionId, setOptionId] = useState('')
   const [defaultColor, setDefaultColor] = useState('')
   const [emotion, setEmotion] = useState('')
+
+  const domRef = useClickOutside(() => setFocus(false))
 
   useEffect(() => {
     if (inputSearch && inputSearch.length > 1) {
@@ -38,25 +42,10 @@ export function EmotionInput({ value, formDispatch }: InputWithSelectI) {
           item.emotion.toLowerCase().includes(inputSearch.trim().toLowerCase())
         )
       )
-      formDispatch({ emotion: inputSearch })
     } else {
       setOptionsState(options)
-      formDispatch({ emotion: inputSearch })
     }
-  }, [inputSearch, options, formDispatch])
-
-  useEffect(() => {
-    if (value !== '') {
-      options.map((option) => {
-        if (option.emotion === value) {
-          formDispatch({ color: option.color })
-        }
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
-
-  const matches = useMediaQuery('(min-width: 500px)')
+  }, [inputSearch, options, optionId])
 
   const setter = (name: string, id: string, color: string) => {
     setEmotion(name)
@@ -73,18 +62,18 @@ export function EmotionInput({ value, formDispatch }: InputWithSelectI) {
       .slice(0, 1)
       .map((item) => item.color)
 
-    const newEmotion = {
-      emotion: inputSearch,
-      id: String(options.length),
-      color: randomColor[0],
-    }
-
-    await axios.post('../api/tags', {
+    const emotionCreated = await axios.post('../api/tags', {
       emotion: inputSearch,
       color: randomColor[0],
     })
 
-    formDispatch({ color: randomColor[0] })
+    const newEmotion = {
+      emotion: emotionCreated.data.emotion,
+      id: emotionCreated.data.id,
+      color: emotionCreated.data.color,
+    }
+
+    formDispatch({ emotionID: emotionCreated.data.id })
     setoptions((prev) => [...prev, newEmotion])
     setFocus(false)
   }
@@ -93,7 +82,7 @@ export function EmotionInput({ value, formDispatch }: InputWithSelectI) {
     <menu className="flex flex-col h-10" ref={domRef}>
       <input
         className="py-2 px-2 rounded-lg focus:outline-none bg-transparent border-[1px] border-black  h-10 w-44 text-center placeholder:text-sm"
-        value={UpperCaseFirstLetter(value)}
+        value={UpperCaseFirstLetter(inputSearch)}
         onChange={(e) => setInputSearch(e.target.value)}
         placeholder="Search an emotion"
         onFocus={() => setFocus(true)}
@@ -116,9 +105,10 @@ export function EmotionInput({ value, formDispatch }: InputWithSelectI) {
                         type="button"
                         className="flex items-center w-full"
                         onClick={() => {
+                          formDispatch({ emotionID: item.id })
                           setInputSearch(item.emotion)
+                          setOptionId(item.id)
                           setFocus(false)
-                          formDispatch({ color: item.color })
                         }}
                       >
                         <p

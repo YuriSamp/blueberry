@@ -16,9 +16,8 @@ export async function GET() {
       select: {
         title: true,
         date: true,
-        emotion: true,
+        emotionID: true,
         text: true,
-        color: true,
         id: true,
         authorId: true,
       },
@@ -47,9 +46,8 @@ export async function POST(req: Request) {
       data: {
         title: body.title,
         date: body.date,
-        emotion: body.emotion,
+        emotionID: body.emotionID,
         text: body.text,
-        color: body.color,
         authorId: userId,
       },
     })

@@ -13,6 +13,7 @@ import { journalSchema, journalType } from '@lib/validations/diary'
 
 import { diaryPage } from 'src/context/diaryContext'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
+import { emotionsOptions } from 'src/context/emotionsOptions'
 
 interface IParams {
   params: {
@@ -24,10 +25,9 @@ const dateInput = todayDateToDateInput()
 
 const initialState: journalType = {
   title: '',
-  color: '',
   date: dateInput,
-  emotion: '',
-  text: '',
+  emotionID: '',
+  text: ''
 }
 
 function reducer(state: journalType, action: Partial<journalType>) {
@@ -42,18 +42,21 @@ const NovaPagina = ({ params }: IParams) => {
 
   const inputHandle =
     (type: keyof journalType) =>
-    (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) =>
-      formDispatch({ [type]: e.target.value })
+      (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) =>
+        formDispatch({ [type]: e.target.value })
 
   const diary = useAtomValue(diaryPage)
+  const options = useAtomValue(emotionsOptions)
+  const page = diary.filter((page) => String(page.id) === id)[0]
+  const color = options.filter(emotion => emotion.id === page.emotionID)[0].emotion
+
 
   const isEditing = params.id !== 'new-page'
 
   useEffect(() => {
     if (isEditing) {
-      const page = diary.filter((page) => String(page.id) === id)[0]
       formDispatch({ title: page.title })
-      formDispatch({ emotion: page.emotion })
+      formDispatch({ emotionID: page.emotionID })
       formDispatch({ text: page.text })
       formDispatch({ date: page.date.split('T')[0] })
     }
@@ -64,6 +67,7 @@ const NovaPagina = ({ params }: IParams) => {
     e.preventDefault()
     try {
       const parsedFields = journalSchema.safeParse(form)
+
 
       if (!parsedFields.success) {
         const fieldErrors = parsedFields.error.formErrors.fieldErrors
@@ -118,7 +122,10 @@ const NovaPagina = ({ params }: IParams) => {
             </div>
             <div className="flex w-full gap-3 items-center">
               <AiOutlineHeart className="w-6 h-6" />
-              <EmotionInput formDispatch={formDispatch} value={form.emotion} />
+              <EmotionInput
+                formDispatch={formDispatch}
+                value={color}
+              />
             </div>
           </div>
           <hr />

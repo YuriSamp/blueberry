@@ -54,7 +54,7 @@ export async function PUT(
     const json = await req.json()
     const body = emotionSchema.parse(json)
 
-    await db.emotion.update({
+    const tagUpdated = await db.emotion.update({
       where: {
         id: params.id,
       },
@@ -64,9 +64,8 @@ export async function PUT(
       },
     })
 
-    return new Response(null, { status: 200 })
+    return new Response(JSON.stringify(tagUpdated), { status: 200 })
   } catch (error) {
-    console.log(error)
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }

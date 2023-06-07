@@ -27,14 +27,14 @@ model Page {
   id        String   @id @default(cuid())
   title     String
   date      DateTime
-  emotion   String
   text      String
-  color    String
+  emotionID String   
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   authorId  String
 
   author User @relation(fields: [authorId], references: [id])
+ 
 
   @@map(name: "pages")
   @@index([authorId])
@@ -46,7 +46,7 @@ model Emotion {
   color     String
   authorId  String
 
-  author User @relation(fields: [authorId], references: [id])
-  @@index([authorId])
+  author    User @relation(fields: [authorId], references: [id])
   @@map(name: "emotions")
+  @@index([authorId])
 }

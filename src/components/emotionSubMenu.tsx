@@ -7,7 +7,7 @@ import { ITags } from '@lib/validations/diary'
 
 import { colors } from 'src/context/emotionsOptions'
 import { useClickOutside } from 'src/hooks/useClickOutside'
-import { SetAtom } from 'src/types/diaryTypes'
+import { SetAtom } from '@lib/validations/diary'
 
 interface ISubMenu {
   setSubModalIsOpen: Dispatch<SetStateAction<boolean>>
@@ -59,9 +59,9 @@ export const SubMenu = ({
       return item
     })
     setOption(optionWithNewColor)
-    await axios.put(`../api/tags/${itemId}`, {
+    const teste = await axios.put(`../api/tags/${itemId}`, {
       emotion: emotion,
-      color: colorSelected,
+      color: color,
     })
   }
 
