@@ -59,7 +59,7 @@ export const SubMenu = ({
       return item
     })
     setOption(optionWithNewColor)
-    const teste = await axios.put(`../api/tags/${itemId}`, {
+    await axios.put(`../api/tags/${itemId}`, {
       emotion: emotion,
       color: color,
     })

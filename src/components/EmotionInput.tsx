@@ -29,7 +29,6 @@ export function EmotionInput({ formDispatch, value }: InputWithSelectI) {
 
   const [optionsState, setOptionsState] = useState(options)
   const [itemId, setItemId] = useState('')
-  const [optionId, setOptionId] = useState('')
   const [defaultColor, setDefaultColor] = useState('')
   const [emotion, setEmotion] = useState('')
 
@@ -45,7 +44,7 @@ export function EmotionInput({ formDispatch, value }: InputWithSelectI) {
     } else {
       setOptionsState(options)
     }
-  }, [inputSearch, options, optionId])
+  }, [inputSearch, options])
 
   const setter = (name: string, id: string, color: string) => {
     setEmotion(name)
@@ -107,7 +106,6 @@ export function EmotionInput({ formDispatch, value }: InputWithSelectI) {
                         onClick={() => {
                           formDispatch({ emotionID: item.id })
                           setInputSearch(item.emotion)
-                          setOptionId(item.id)
                           setFocus(false)
                         }}
                       >
