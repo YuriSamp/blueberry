@@ -3,13 +3,13 @@
 import { ChangeEvent, useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
 import axios, { AxiosError } from 'axios'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { AiOutlineCalendar, AiOutlineHeart } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 
 import { EmotionInput } from '@components/EmotionInput'
 import { RetturnButton } from '@components/retturnButton'
-import { journalSchema, journalType } from '@lib/validations/diary'
+import { Idiary, journalSchema, journalType } from '@lib/validations/diary'
 
 import { diaryPage } from 'src/context/diaryContext'
 import { todayDateToDateInput } from 'src/helpers/dateHelpers'
@@ -45,13 +45,13 @@ const NovaPagina = ({ params }: IParams) => {
       (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) =>
         formDispatch({ [type]: e.target.value })
 
-  const diary = useAtomValue(diaryPage)
+  const [diary, setDiary] = useAtom(diaryPage)
   const options = useAtomValue(emotionsOptions)
   const page = diary.filter((page) => String(page.id) === id)[0]
-  const color = options.filter(emotion => emotion.id === page.emotionID)[0].emotion
 
 
   const isEditing = params.id !== 'new-page'
+  const color = isEditing ? options.filter(emotion => emotion.id === page.emotionID)[0].emotion : ''
 
   useEffect(() => {
     if (isEditing) {
@@ -77,9 +77,25 @@ const NovaPagina = ({ params }: IParams) => {
       }
 
       if (isEditing) {
-        await axios.put(`../api/page/${id}`, form)
+        const entry = await axios.put<Idiary>(`../api/page/${id}`, form)
+
+        const diaryObject = {
+          title: entry.data.title,
+          date: entry.data.date,
+          emotionID: entry.data.emotionID,
+          text: entry.data.text,
+          id: entry.data.id
+        }
+        const diaryUpdated = diary.map(entry => {
+          if (entry.id === diaryObject.id) {
+            entry = diaryObject
+          }
+          return entry
+        })
+        setDiary(diaryUpdated)
       } else {
-        await axios.post('../api/page', form)
+        const post = await axios.post('../api/page', form)
+        setDiary(prev => [...prev, post.data])
       }
     } catch (error) {
       if (error instanceof AxiosError) {

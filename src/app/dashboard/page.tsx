@@ -17,6 +17,7 @@ import { diaryPage } from 'src/context/diaryContext'
 import { emotionsOptions } from 'src/context/emotionsOptions'
 import { dateCalendarConvert } from 'src/helpers/dateHelpers'
 import { Idiary } from '@lib/validations/diary'
+import { firstTimeLoading } from 'src/context/loading'
 
 interface IMonthComponent {
   diary: Idiary[] | null | undefined
@@ -35,6 +36,7 @@ export default function Diario() {
   const [isLoading, setIsLoading] = useState(false)
 
   const [diary, setDiary] = useAtom(diaryPage)
+  const [isfirstTime, setFirstTime] = useAtom(firstTimeLoading)
   const [diaryRef, setdiaryRef] = useState<Idiary[]>([])
 
   const diarioFiltrado = (diario: Idiary[], filtro: string) => {
@@ -70,7 +72,10 @@ export default function Diario() {
         setIsLoading(false)
       }
     }
-    getPages()
+    if (!isfirstTime) {
+      getPages()
+      setFirstTime(true)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

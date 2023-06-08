@@ -50,7 +50,7 @@ export async function PUT(
     const json = await req.json()
     const body = pageSchema.parse({ ...json, date: new Date(json.date) })
 
-    await db.page.update({
+    const pageUpdated = await db.page.update({
       where: {
         id: params.id,
       },
@@ -62,7 +62,7 @@ export async function PUT(
       },
     })
 
-    return new Response(null, { status: 200 })
+    return new Response(JSON.stringify(pageUpdated), { status: 200 })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
