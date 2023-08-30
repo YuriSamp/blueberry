@@ -34,11 +34,8 @@ export function DiarypageWritten({ date, text, id, title, emotionID }: Idiary) {
   const color = options.filter(emotion => emotion.id === emotionID)[0].color
 
   return (
-    <div
-      ref={hoverRef}
-      className="w-60 h-52 bg-white flex brutalism-box brutalism-box-hover"
-    >
-      <Link href={`./dashboard/page-${id}`}>
+    <div>
+      <Link ref={hoverRef} href={`./dashboard/page-${id}`} className='w-60 h-52 bg-white flex brutalism-box brutalism-box-hover'>
         <p className="text p-2 max-w-[240px] break-all"> {formatedText}</p>
         <div
           style={{ backgroundColor: color }}
