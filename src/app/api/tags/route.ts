@@ -4,12 +4,6 @@ import * as z from 'zod'
 import { db } from '@lib/db'
 import { emotionSchema } from '@lib/validations/diary'
 
-const initialOptions = [
-  { emotion: 'Happy', color: '#47B7DC' },
-  { emotion: 'Sad', color: '#FF9900' },
-  { emotion: 'Angry', color: '#F6D155' },
-  { emotion: 'Afraid', color: '#AD70A4' },
-]
 
 export async function GET() {
   try {
@@ -31,16 +25,7 @@ export async function GET() {
     })
 
     if (posts.length === 0) {
-      const initialOptionsWithId = initialOptions.map((option) => ({
-        ...option,
-        authorId: userId,
-      }))
-
-      await db.emotion.createMany({
-        data: initialOptionsWithId,
-      })
-
-      return new Response(JSON.stringify(initialOptionsWithId))
+      return new Response(JSON.stringify([]))
     }
 
     return new Response(JSON.stringify(posts))

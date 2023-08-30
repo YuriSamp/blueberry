@@ -25,7 +25,7 @@ export function DiaryPopover() {
           <div className="flex flex-col gap-2.5">
             <div className="flex justify-between items-center">
               <p className="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5">
-                Colors of emotions
+                Category colors
               </p>
               <button>
                 <Popover.Close
