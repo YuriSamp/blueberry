@@ -25,12 +25,17 @@ export default function Perfil() {
   const updateUsername = async () => {
     await user?.update({
       username: name,
+    }).catch((err) => {
+      toast.error("Já existe um usuário com esse nome")
     })
+
   }
 
   const updatePhoto = async () => {
     await user?.setProfileImage({
       file: file,
+    }).catch((err) => {
+      toast.error("Ocorreu um erro ao fazer o upload da foto, tente novamente mais tarde")
     })
   }
 
